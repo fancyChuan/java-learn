@@ -7,4 +7,9 @@
         <property name="name" value="小川~"/>
         <property name="age" value="12"/>
     </bean>
+
+    <!--bean作用域: 不指定scope情况下默认为 singleton-->
+    <bean id="services-singleton" class="com.fancychuan.spring.services.CustomerService"/>
+
+    <bean id="services-prototype" class="com.fancychuan.spring.services.CustomerService" scope="prototype"/>
 </beans>
