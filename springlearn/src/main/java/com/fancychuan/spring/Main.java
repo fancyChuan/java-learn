@@ -31,7 +31,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *      【bean注解】
  *
  * -----------
- * 
+ *
  */
 public class Main {
     private static ApplicationContext context;
@@ -94,9 +94,16 @@ public class Main {
         System.out.println(person.toString());
     }
 
+    private static void testSpringAuto() {
+        context = new ClassPathXmlApplicationContext("SpringAuto.xml");
+        com.fancychuan.spring.spring_auto.services.CustomerService cs = (com.fancychuan.spring.spring_auto.services.CustomerService) context.getBean("customerService");
+        System.out.println(cs);
+    }
+
     public static void main(String[] args) {
         // testInnerBean();
         // testServices();
-        testCollections();
+        // testCollections();
+        testSpringAuto();
     }
 }
