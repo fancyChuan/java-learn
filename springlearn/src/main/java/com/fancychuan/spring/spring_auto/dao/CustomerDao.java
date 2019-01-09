@@ -1,5 +1,8 @@
 package com.fancychuan.spring.spring_auto.dao;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CustomerDao {
 
     @Override
