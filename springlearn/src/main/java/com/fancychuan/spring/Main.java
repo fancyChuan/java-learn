@@ -39,7 +39,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *          [*] 自动扫描中的过滤组件  详见SpringAuto.xml
  *              有两种组件： include-filter、exclude-filter
  *              注意：使用了过滤组件以后，就不需要使用 @Component进行注释了
+ *      【bean自动装配】 自动装配autowire：指将一个bean注入到其他bean的property中
+ *          有5种模式：  1. no            默认不使用，通过 ref 手动指定
+ *                     2. byName        一个bean的property的name与另一个bean的id相同，则把另一个bean装配到这个bean中
+ *                     3. byType        根据property的数据类型自动装配，<property name="x" class="A"/> 那么另一个bean的class为A会被装配（只允许一一对应）
+ *                     4. constructor   会寻找参数数据类型相同的bean自动装配
+ *                     5. autodetect    发现默认的构造函数，用constructor模式，负责byType模式，常与 dependency-check 连用
  * -----------
+ * 20190110
+ *
  *
  */
 public class Main {
