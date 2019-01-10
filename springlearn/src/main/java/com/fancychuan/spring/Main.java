@@ -1,5 +1,6 @@
 package com.fancychuan.spring;
 
+import com.fancychuan.spring.aop.advice.StudentService;
 import com.fancychuan.spring.collections.Customers;
 import com.fancychuan.spring.helloworld.HelloWorld;
 import com.fancychuan.spring.innerbean.Customer;
@@ -47,6 +48,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *                     5. autodetect    发现默认的构造函数，用constructor模式，负责byType模式，常与 dependency-check 连用
  * -----------
  * 20190110
+ *      【AOP-advice】 aop.advice
+ *          面向切面编程，本质是一个拦截器(interceptor)，拦截要执行的方法，在之前或者之后加入代码、功能。使用了**代理模式**
+ *          主要有4种：  类型                      需要实现的接口                 说明
+ *              1. before advice            MethodBeforeAdvice          函数执行前拦截
+ *              2. after return advice      AfterReturningAdvice        函数执行完返回值以后拦截，但还没有返给用户
+ *              3. throw exception          ThrowsAdrice                抛出异常的时候拦截
+ *              4. around advice            MethodInterceptor           综合三种方式
  *
  *
  */
@@ -117,10 +125,28 @@ public class Main {
         System.out.println(cs);
     }
 
+    private static void testAopAdvice() {
+        context = new ClassPathXmlApplicationContext("AOP-Advice.xml");
+        StudentService cust = (StudentService) context.getBean("studentServiceProxy");
+        System.out.println("使用Spring AOP 如下");
+        System.out.println("*************************");
+        cust.printName();
+        System.out.println("*************************");
+        cust.printUrl();
+        System.out.println("*************************");
+
+        try {
+            cust.printThrowException();
+        } catch (Exception e) {
+
+        }
+    }
+
     public static void main(String[] args) {
         // testInnerBean();
         // testServices();
         // testCollections();
-        testSpringAuto();
+        // testSpringAuto();
+        testAopAdvice();
     }
 }
