@@ -28,8 +28,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *          [*]大多数情况下，只需要处理 Spring 的核心作用域 — 单例模式和原型模式，默认情况下，作用域是单例模式。
  *      【bean集合】 collections
  *          list/set/map/props标签 见 Collections.xml
- *      【bean注解】
- *
+ * -----------
+ * 20190109
+ *      【bean自动扫描】 spring_auto
+ *          有4种注释类型：1. @Component   表示一个自动扫描component
+ *                      2. @Repository  表示一个持久化层的DAO component
+ *                      3. @Service     表示一个业务逻辑层的Service component
+ *                      4. @Controller  表示表示层的Controller component
+ *          注：@Repository、 @Service 、 @Controller 三种注释是为了加强代码的阅读性而创造的,实际可以都可以使用@Component
+ *          [*] 自动扫描中的过滤组件  详见SpringAuto.xml
+ *              有两种组件： include-filter、exclude-filter
+ *              注意：使用了过滤组件以后，就不需要使用 @Component进行注释了
  * -----------
  *
  */

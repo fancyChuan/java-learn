@@ -23,4 +23,16 @@
 
     <context:component-scan base-package="com.fancychuan.spring"/>
 
+    <!-- 使用过滤组件
+    <context:component-scan base-package="com.fancychuan.spring" >
+
+        <context:include-filter type="regex"
+                       expression="com.fancychuan.spring.spring_auto.dao.*DAO.*" />
+
+        <context:include-filter type="regex"
+                       expression="com.shiyanlou.spring.spring_auto.services.*Service.*" />
+
+    </context:component-scan>
+    -->
+
 </beans>
