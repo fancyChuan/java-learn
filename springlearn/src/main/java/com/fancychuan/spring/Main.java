@@ -56,7 +56,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *              3. throw exception          ThrowsAdrice                抛出异常的时候拦截
  *              4. around advice            MethodInterceptor           综合三种方式
  * ------------
- * 20190112
  *
  *
  */
