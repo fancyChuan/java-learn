@@ -143,11 +143,29 @@ public class Main {
         }
     }
 
+    private static void testAopProxy() {
+        context = new ClassPathXmlApplicationContext("AOP-Proxy.xml");
+        StudentService cust = (StudentService) context.getBean("studentService");
+        System.out.println("使用Spring AOP 如下");
+        System.out.println("*************************");
+        cust.printName();
+        System.out.println("*************************");
+        cust.printUrl();
+        System.out.println("*************************");
+
+        try {
+            cust.printThrowException();
+        } catch (Exception e) {
+
+        }
+    }
+
     public static void main(String[] args) {
         // testInnerBean();
         // testServices();
         // testCollections();
         // testSpringAuto();
-        testAopAdvice();
+        // testAopAdvice();
+        testAopProxy();
     }
 }
