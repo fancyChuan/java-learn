@@ -1,6 +1,7 @@
 package com.fancychuan.spring;
 
 import com.fancychuan.spring.aop.advice.StudentService;
+import com.fancychuan.spring.aop.aspectj.ICustomerBo;
 import com.fancychuan.spring.collections.Customers;
 import com.fancychuan.spring.helloworld.HelloWorld;
 import com.fancychuan.spring.innerbean.Customer;
@@ -58,8 +59,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * ------------
  * 20190113
  *      【AOP-pointcut&advisor】
- *          *advice     表示一个方法调用前后的动作，可以理解为一个事件、步骤
- *          *pointcut   切入点，根据方法的名字或者正则表达式决定是否拦截方法
+ *          *advice     表示一个方法调用前后的动作，可以理解为一个事件、步骤。或者说就是向程序内部注入的代码
+ *          *pointcut   切入点，根据方法的名字或者正则表达式决定是否拦截方法。或者说注入advice的位置
  *          *advisor    advice和pointcut组成的独立单元，可以传给proxy factory对象
  *
  *      【AOP-auto proxy】 AOP-AutoProxy.xml
@@ -169,12 +170,21 @@ public class Main {
         }
     }
 
+    private static void testAspectJ() {
+        context = new ClassPathXmlApplicationContext("AOP-AspectJ.xml");
+        ICustomerBo customer = (ICustomerBo) context.getBean("customerBo");
+        customer.addCustomer();
+        System.out.println("-----------");
+        customer.deleteCustomer();
+    }
+
     public static void main(String[] args) {
         // testInnerBean();
         // testServices();
         // testCollections();
         // testSpringAuto();
         // testAopAdvice();
-        testAopProxy();
+        // testAopProxy();
+        testAspectJ();
     }
 }
