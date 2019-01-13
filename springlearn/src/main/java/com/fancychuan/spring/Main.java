@@ -56,6 +56,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *              3. throw exception          ThrowsAdrice                抛出异常的时候拦截
  *              4. around advice            MethodInterceptor           综合三种方式
  * ------------
+ * 20190113
+ *      【AOP-pointcut&advisor】
+ *          *advice     表示一个方法调用前后的动作，可以理解为一个事件、步骤
+ *          *pointcut   切入点，根据方法的名字或者正则表达式决定是否拦截方法
+ *          *advisor    advice和pointcut组成的独立单元，可以传给proxy factory对象
+ *
+ *      【AOP-auto proxy】 AOP-AutoProxy.xml
+ *          * 用org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator 建立proxy生成规则
+ *          * 用org.springframework.aop.support.NameMatchMethodPointcutAdvisor定义拦截规则
  *
  *
  */
@@ -144,7 +153,7 @@ public class Main {
     }
 
     private static void testAopProxy() {
-        context = new ClassPathXmlApplicationContext("AOP-Proxy.xml");
+        context = new ClassPathXmlApplicationContext("AOP-AutoProxy.xml");
         StudentService cust = (StudentService) context.getBean("studentService");
         System.out.println("使用Spring AOP 如下");
         System.out.println("*************************");

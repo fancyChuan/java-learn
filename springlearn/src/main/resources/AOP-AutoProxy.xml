@@ -32,6 +32,6 @@
 
     <bean id="studentAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
         <property name="mappedName" value="printName"/>
-        <property name="advice" value="hijackAroundMethodBean"/>
+        <property name="advice" ref="hijackAroundMethodBean"/>
     </bean>
 </beans>
