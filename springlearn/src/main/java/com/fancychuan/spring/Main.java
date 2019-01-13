@@ -67,7 +67,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *          * 用org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator 建立proxy生成规则
  *          * 用org.springframework.aop.support.NameMatchMethodPointcutAdvisor定义拦截规则
  *
- *
+ *      【AOP-Aspect】
+ *          * advice和pointcut结合在一起
+ *          * advice和pointcut分开
+ *              分开的好处：
+ *                  1. 使用有意义的方法名代替难读的pointcut表达式，代码更直观
+ *                  2. pointcut实现共享，可以被多个advice直接调用。维护更加方便
  */
 public class Main {
     private static ApplicationContext context;
@@ -176,6 +181,9 @@ public class Main {
         customer.addCustomer();
         System.out.println("-----------");
         customer.deleteCustomer();
+        System.out.println("===========");
+        customer.addCustomerReturnValue();
+
     }
 
     public static void main(String[] args) {
