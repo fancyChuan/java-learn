@@ -62,10 +62,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *          *advice     表示一个方法调用前后的动作，可以理解为一个事件、步骤。或者说就是向程序内部注入的代码
  *          *pointcut   切入点，根据方法的名字或者正则表达式决定是否拦截方法。或者说注入advice的位置
  *          *advisor    advice和pointcut组成的独立单元，可以传给proxy factory对象
+ *          [使用]
+ *              * 用org.springframework.aop.support.NameMatchMethodPointcut设置拦截规则，将要拦截的方法名注入到mappedName中
+ *              * 用org.springframework.aop.support.DefaultPointcutAdvisor将pointcut和advice关联
+ *              * 用org.springframework.aop.framework.ProxyFactoryBean配置代理模型，建立拦截者和被拦截者的关系
  *
  *      【AOP-auto proxy】 AOP-AutoProxy.xml
  *          * 用org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator 建立proxy生成规则
  *          * 用org.springframework.aop.support.NameMatchMethodPointcutAdvisor定义拦截规则
+ *          [注意]
+ *              * 使用auto proxy的时候，context.getBean("studentService");
+ *              * 手动创建proxy的时候，context.getBean("studentServiceProxy") 否则不会生效
  *
  *      【AOP-Aspect】
  *          * advice和pointcut结合在一起
@@ -158,6 +165,23 @@ public class Main {
         }
     }
 
+    private static void testAopPointcut() {
+        context = new ClassPathXmlApplicationContext("AOP-PointCut.xml");
+        StudentService cust = (StudentService) context.getBean("studentServiceProxy");
+        System.out.println("使用Spring AOP-Pointcut 如下");
+        System.out.println("*************************");
+        cust.printName();
+        System.out.println("*************************");
+        cust.printUrl();
+        System.out.println("*************************");
+
+        try {
+            cust.printThrowException();
+        } catch (Exception e) {
+
+        }
+    }
+
     private static void testAopProxy() {
         context = new ClassPathXmlApplicationContext("AOP-AutoProxy.xml");
         StudentService cust = (StudentService) context.getBean("studentService");
@@ -192,7 +216,8 @@ public class Main {
         // testCollections();
         // testSpringAuto();
         // testAopAdvice();
+        testAopPointcut();
         // testAopProxy();
-        testAspectJ();
+        // testAspectJ();
     }
 }
