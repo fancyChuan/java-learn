@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fancychuan.onetoone.mapper.ClassesMapper"> <!-- 每个mapper需要指定命名空间，TODO：为什么 -->
+    <select id="selectClassById" parameterType="int" resultMap="classmap">
+        SELECT * FROM tb_class c, tb_head_teacher t WHERE c.c_ht_id=t.ht_id AND c.c_id=#{id}
+    </select>
+
+    <resultMap id="classmap" type="Classes">
+        <id property="id" column="c_id" />
+        <result property="name" column="c_name" />
+        <association property="teacher" javaType="HeadTeacher" resultMap="teachermap" />
+    </resultMap>
+
+    <resultMap id="teachermap" type="HeadTeacher">
+        <id property="id" column="ht_id" />
+        <result property="name" column="ht_name" />
+        <result property="age" column="ht_age" />
+    </resultMap>
+</mapper>

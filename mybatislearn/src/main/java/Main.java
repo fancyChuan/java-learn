@@ -1,4 +1,4 @@
-package com.fancychuan.mybatis;
+
 
 /**
  * 20190116

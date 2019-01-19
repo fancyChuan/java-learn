@@ -5,6 +5,7 @@
     <typeAliases>
         <!-- 指定一个包，将包内的java类的类名作为类的类别名 -->
         <package name="com.fancychuan.mybatis.model" />
+        <package name="com.fancychuan.onetoone.model" />
     </typeAliases>
     <!-- 配置mybatis运行环境 -->
     <environments default="development">
@@ -25,5 +26,6 @@
     <mappers>
         <!-- 通过mappers接口加载整个包的映射文件 -->
         <package name="com.fancychuan.mybatis.mapper" />
+        <package name="com.fancychuan.onetoone.mapper" />
     </mappers>
 </configuration>
