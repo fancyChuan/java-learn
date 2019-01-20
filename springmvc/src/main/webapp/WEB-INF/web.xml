@@ -26,9 +26,10 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!-- 添加 register.jsp 为首页 -->
+    <!-- 添加 register.jsp 为首页. 配置了首页后，默认是不能放在views中的，必须放在WEB—INF下，否则找不到 -->
     <welcome-file-list>
         <!--<welcome-file>register.jsp</welcome-file>-->
-        <welcome-file>index.jsp</welcome-file>
+        <!--<welcome-file>index.jsp</welcome-file>-->
+        <welcome-file>upload.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
