@@ -7,6 +7,7 @@
     <resultMap id="classmap" type="Classes">
         <id property="id" column="c_id" />
         <result property="name" column="c_name" />
+        <!-- 一对一关系映射 -->
         <association property="teacher" javaType="HeadTeacher" resultMap="teachermap" />
     </resultMap>
     <resultMap id="teachermap" type="HeadTeacher">
@@ -17,13 +18,13 @@
 
 
     <select id="selectClassAndStudentsById" resultMap="csmap" >
-        SELECT  FROM tb_class c LEFT OUTER JOIN tb_student s on c.c_id=s.s_c_id WHERE c.c_id=#{id}
+        SELECT * FROM tb_class c LEFT OUTER JOIN tb_student s on c.c_id=s.s_c_id WHERE c.c_id=#{id}
     </select>
     <resultMap id="csmap" type="Classes">
         <id property="id" column="c_id" />
         <result property="name" column="c_name" />
         <!-- 一对多关系映射： collection -->
-        <collection property="stduents" ofType="Student">
+        <collection property="students" ofType="Student">
             <id property="id" column="s_id" />
             <result property="name" column="s_name" />
             <result property="sex" column="s_sex" />
