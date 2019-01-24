@@ -1,22 +1,20 @@
-package com.fancychuan.onetoone.model;
-
-import com.fancychuan.onetomany.model.Student;
+package com.fancychuan.onemany.model;
 
 import java.util.List;
 
-public class Classes {
+public class Course {
     private Integer id;
     private String name;
-    private HeadTeacher teacher;
+    private Integer credit;
     private List<Student> students;
 
-    public Classes() {
+    public Course() {
     }
 
-    public Classes(Integer id, String name, HeadTeacher teacher, List<Student> students) {
+    public Course(Integer id, String name, Integer credit, List<Student> students) {
         this.id = id;
         this.name = name;
-        this.teacher = teacher;
+        this.credit = credit;
         this.students = students;
     }
 
@@ -36,12 +34,12 @@ public class Classes {
         this.name = name;
     }
 
-    public HeadTeacher getTeacher() {
-        return teacher;
+    public Integer getCredit() {
+        return credit;
     }
 
-    public void setTeacher(HeadTeacher teacher) {
-        this.teacher = teacher;
+    public void setCredit(Integer credit) {
+        this.credit = credit;
     }
 
     public List<Student> getStudents() {

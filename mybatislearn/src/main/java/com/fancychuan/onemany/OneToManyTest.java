@@ -1,8 +1,8 @@
-package com.fancychuan.onetomany;
+package com.fancychuan.onemany;
 
-import com.fancychuan.onetomany.model.Student;
-import com.fancychuan.onetoone.mapper.ClassesMapper;
-import com.fancychuan.onetoone.model.Classes;
+import com.fancychuan.onemany.model.Student;
+import com.fancychuan.onemany.mapper.ClassesMapper;
+import com.fancychuan.onemany.model.Classes;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

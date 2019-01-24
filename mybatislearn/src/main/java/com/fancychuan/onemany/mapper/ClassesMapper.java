@@ -1,6 +1,6 @@
-package com.fancychuan.onetoone.mapper;
+package com.fancychuan.onemany.mapper;
 
-import com.fancychuan.onetoone.model.Classes;
+import com.fancychuan.onemany.model.Classes;
 
 public interface ClassesMapper {
 

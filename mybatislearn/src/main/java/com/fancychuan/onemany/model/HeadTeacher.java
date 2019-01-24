@@ -1,20 +1,16 @@
-package com.fancychuan.onetomany.model;
+package com.fancychuan.onemany.model;
 
-public class Student {
+public class HeadTeacher {
     private Integer id;
     private String name;
-    private String sex;
     private Integer age;
 
-
-    public Student() {
-
+    public HeadTeacher() {
     }
 
-    public Student(Integer id, String name, String sex, Integer age) {
+    public HeadTeacher(Integer id, String name, Integer age) {
         this.id = id;
         this.name = name;
-        this.sex = sex;
         this.age = age;
     }
 
@@ -32,14 +28,6 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public Integer getAge() {

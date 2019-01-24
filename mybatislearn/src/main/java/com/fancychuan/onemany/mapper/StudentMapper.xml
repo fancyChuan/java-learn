@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fancychuan.onemany.mapper.StudentMapper">
+    <select id="selectStudentCourse" resultMap="studentCourseMap">
+        SELECT s.*, c.*
+        FROM tb_student s, tb_course c, tb_select_course sc
+        WHERE s.s_id=sc.sc_s_id AND c.c_id=sc.sc_c_id
+    </select>
+    <delete id="deleteStudentCourseById" parameterType="StudentCourseLink">
+        DELETE FROM tb_select_course WHERE sc_s_id=#{student.id} AND sc_c_id=#{course.id}
+    </delete>
+
+    <!-- resultMap:映射实体类和字段之间的一一对应的关系 -->
+    <resultMap id="studentCourseMap" type="Student">
+        <id property="id" column="s_id" />
+        <result property="name" column="s_name" />
+        <result property="sex" column="s_sex" />
+        <result property="age" column="s_age" />
+        <!-- 多对多关联映射：collection -->
+        <collection property="courses" ofType="Course">
+            <id property="id" column="c_id" />
+            <result property="name" column="c_name" />
+            <result property="credit" column="c_credit" />
+        </collection>
+    </resultMap>
+</mapper>
