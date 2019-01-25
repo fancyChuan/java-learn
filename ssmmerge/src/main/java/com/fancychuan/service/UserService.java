@@ -4,7 +4,7 @@ import com.fancychuan.model.User;
 
 import java.util.List;
 
-public interface UserServer {
+public interface UserService {
     User login(User user);
     List<User> selectAllUser();
     void addUser(User user);

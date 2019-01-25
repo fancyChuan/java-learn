@@ -2,7 +2,7 @@ package com.fancychuan.service.impl;
 
 import com.fancychuan.mapper.UserMapper;
 import com.fancychuan.model.User;
-import com.fancychuan.service.UserServer;
+import com.fancychuan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserServerImpl implements UserServer {
+public class UserServiceImpl implements UserService {
     @Autowired
     public UserMapper userMapper;
 
