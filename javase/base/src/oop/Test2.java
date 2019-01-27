@@ -15,6 +15,12 @@ public class Test2 {
      *     把 test(byte b) 这个函数注释掉，那么b就会扩大到short，也就是执行 test(short s)
      *
      * 注意跟Test1的区别，方法应用的查找跟基本类型的查找不一样。
+     *
+     * byte     8位      -128~127
+     * short    16位     -32768~32767
+     * char     16位     0-65535
+     * int      32位     -2147483648~2147483647
+     * long     64位
      */
     public static void test(byte b) {
         System.out.println("bbbb");
