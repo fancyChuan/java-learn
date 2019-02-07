@@ -18,3 +18,8 @@ hello world
 
 直接执行 java HelloWorld 会找不到类的错误
 ```
+
+## java执行命令
+命令选项 | 含义
+--- | ---
+-classpath | 选项的值可以是一系列路径，选项与值中间用空格隔开
