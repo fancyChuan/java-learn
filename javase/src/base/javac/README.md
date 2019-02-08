@@ -23,3 +23,26 @@ hello world
 命令选项 | 含义
 --- | ---
 -classpath | 选项的值可以是一系列路径，选项与值中间用空格隔开
+
+
+
+## javadoc命令
+命令选项 | 含义
+--- | ---
+-d | 指定存放生成API文档的目录
+-windowtitle | 设置API文档的浏览器窗口标题
+-doctitle | HTML格式，指定概述页面的标题（只有对多个包下源文件生成API文档时才有概述界面）
+-header | HTML格式，指定页眉
+
+
+### javadoc常用标识
+标识 | 含义 | 出现的位置
+--- | ---| ---
+@author | 作者 | 
+@version | 版本
+@deprecated | 不推荐使用的方法
+@param | 方法的参数说明
+@return | 返回信息
+@see | “参见”，，用于指定交叉参考的内容
+@exception | 抛出异常的类型
+@throws | 抛出的异常
