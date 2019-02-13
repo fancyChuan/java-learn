@@ -56,3 +56,27 @@ static File[] listRoots() | 系统所有根目录
 list方法可以接受一个FilenameFilter参数，过滤出特定的文件 实例参见 FilenameFilterTest.java
 
 java.io.FilenameFilter是一个接口，只有一个抽象方法accept，返回值类型是boolean，可以使用Lambda表达式创建实现该接口的对象
+
+### 2. 理解java的IO流
+java把所有传统的流类型都放在java.io中，使得开发者可以使用一致的代码去读写不同的IO流节点
+
+- 分类
+    - 输入流、输出流
+        - 输入流和输出流的划分是从程序运行时所在的内存的角度来划分的。
+        - 输入流以InputStream和Reader为基类，输出流以OutStream和Writer为基类
+    - 字节流、字符流（字节8位，字符16位）
+    - 节点流和处理流（流的角色划分）
+        - 节点流：低级流，一般是特定的IO设备
+        - 处理流：高级流、包装流，一般对已存在的流进行封装
+            - 使用处理流的好处是，使用相同的处理流就可以处理不同的数据源，泛化能力强。
+            - 处理流的实现采用了 装饰器设计模式
+
+- 支持的方法
+
+流类型 |方法名 | 说明
+--- | --- | ---
+InputStream/Reader | mark(int readAheadLimit) | 在指针当前位置设置一个mark
+InputStream/Reader | boolean markSupported() | 是否支持mark操作
+InputStream/Reader | reset() | 把流指针重置到上一个mark的位置
+InputStream/Reader | long skip(long n) | 指针向前移动n个字节/字符
+OutStream/Writer | writer(int c)
