@@ -98,3 +98,12 @@ OutStream/Writer | writer(int c)
 打印流 | | PrintStream | | PrintWriter
 推回输入流 | PushbackInputStream | | PushbackReader |
 特殊流 | DataInputStream | DataOutputStream | | 
+
+
+### 5. 重定向标准输入/输出
+System中有三个重定向标准输入输出的方法：
+- static void setErr(PrintStream err)       重定向标准错误输出流
+- static void setIn(PrintStream in)          重定向标准输入流
+- static void setOut(PrintStream out)          重定向标准输出流
+
+注意三个方法都需要使用PrintStream作为参数

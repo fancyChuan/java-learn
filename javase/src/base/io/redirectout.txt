@@ -1,0 +1,2 @@
+这个本来是要输出到屏幕的!
+base.io.Redirect@1b6d3586
