@@ -80,3 +80,21 @@ InputStream/Reader | boolean markSupported() | 是否支持mark操作
 InputStream/Reader | reset() | 把流指针重置到上一个mark的位置
 InputStream/Reader | long skip(long n) | 指针向前移动n个字节/字符
 OutStream/Writer | writer(int c)
+
+- 输入输出流体系 见《疯狂java讲义》P675
+
+分类 | 字节输入流 | 字节输出流 | 字符输入流 | 字符输出流
+--- | --- | --- | --- | ----
+抽象基类 | InputStream | OutputStream | Reader | Writer
+访问文件 | FileInputStream | FileOutputStream | FileReader | FileWriter
+访问数组 | ByteArrayInputStream | ByteArrayOutputStream | ByteArrayReader | ByteArrayWriter
+访问管道 | PipedInputStream | PipedOutputStream | PipedReader | PipedWriter
+访问字符串 | | | StringReader | StringWriter
+ | | | ==以上为节点流== | 
+缓冲流 | BufferedInputStream | BufferedOutputStream | BufferedReader | BufferedWriter
+转换流 | | | InputStreamReader | OutputStreamWriter
+对象流 | ObjectInputStream | ObjectOutputStream | | 
+抽象基类 | FilterInputStream | FilterOutputStream | FilterReader | FilterWriter
+打印流 | | PrintStream | | PrintWriter
+推回输入流 | PushbackInputStream | | PushbackReader |
+特殊流 | DataInputStream | DataOutputStream | | 
