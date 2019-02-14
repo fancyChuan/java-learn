@@ -1,0 +1,2 @@
+普通字符串
+base.io.OptStreamTest@4554617c

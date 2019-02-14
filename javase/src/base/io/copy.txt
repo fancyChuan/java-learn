@@ -2,11 +2,17 @@ package base.io;
 
 import java.io.*;
 
+/**
+ * 20190213 抽象基类InputStream/Reader/OutputStream/Writer的案例
+ *
+ * java7以后实现了AutoClosable接口，使用try语句可以自动关闭流
+ */
 public class FileInputOutputTest {
     public static void main(String[] args) throws Exception {
         // testFileInputStream();
         // testFileReader();
         testFileOutputStream();
+        // testFileWriter();
     }
 
 
@@ -51,10 +57,22 @@ public class FileInputOutputTest {
             byte[] bbuf = new byte[32];
             int hasread = 0;
             while ((hasread=fis.read(bbuf))>0) {
+                // 读出多少，写入多少
                 fileOutputStream.write(bbuf, 0, hasread);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void testFileWriter() {
+        try (FileWriter fileWriter = new FileWriter("src/base/io/writer.txt")) {
+            fileWriter.write("直接输入字符串的时候，");
+            fileWriter.write("使用Writer会更好\n");
+            fileWriter.write("哦\n");
+            fileWriter.write("是吗\n");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 }
