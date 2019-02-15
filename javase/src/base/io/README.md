@@ -106,4 +106,18 @@ System中有三个重定向标准输入输出的方法：
 - static void setIn(PrintStream in)          重定向标准输入流
 - static void setOut(PrintStream out)          重定向标准输出流
 
+> 示例参见：Redirect.java
+
 注意三个方法都需要使用PrintStream作为参数
+
+### 6. java虚拟机读写其他进程的数据
+Runtime对象的exec()方法可以运行其他程序，会产生一个Process对象，该对象是由此程序产生的**子进程**。
+
+Process提供的三个方法
+- InputStream getErrorStream(): 获得子进程的错误流
+- InputStream getInputStream(): 获取子进程的输入流
+- OutputStream getOutputStream(): 获取子进程的输出流
+
+> 让子进程读取程序中的数据，应该使用==输出流==。要注意理解这里的输入输出流。这里是要把数据读到子进程中，类似于把数据存到文件节点。应该用输出流。
+
+> 示例参见：ProcessReadWrite.java
