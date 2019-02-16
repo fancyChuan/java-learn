@@ -11,13 +11,16 @@ public class LettlePoints {
 
     public static void main(String[] args) {
         // testToCharArray();
-        testReadFileOnce();
+        // testReadFileOnce();
+        testGetBytes();
     }
 
     /**
      * String.toCharArray() 把字符串转为数组，每个元素分别为一个字符
      * "abc" --> ["a", "b", "c"]
      * "中文" --> ["中", "文"]
+     *
+     * 如果要转为字节数组，那么要使用getBytes() 方法，参见testGetBytes()
      */
     public static void testToCharArray() {
         String text = new String("中文的啊");
@@ -45,5 +48,22 @@ public class LettlePoints {
         catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    /**
+     * 把字符串转为字节数组 getBytes()
+     * 对于abc等字母来说，一个字符为一个字节，相当于是test的一个元素
+     * 对于中文字符来说，一个中文为3个字节，对应test的三个元素
+     */
+    public static void testGetBytes() {
+        byte[] test = "这是".getBytes();
+        System.out.println(test);
+        System.out.println("==========");
+        for (byte b: test) {
+            System.out.println(b);
+        }
+        System.out.println("==========");
+        System.out.println(new String(test));
+        System.out.println(test.toString());
     }
 }
