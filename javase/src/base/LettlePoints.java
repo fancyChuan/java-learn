@@ -3,6 +3,7 @@ package base;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * 零散的小知识点
@@ -53,7 +54,7 @@ public class LettlePoints {
     /**
      * 把字符串转为字节数组 getBytes()
      * 对于abc等字母来说，一个字符为一个字节，相当于是test的一个元素
-     * 对于中文字符来说，一个中文为3个字节，对应test的三个元素
+     * 对于中文字符来说，一个中文为3个字节，对应test的三个元素 【utf-8编码】【gbk编码时一个中文字符为2个字节】
      */
     public static void testGetBytes() {
         byte[] test = "这是".getBytes();
@@ -65,5 +66,14 @@ public class LettlePoints {
         System.out.println("==========");
         System.out.println(new String(test));
         System.out.println(test.toString());
+
+        try {
+            byte[] test2 = "这是".getBytes("GBK");
+            for (byte b: test2) {
+                System.out.println(b);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

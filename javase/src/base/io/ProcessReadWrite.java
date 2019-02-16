@@ -7,7 +7,7 @@ public class ProcessReadWrite {
     public static void main(String[] args) throws IOException {
         // testReadFromProcess();
         // ReadStandard.main(new String[0]); 这样可以调用ReadStandard类
-        testWirteToProcess();
+        testWirteToProcess(); // TODO: 代码可以运行，但是内容无法写入
     }
 
 
