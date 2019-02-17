@@ -165,7 +165,7 @@ java序列化机智采用的序列化算法：
 
 > 这个机制也有一个潜在的问题，对于改变过的对象，第二次序列化的时候仍值输出序列化编号，而不是重新序列化 参见ObjectSerializable.testChangeObject()
 
-#### 自定义序列化
+#### 8.4 自定义序列化
 递归序列化：对某个对象序列化的时候，系统会对该对象的所有变量依次序列化。
 
 使用transient关键词，指定java在序列化的时候忽略该实例变量
@@ -181,6 +181,41 @@ java序列化机智采用的序列化算法：
 
 > 示例参见 PersonSelf.java
 
+##### 特殊的自定义序列化
 更为彻底的自定义序列化方法：
-ANY-ACCESS-MODIFIER Object writeReplace() throws ObjectStreamException;
+- ANY-ACCESS-MODIFIER Object writeReplace() throws ObjectStreamException;
+
+序列化某个对象之前，先调用该对象的writeObject() 方法，如果该对象返回另一个对象，则转为序列化另一个对象
 > 示例参见 PersonReplace.java
+
+对应的，有另一个特殊的方法，可以实现保护性复制整个对象：
+- ANY-ACCESS-MODIFIER Object readResolve() throws ObjectStreamException;
+
+这个方法会在readObject()之后被调用，该方法的返回值会代替原来反序列化的对象，而原来readObject()反序列化的对象会被立即丢弃
+
+这个方法在序列化单例类、枚举类时尤其有用
+> TODO：示例 《疯狂java讲义》P695
+
+#### 8.5 另一种自定义序列化机制
+完全有程序员决定存储和恢复对象的方法，需要实现Externalizable接口，并定义如下两个方法：
+- void readExternal(ObjectInput in) 用来实现反序列化
+- void writeExternal(ObjectOutput out) 实现序列化
+
+实现Serializable接口 | 实现Externalizable接口
+--- | ---
+系统自动存储必要的信息 | 程序员决定存储哪些信息
+java内建支持，无需任何代码支持 | 仅仅提供两个空方法，需要实现
+性能略差 | 性能较好
+
+#### 8.6 版本
+java序列化机制允许使用private static final serialVersionUID来标识版本信息
+
+虽然JVM会根据类的相关信息计算出版本值，但是有很多隐患，尤其是不同的JVM环境往往不同。
+
+修改版本值的情况：
+- 修改类是只修改方法，反序列化不受影响，版本值不需要改
+- 仅仅修改了静态变量或瞬态实例变量（transient修饰的实例变量），不需要修改
+- 修改了非瞬态的实例变量时，大部分情况需要修改
+    - 修改变量类型，需要修改版本值
+    - 旧类实例变量比新类多，可以不修改。
+    - 新类比旧类实例变量多，如果不修改，那么实例化出来，那么多出来的这些变量值都是null
