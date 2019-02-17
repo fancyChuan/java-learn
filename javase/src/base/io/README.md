@@ -164,3 +164,23 @@ java序列化机智采用的序列化算法：
 - 如果已经序列化过了，程序就直接输出一个序列化编号
 
 > 这个机制也有一个潜在的问题，对于改变过的对象，第二次序列化的时候仍值输出序列化编号，而不是重新序列化 参见ObjectSerializable.testChangeObject()
+
+#### 自定义序列化
+递归序列化：对某个对象序列化的时候，系统会对该对象的所有变量依次序列化。
+
+使用transient关键词，指定java在序列化的时候忽略该实例变量
+> transient只能修饰实例变量，不可修饰java程序中的其他成分
+
+自定义序列化需要用到的方法：
+- private void writeObject(java.io.ObjectOutputStream out) throws IOException
+- private void readObject(java.io.ObjectInputStream out) throws IOException, ClassNotFoundException
+- private void readObjectNoData() throws ObjectStreamException
+
+当序列化流不完整是，readObjectNoData()会被执行，比如接收方使用的反序列化类版本与发送方的不一致时
+> writeObject()序列化变量的顺序需要跟readObject()方法中的顺序一致，否则不能正常恢复
+
+> 示例参见 PersonSelf.java
+
+更为彻底的自定义序列化方法：
+ANY-ACCESS-MODIFIER Object writeReplace() throws ObjectStreamException;
+> 示例参见 PersonReplace.java

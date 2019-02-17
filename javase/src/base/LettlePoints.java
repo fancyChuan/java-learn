@@ -13,7 +13,8 @@ public class LettlePoints {
     public static void main(String[] args) {
         // testToCharArray();
         // testReadFileOnce();
-        testGetBytes();
+        // testGetBytes();
+        testStringBufferReverse();
     }
 
     /**
@@ -75,5 +76,12 @@ public class LettlePoints {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void testStringBufferReverse() {
+        StringBuffer a = new StringBuffer("abc");
+        StringBuffer b = new StringBuffer("这是");
+        System.out.println(a.reverse());
+        System.out.println(b.reverse());
     }
 }

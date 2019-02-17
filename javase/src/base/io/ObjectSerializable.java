@@ -1,6 +1,7 @@
 package base.io;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * 对象序列化读写
@@ -14,9 +15,10 @@ import java.io.*;
 public class ObjectSerializable {
 
     public static void main(String[] args) {
-        testWriteObject();
-        testReadObject();
-        testChangeObject();
+        // testWriteObject();
+        // testReadObject();
+        // testChangeObject();
+        testReplaceObject();
     }
 
 
@@ -30,7 +32,6 @@ public class ObjectSerializable {
         }
     }
 
-    // 改变一个对象的属性，重新序列化的时候，只返回序列化编号，并不会再次序列化
     public static void testReadObject() {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("src/base/io/object.txt"))) {
             Person person = (Person) input.readObject();
@@ -41,7 +42,7 @@ public class ObjectSerializable {
         }
     }
 
-
+    // 改变一个对象的属性，重新序列化的时候，只返回序列化编号，并不会再次序列化
     public static void testChangeObject() {
         try (
                 ObjectOutputStream output = new ObjectOutputStream(
@@ -61,6 +62,29 @@ public class ObjectSerializable {
             System.out.println(p1==p2);
             System.out.println(p1.equals(p2));
             System.out.println(p2.getName());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 序列化某个对象之前，先调用该对象的writeObject() 方法
+     *
+     * 得到的结果： [替换的, 25]
+     */
+    public static void testReplaceObject() {
+        try (
+                ObjectOutputStream output = new ObjectOutputStream(
+                        new FileOutputStream("src/base/io/object-replace.txt"));
+                ObjectInputStream input = new ObjectInputStream(
+                        new FileInputStream("src/base/io/object-replace.txt"))
+        ) {
+            PersonReplace personReplace = new PersonReplace("替换的", 25);
+            output.writeObject(personReplace);
+
+            ArrayList list = (ArrayList) input.readObject();
+            System.out.println(list);
         }
         catch (Exception e) {
             e.printStackTrace();
