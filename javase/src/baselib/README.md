@@ -22,3 +22,18 @@
 java程序运行时环境，每个程序都有一个与之对应的Runtime实例
 
 可以访问JVM的相关信息，如处理器数量、内存信息等
+
+### 3. 常用类
+#### 3.1 Object
+Object是所有类型的父类，常用方法有：
+- boolean equals(Object obj) 判断是否同一对象
+- protected void finalize() 无对象引用到该对象时，垃圾回收器用该方法来回收资源
+- int hashCode() 与System.identityHashCode() 方法一样
+- wait() notify() notifyAll() 控制线程
+- protected clone() 复制成完全隔离的对象副本（该方法只能被子类重写或调用）
+> clone() 只是浅克隆 不会对引用类型的成员变量值所引用的对象进行克隆。
+
+#### 3.2 java7新增的Objects类
+Objects是一个工具类，它的方法大多是“空指针”安全的。
+
+#### 3.3 String/StringBuffer/StringBuilder
