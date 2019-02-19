@@ -53,3 +53,16 @@ intcompareTo(String another) | 返回值的情况很多，相等时返回0
 boolean contentEquals(StringBuffer buf) | 包含完全相同的字符序列时返回true
 static String copyValueOf(char[] data) | 把字符数组连成字符串，与String(char[] data)构造器功能一样
 void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin) | 复制字符数组
+
+#### 3.4 Math类 
+> 见《java疯狂讲义》P252-253
+#### 3.5 java7中的ThreadLocalRandom和Random
+- Random用于产生伪随机数，两个构造器：一个以当前时间作为种子，一个需要程序员手动传入种子
+- ThreadLocalRandom是Random的增强版，并发环境下可减少多线程竞争资源，使系统具有更好的线程安全性
+
+> 见《java疯狂讲义》P253-255
+#### 3.6 BigDecimal类
+float double容易引起进度丢失。
+> 见《java疯狂讲义》P255-257
+
+### 4. java8的日期、时间类
