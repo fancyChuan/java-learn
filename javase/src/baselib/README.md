@@ -37,3 +37,19 @@ Object是所有类型的父类，常用方法有：
 Objects是一个工具类，它的方法大多是“空指针”安全的。
 
 #### 3.3 String/StringBuffer/StringBuilder
+- String： 不可变类型，一旦创建不可改变，拼接时会产生临时数据，性能较差
+- StringBuffer: 可变字符序列，一旦转换成想要的字符序列，可以调用toString()转为不可变类型
+- StringBuilder: 和StringBuffer基本类似，但StringBuilder不是线程安全的，性能略高。通常情况下，优先考虑StringBuilder
+
+API列表见《java疯狂讲义》P249-250，需要注意的方法如下：
+
+用途 | 说明
+--- | ---
+String() | 返回一个长度为0的字符序列，并不是返回null 
+String(String original) | 新建的String是original的副本，不是同一个对象的不同应用
+String(StringBuffer buff) | 也可以 buff.toString() 
+String(StringBuilder buff) | 也可以 buff.toString()
+intcompareTo(String another) | 返回值的情况很多，相等时返回0
+boolean contentEquals(StringBuffer buf) | 包含完全相同的字符序列时返回true
+static String copyValueOf(char[] data) | 把字符数组连成字符串，与String(char[] data)构造器功能一样
+void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin) | 复制字符数组

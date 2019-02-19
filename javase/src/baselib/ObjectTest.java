@@ -14,6 +14,10 @@ public class ObjectTest {
      * 测试clone()方法，运行结果： false true
      *
      * 说明这个复制只是对实例变量的复制，对于引用类型，也只是简单复制，沿用这个应用变量
+     * 步骤：
+     *      1. 实现Cloneable接口
+     *      2. 自定义clone方法
+     *      3. 在clone方法中调用super.clone()
      */
     public static void testClone() {
         User u1 = new User(25);
