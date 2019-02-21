@@ -17,3 +17,6 @@ Iterator需要注意的方法：
 - void remove() 删除集合中上一次next()方法返回的元素。
 - void forEachRemaining(Consumer action) java8新增的方法，可以对集合中剩余的元素做操作，支持Lambda表达式
 
+java8新增了Stream操作集合，Stream有两种方法类型：中间方法、末端方法（对流的最终操作，之后流关闭）
+
+Collection对象可以调用stream()方法来获得流对象，并进一步执行聚合操作。

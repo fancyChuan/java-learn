@@ -2,6 +2,7 @@ package collection;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 public class CollectionTest {
     public static void main(String[] args) {
@@ -9,7 +10,9 @@ public class CollectionTest {
         // testLambdaEach();
         // testIteratorError();
         // testRemoveIf();
-        testPredicate();
+        // testPredicate();
+        // testStream();
+        testCollStream();
     }
 
     /**
@@ -116,5 +119,30 @@ public class CollectionTest {
             }
         }
         return total;
+    }
+
+
+    public static void testStream() {
+        IntStream intStream = IntStream.builder().add(20).add(10).add(50).add(-2).add(18).build();
+
+        // 下面调用聚集函数的代码每次只能执行一行，之后流就会关闭
+//        System.out.println("所有元素的最大值: " + intStream.max().getAsInt());
+//        System.out.println("所有元素的最小值: " + intStream.min().getAsInt());
+//        System.out.println("所有元素的综合： " + intStream.sum());
+//        System.out.println("所有元素的平方是否都大于20： " + intStream.allMatch(ele -> ele*ele>20));
+//        System.out.println("是否包含元素的平方大于20： " + intStream.anyMatch(ele -> ele*ele>20));
+
+        IntStream newIntStream = intStream.map(ele -> ele * 2 + 1);
+        newIntStream.forEach(System.out::println);
+    }
+
+    public static void testCollStream() {
+        Collection hashSet = new HashSet();
+        hashSet.add("9年义务教育");
+        hashSet.add("ooo");
+        hashSet.add("什么鬼啊");
+
+        System.out.println(hashSet.stream().filter(ele->((String) ele).length()>3));
+        hashSet.stream().mapToInt(ele->((String) ele).length()).forEach(System.out::println);
     }
 }
