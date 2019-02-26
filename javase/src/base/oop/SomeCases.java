@@ -5,7 +5,8 @@ public class SomeCases {
         // testReferenceInstance();
         // testMultiParams(5, "天", "地", "人", "神", "鬼");
         // testPerson();
-        testOverwrite();
+        // testOverwrite();
+        testHide();
     }
 
     /**
@@ -61,6 +62,17 @@ public class SomeCases {
         System.out.println(Overwrite.price);
         new Overwrite().info();
     }
+
+    /**
+     * 子类和父类同名的变量并不会覆盖，只是简单的隐藏起来了。系统会用两块内存分别存储
+     */
+    public static void testHide() {
+        Derived derived = new Derived();
+
+        // System.out.println(derived.tag); // 这一行在编译就会报错
+
+        System.out.println(((Parent) derived).tag); // 向上转型后就可以访问
+    }
 }
 
 
@@ -85,3 +97,31 @@ class Overwrite {
         System.out.println(this.name);
     }
 }
+
+class MultiConstruct {
+    public String name;
+    public String color;
+    public double weight;
+
+    public MultiConstruct(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    // 三个参数的构造器，代码体完全包含了两个参数的构造器
+    public MultiConstruct(String name, String color, double weight) {
+        this(name, color); // 通过this调用另一个构造器
+        this.weight = weight;
+    }
+}
+
+/**
+ * 演示子类变量隐藏父类的示例
+ */
+class Parent {
+    public String tag = "这是父类";
+}
+class Derived extends Parent {
+    private String tag = "子类中的"; // 这个私有的变量会隐藏父类的
+}
+
