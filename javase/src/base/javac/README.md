@@ -19,6 +19,9 @@ hello world
 直接执行 java HelloWorld 会找不到类的错误
 ```
 
+- JVM装载类时，会到classpath环境变量所指定的系列路径中查找，并会把相同目录当成同一个包来处理
+> 意味着， mypackage.ClassTest1 和 mypackage.ClassTest2可以一个放在C盘，一个放在D盘，只要mypackage的上一级目录在classpath下
+
 ## java执行命令
 命令选项 | 含义
 --- | ---

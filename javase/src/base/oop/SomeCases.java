@@ -2,7 +2,10 @@ package base.oop;
 
 public class SomeCases {
     public static void main(String[] args) {
-        testReferenceInstance();
+        // testReferenceInstance();
+        // testMultiParams(5, "天", "地", "人", "神", "鬼");
+        // testPerson();
+        testOverwrite();
     }
 
     /**
@@ -23,10 +26,62 @@ public class SomeCases {
         dx.a = dx.b;
         dx.b = tmp;
     }
+
+    /**
+     * 形参的个数可变
+     */
+    public static void testMultiParams(int a, String... books) {
+        for (String tmp: books) {
+            System.out.println(tmp);
+        }
+        System.out.println(a);
+    }
+
+    /**
+     * 通过实例去修改静态变量（类变量），因为静态变量不属于实例，所以实际上还是修改的类的类变量，也就是类的静态变量会直接受影响
+     *
+     * 另外，虽然不会报错，但是java允许实例去访问静态变量这个设计本身就有缺陷
+     */
+    public static void testPerson() {
+        System.out.println(Person.eyeNum); // 0  静态变量被默认初始化为0，数组的默认初始化也是每个元素为0
+        Person person = new Person();
+        System.out.println(person.name + " with " + person.eyeNum); // null with 0
+        person.name = "我的天";
+        person.eyeNum = 2; // 对静态变量赋值，在同个JVM里面，该静态变量就被影响了
+        System.out.println(person.name + " with " + person.eyeNum); // 我的天 with 2
+        System.out.println(Person.eyeNum); // 2
+    }
+
+    /**
+     * 方法的局部变量可以与类的成员同名
+     */
+    public static void testOverwrite() {
+        int price = 66;
+        System.out.println(price);
+        System.out.println(Overwrite.price);
+        new Overwrite().info();
+    }
 }
 
 
 class DataX {
     int a;
     int b;
+}
+
+
+class Person {
+    public String  name;
+    public static int eyeNum;
+}
+
+class Overwrite {
+    protected String name = "张三";
+    protected static double price = 78.0;
+
+    public void info() {
+        String name = "李四";
+        System.out.println(name);
+        System.out.println(this.name);
+    }
 }

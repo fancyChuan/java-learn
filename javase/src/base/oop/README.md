@@ -34,3 +34,39 @@
 关于方法的几个知识：
 - java的参数传递机制只有一种：**值传递**。也就是说，传值的复制品到方法，实参本身不受影响。（方法栈中会存有实参的一个副本，方法改变的是这个副本）
 > 参见 SomeCases.testReferenceInstance()
+- 形参个数可变的方法： 在最后一个形参的类型后增加 (...)  这样多个参数值就会被当成数组传入，例如 testMultiParams(int a, String... books)
+    - 本质是一个数组参数 等同于 testMultiParams(int a, String[] books)
+    - testMultiParams(int a, String... books) 调用的时候更加便捷，不需要先存为数组再传入方法
+    - 一个方法最多只能有一个长度可变的形参
+> 参见 SomeCases.testMultiParams(int a, String... books)
+- **方法重载**： 同一类中，方法名相同，形参列表不同（方法返回值类型、修饰符等跟方法重载没关系）
+
+关于变量
+- java允许局部变量名与成员变量名相同，虽然会覆盖，但可以通过this或者类名来限定访问成员变量
+> 参见 SomeCases.testOverwrite()
+- 把变量写成成员变量的坏处（相比局部变量）：
+    - 增大了变量的生存时间，导致更大的内存开销
+    - 扩大了变量的作用域，不利于提高程序的内聚性（因为成员变量的作用域为类存在范围或者对象存在范围）
+- 应使用成员变量的情况：
+    - 变量用于描述某个类或者对象的固有信息时，比如人的眼睛数量为2
+    - 需要以一个变量来保存该类或实例运行时的状态信息时
+    - 某个信息需要在多个方法中共享时
+
+
+java的访问控制级别（由小到大）： 
+```
+private(当前类访问权限) -> default(包访问权限) -> protected(子类访问权限) -> public(公共访问权限)
+```
+- protected 子类访问权限，同包的其他类也可以访问，包括实例化后的对象也可以，如果是private，那么实例化后的对象也不能访问
+- default 只是同包的其他类可以访问，子类不一定可以。
+- 只有成员变量才需要控制访问权限，局部变量不需要
+- 外部类只有 public 和 default两种权限
+- 符合javaBean规范： 类的变量使用private，同时提供public的setter、getter方法
+- 访问控制符的使用原则：
+    - 绝大多数成员变量应该用private修饰，只有static修饰的，类似于全局变量的才考虑public。
+    - 用于辅助实现该类其他方法的工具方法，也应该使用private修饰
+    - 一个类只做父类，并且只希望被子类重写，就该使用protected修饰
+    - 希望暴露出来给其他类自由使用的方法就用public修饰
+
+包与导入
+- java5以后import可以静态导入。比如  import static package.ClassName.fieldName | methodName 导入某个类的静态变量或者静态方法
