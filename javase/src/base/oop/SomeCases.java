@@ -6,7 +6,8 @@ public class SomeCases {
         // testMultiParams(5, "天", "地", "人", "神", "鬼");
         // testPerson();
         // testOverwrite();
-        testHide();
+        // testHide();
+        testInitBlock();
     }
 
     /**
@@ -73,6 +74,13 @@ public class SomeCases {
 
         System.out.println(((Parent) derived).tag); // 向上转型后就可以访问
     }
+
+
+    public static void testInitBlock() {
+        InitBlock initBlock = new InitBlock();
+        System.out.println("---------");
+        InitBlock initBlock2 = new InitBlock();
+    }
 }
 
 
@@ -125,3 +133,19 @@ class Derived extends Parent {
     private String tag = "子类中的"; // 这个私有的变量会隐藏父类的
 }
 
+class InitBlock {
+
+    {
+        int a = 6;
+        System.out.println("第一个初始化块，定义了a=" + a);
+    }
+
+    static {
+        // if (this.a > 4) {} // 这个时候构造器还没执行，this无法使用，同时也无法直接使用变量a
+        System.out.println("第2个是静态初始化块..");
+    }
+
+    public InitBlock() {
+        System.out.println("执行构造器");
+    }
+}
