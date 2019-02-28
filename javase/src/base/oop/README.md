@@ -135,3 +135,12 @@ private(当前类访问权限) -> default(包访问权限) -> protected(子类�
 - 包装类型可以与基本类型比较，比如 Integer i=5; a>4.0 会返回true
 - 包装类型之间的比较相对复杂，只有两包装类型指向同一个对象时才会返回true
 > 参见 SomeCases.testWrapper()
+
+处理对象
+- toString() 重写以打印出想要的对象信息
+- String n1 = "hello" 和 String n2 = new String("hello")的区别
+    - n1 在常量池中，编译时就能确定
+    - n2 这行语句执行会产生两个字符串对象，一个在常量池中，一个是通过String构造器根据"hello"直接量创建的一个新的对象（放在堆内存）
+    - JVM 常量池保证相同字符串的直接量只有一个，所以 String n2 = "he" + "llo" 编译时能确定，跟n1是同一个对象
+- 重写 equals() 方法可以支持自定义相等标准。比如String.equals() 则判断两字符串是否包含相同的字符序列
+- instanceOf 当前面对象是后面类的实例或者其子类的实例时，都返回true

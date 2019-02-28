@@ -182,3 +182,34 @@ class InitBlock {
         System.out.println("执行构造器");
     }
 }
+
+/**
+ * 重写equals()方法，只要TestEquals类的实例的IdStr相等就认为两对象相同
+ */
+class TestEquals {
+    private String name;
+    private String idStr;
+
+    public TestEquals() {
+    }
+
+    public TestEquals(String name, String idStr) {
+        this.name = name;
+        this.idStr = idStr;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj != null && obj.getClass() == TestEquals.class) {
+            TestEquals test = (TestEquals) obj;
+            if (this.getIdStr().equals(test.getIdStr())) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
