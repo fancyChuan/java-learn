@@ -7,7 +7,8 @@ public class SomeCases {
         // testPerson();
         // testOverwrite();
         // testHide();
-        testInitBlock();
+        // testInitBlock();
+        testWrapper();
     }
 
     /**
@@ -80,6 +81,38 @@ public class SomeCases {
         InitBlock initBlock = new InitBlock();
         System.out.println("---------");
         InitBlock initBlock2 = new InitBlock();
+    }
+
+    /**
+     * 包装类示例：
+     *      Integer.valueOf()       基本类型 -> 包装类型
+     *      Integer.parseInt()      包装类型 -> 基本类型
+     *
+     *  自动装箱会出现一种特殊情况：
+     *      -128~127    自动装箱成Integer，并放进cache的数组缓存起来。也就是说 下面的a/b是同一个对象
+     *      不在这个范围内的，Integer就会新建一个新的实例，也就是说 c/d不是同个对象
+     */
+    public static void testWrapper() {
+        System.out.println(String.valueOf(2.345f));
+        System.out.println(String.valueOf(3.344));
+        System.out.println(String.valueOf(true).toUpperCase());
+        System.out.println("---------");
+        System.out.println(Integer.valueOf("22") instanceof Integer); // true
+        // System.out.println(Integer.parseInt("22") instanceof Integer); // 会报错 int 没有instanceof方法
+        System.out.println(new Integer(2) == new Integer(2)); // false 包装类指向的不是同一个对象
+        System.out.println(new Integer(2).equals(new Integer(2))); // true
+        int i = 3;
+        System.out.println(new Integer(i) == new Integer(i)); // 也是false，说明其实Integer实例化后得到的是一个新的对象
+        System.out.println("---------");
+        Integer a = 4;
+        Integer b = 4;
+        System.out.println(a == b); // true
+        Integer c = 128;
+        Integer d = 128;
+        System.out.println(c == d); // false
+        System.out.println("---------");
+        System.out.println(Integer.parseUnsignedInt("A", 16));
+        System.out.println(Integer.toUnsignedString(-12, 16));
     }
 }
 
