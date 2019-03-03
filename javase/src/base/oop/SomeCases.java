@@ -8,7 +8,8 @@ public class SomeCases {
         // testOverwrite();
         // testHide();
         // testInitBlock();
-        testWrapper();
+        // testWrapper();
+        testFinal();
     }
 
     /**
@@ -113,6 +114,28 @@ public class SomeCases {
         System.out.println("---------");
         System.out.println(Integer.parseUnsignedInt("A", 16));
         System.out.println(Integer.toUnsignedString(-12, 16));
+    }
+
+    /**
+     * System.out.println(a);  相当于 System.out.println(7);  也就是说，a是宏变量，或者说a就是直接量，编译器在编译时会直接替换a
+     *
+     * str2 在编译时无法确定下来，不是宏变量
+     */
+    public static void testFinal() {
+        final int a = 5 + 2;
+        final String str = "疯狂" + 99;
+        final String str2 = "疯狂" + String.valueOf(99);
+        System.out.println(str == "疯狂99"); // true   在完成str初始化前，JVM常量池会先缓存一个字符序列，这里比较的时候，都在常量池里的同一个字符序列
+        System.out.println(str2 == "疯狂99"); // false
+
+        System.out.println("------------");
+        String s1 = "AABB";
+        String s2 = "AA" + "BB";
+        String A = "AA";
+        String B = "BB";
+        String s3 = A + B; // 编译时不能确定
+        System.out.println(s1 == s2); // true
+        System.out.println(s1 == s3); // false
     }
 }
 
