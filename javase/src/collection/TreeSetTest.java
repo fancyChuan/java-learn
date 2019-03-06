@@ -4,6 +4,9 @@ import java.util.TreeSet;
 
 public class TreeSetTest {
     public static void main(String[] args) {
+        // testTreeSet();
+    }
+    public static void testTreeSet() {
         TreeSet nums = new TreeSet();
         nums.add(5);
         nums.add(8);
@@ -18,4 +21,6 @@ public class TreeSetTest {
         System.out.println(nums.headSet(5)); // 小于5
         System.out.println(nums.tailSet(5)); // 大于等于5
     }
+
+
 }
