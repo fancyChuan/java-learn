@@ -14,7 +14,8 @@ public class LettlePoints {
         // testToCharArray();
         // testReadFileOnce();
         // testGetBytes();
-        testStringBufferReverse();
+        // testStringBufferReverse();
+        testPlusPlus();
     }
 
     /**
@@ -83,5 +84,20 @@ public class LettlePoints {
         StringBuffer b = new StringBuffer("这是");
         System.out.println(a.reverse());
         System.out.println(b.reverse());
+    }
+
+    /**
+     * ++a a++的区别
+     * a++ 是先使用这个变量，再加1
+     * ++a s是先加1，再使用这个变量
+     */
+    public static void testPlusPlus() {
+        int a = 0;
+        int b = 0;
+        for (int i=0; i<10; i++) {
+            System.out.print("i: " + i);
+            System.out.print("\t a: " + a++); // 这里是先把a的值打印出来，再让a+1
+            System.out.print("\t b: " + ++b + "\n"); // 这里是先把a+1再把a的值打印出来
+        }
     }
 }
