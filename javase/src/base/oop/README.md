@@ -273,3 +273,18 @@ java8改进的接口
 java8新增的Lambda表达式
 - Lambda表达式相当于是一个匿名方法，主要用来代替匿名内部类的繁琐语法
 - 由： 形参列表 -> 代码块 组成。如果代码块需要返回值，在没有return的情况下，而代码块又仅有一个省略了return的语句，Lambda会自动返回这条语句的值
+- Lambda表达式实际上会被当成一个“任意类型”的对象
+- Lambda表达式与函数式接口
+    - Lambda表达式的类型也叫“目标类型”，目标类型必须是函数式接口（只包含**一个抽象方法**的接口，可以有多个类方法、默认方法）
+    > 目标类型应该理解为：由Lambda表达式转给的那个对象的类型决定。比如传给eat(Eatable)那就是Eatable类型，传给 fly(Flyable) 就是Flyable类型 
+    - Lambda表达式的限制：
+        - 目标类型必须是明确的函数式接口。常见的方法有：
+            - 将Lambda表达式赋值给函数式接口类型的变量 参见 lambda.LambdaTest.java 下的testFunction()
+            - 将Lambda表达式作为函数式接口类型的参数传给某个方法 如 lambda.LambdaTest.java 的 testLambdaUsage()
+            - 使用函数式接口对Lambda表达式进行强制类型转换 如 lambda.LambdaTest.java 的testFunction()
+        - 只能为函数式接口创建对象。（Lambda表达式只能实现一个方法，一次只能为只有一个抽象方法的接口创建对象）
+    - java8在java.util.function下预定义了大量的函数式接口
+        - XxxFunction： 包含apply抽象方法，用于将参数转成另一个值
+        - XxxConsumer： accept抽象方法，对参数处理、消费，但没有返回值
+        - XxxPredicate： test抽象方法，判断是否满足特定条件，返回boolean
+        - XxxSupplier： getAsXxx抽象方法，无参，按照Lambda表达式的逻辑返回一个值
