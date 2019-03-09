@@ -288,3 +288,5 @@ java8新增的Lambda表达式
         - XxxConsumer： accept抽象方法，对参数处理、消费，但没有返回值
         - XxxPredicate： test抽象方法，判断是否满足特定条件，返回boolean
         - XxxSupplier： getAsXxx抽象方法，无参，按照Lambda表达式的逻辑返回一个值
+- 方法引用与构造器引用
+    - 

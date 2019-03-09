@@ -1,11 +1,13 @@
 package jdbc;
 
+import java.io.File;
 import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
         // testConnMysql();
-        testExecuteType();
+        // testExecuteType();
+        testInitUseFile();
     }
 
     public static void testConnMysql() throws ClassNotFoundException {
@@ -40,6 +42,9 @@ public class Main {
         }
     }
 
+    /**
+     * execute的三种执行方式
+     */
     public static void testExecuteType() {
         try (
                 Statement stmt = new MysqlInstance("for_learn").getBasciStatement()
@@ -63,7 +68,19 @@ public class Main {
 //            ResultSet rs5 = stmt.executeQuery("CREATE TABLE tmp1 (id int)"); // 非select语句执行报错
 //            System.out.println(rs5.next());
 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static void testInitUseFile() {
+        try (
+            Statement stmt = new MysqlInstance(new File("src/jdbc/jdbc-mysql.properties")).getBasciStatement()
+        ) {
+            ResultSet num = stmt.executeQuery("SELECT count(*) FROM tmp1");
+            System.out.println(num);
+            System.out.println(num.getInt(1));
         }
         catch (Exception e) {
             e.printStackTrace();
