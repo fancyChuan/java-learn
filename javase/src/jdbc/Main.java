@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
         // testConnMysql();
         // testExecuteType();
+        // 测试通过文件初始化数据库连接
         testInitUseFile();
     }
 
@@ -80,6 +81,7 @@ public class Main {
         ) {
             ResultSet num = stmt.executeQuery("SELECT count(*) FROM tmp1");
             System.out.println(num);
+            num.next(); // 需要把指针移动才能取数据
             System.out.println(num.getInt(1));
         }
         catch (Exception e) {

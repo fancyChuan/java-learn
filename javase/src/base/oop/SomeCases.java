@@ -7,9 +7,9 @@ public class SomeCases {
         // testPerson();
         // testOverwrite();
         // testHide();
-        // testInitBlock();
+        testInitBlock();
         // testWrapper();
-        testFinal();
+        // testFinal();
     }
 
     /**
@@ -78,10 +78,13 @@ public class SomeCases {
     }
 
 
+    /**
+     * 测试初始化块的执行顺序
+     */
     public static void testInitBlock() {
         InitBlock initBlock = new InitBlock();
         System.out.println("---------");
-        InitBlock initBlock2 = new InitBlock();
+        InitBlock initBlock2 = new InitBlock(); // 第2次实例化的时候，静态初始化块不需要执行
     }
 
     /**

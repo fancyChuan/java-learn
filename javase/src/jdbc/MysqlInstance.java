@@ -22,6 +22,7 @@ public class MysqlInstance {
 
     { // 初始化块，用于加载驱动
         try {
+            System.out.println("初始化块，加载驱动器");
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
