@@ -30,3 +30,14 @@ select * from jdbc_test where username='' and  pass='';
 select * from jdbc_test where username='' or true or '' and  pass=''
 ```
 > 注意：PreparedStatement执行带有占位符的SQL时，占位符只能代表普通值，不能代替表名、列名等数据库对象，也不用代替insert、select等关键词
+
+使用CallableStatement调用存储过程
+```
+dilimiter //
+CREATE PROCEDURE add_pro(a int, b int, out sum int)
+begin set sum = a + b;
+end;
+//
+```
+>参见 jdbc.Main.testCallableStatement()
+

@@ -9,13 +9,15 @@ import java.sql.*;
  * 2. 测试Statement的三种执行方法          testExecuteType()
  * 3. 测试通过文件初始化数据库连接            testInitUseFile()
  * 4. 测试PreparedStatement用法与性能      testPreparedStatement();
+ * 5. CallableStatement用法               testCallableStatement()
  */
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
         // testConnMysql();
         // testExecuteType();
         // testInitUseFile();
-        testPreparedStatement();
+        // testPreparedStatement();
+        testCallableStatement();
     }
 
     public static void testConnMysql() throws ClassNotFoundException {
@@ -133,6 +135,33 @@ public class Main {
             }
             System.out.println("使用PreparedStatement耗时：" + (System.currentTimeMillis() - start1)); // 3928
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * CallableStatement的用法
+     */
+    public static void testCallableStatement() {
+        /* 在MySQL执行下面的创建存储过程的语句
+
+dilimiter //
+CREATE PROCEDURE add_pro(a int, b int, out sum int)
+begin set sum = a + b;
+end;
+//
+         */
+        String sql = "{call add_pro(?, ?, ?)}";
+        try(
+                CallableStatement cstmt = new MysqlInstance("for_learn").getCallableStatement(sql)
+        ) {
+            cstmt.setInt(1, 4);
+            cstmt.setInt(2, 5);
+            cstmt.registerOutParameter(3, Types.INTEGER); // 注册输出的类型
+            cstmt.execute();
+            System.out.println("存储过程执行结果：" + cstmt.getInt(3));
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

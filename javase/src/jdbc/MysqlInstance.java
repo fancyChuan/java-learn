@@ -62,6 +62,10 @@ public class MysqlInstance implements AutoCloseable {
         return this.connection.prepareStatement(sql);
     }
 
+    public CallableStatement getCallableStatement(String sql) throws SQLException {
+        return this.connection.prepareCall(sql);
+    }
+
     @Override
     public void close() throws Exception {
         this.connection.close();
