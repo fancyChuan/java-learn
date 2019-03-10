@@ -289,4 +289,5 @@ java8新增的Lambda表达式
         - XxxPredicate： test抽象方法，判断是否满足特定条件，返回boolean
         - XxxSupplier： getAsXxx抽象方法，无参，按照Lambda表达式的逻辑返回一个值
 - 方法引用与构造器引用
-    - 
+    - Lambda代码块中只有一行代码时，可以省略花括号，同时也可以使用方法引用和构造器引用
+    

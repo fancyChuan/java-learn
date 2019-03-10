@@ -7,7 +7,8 @@ public class LambdaTest {
 
     public static void main(String[] args) {
         // testLambdaAnonymous();
-        testLambdaUsage();
+        // testLambdaUsage();
+        testUsing();
     }
 
     public static void testLambdaAnonymous() {
@@ -70,6 +71,19 @@ public class LambdaTest {
                 System.out.println(i);
             }
         };
+    }
+
+    /**
+     * 测试Lambda表达式的方法引用，构造器引用
+     */
+    public static void testUsing() {
+        Converter converter1 = from -> Integer.valueOf(from);
+        Integer val1 = converter1.convert("99");
+        System.out.println(val1);
+        // 使用方法引用
+        Converter converter2 = Integer::valueOf;
+        Integer val2 = converter1.convert("88");
+        System.out.println(val2);
     }
 }
 
