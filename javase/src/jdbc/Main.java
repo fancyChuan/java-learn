@@ -3,12 +3,19 @@ package jdbc;
 import java.io.File;
 import java.sql.*;
 
+/**
+ * 20190309 JDBC
+ * 1. JDBC的使用步骤                     testConnMysql()
+ * 2. 测试Statement的三种执行方法          testExecuteType()
+ * 3. 测试通过文件初始化数据库连接            testInitUseFile()
+ * 4. 测试PreparedStatement用法与性能      testPreparedStatement();
+ */
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
         // testConnMysql();
         // testExecuteType();
-        // 测试通过文件初始化数据库连接
-        testInitUseFile();
+        // testInitUseFile();
+        testPreparedStatement();
     }
 
     public static void testConnMysql() throws ClassNotFoundException {
@@ -61,7 +68,16 @@ public class Main {
             Boolean rs2 = stmt.execute("show tables");
             System.out.println(rs2);
             Boolean rs3 = stmt.execute("SELECT count(*) FROM tmp1");
+            if (rs3) {
+                ResultSet rsrs = stmt.getResultSet();
+                rsrs.next();
+                System.out.println("表的记录数为：" + rsrs.getInt(1));
+            }
             System.out.println(rs3);
+
+            stmt.execute("INSERT INTO tmp1 VALUES (1, 'fancy'), (2, 'Chuan'), (3, '哇哇哇')"); // 没有ResultSet返回
+            System.out.println("受影响的记录数：" + stmt.getUpdateCount()); // 获取受影响的记录数
+
             Boolean rs4 = stmt.execute("DROP TABLE if EXISTS tmp;");
             System.out.println(rs4);
 
@@ -85,6 +101,38 @@ public class Main {
             System.out.println(num.getInt(1));
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * PreparedStatement用法与性能
+     *
+     * 1. PreparedStatement.execute/executeQuery/executeUpdate都不需要参数
+     * 2. PreparedStatement效率比Statement要高
+     */
+    public static void testPreparedStatement() {
+        String sql = "insert into tmp1 values (?, ?)";
+
+        try (
+                // 下面这一行需要让MySQLInstance实现AutoCloseable接口，并实现close()方法，因为在try用法中，普通的对象不能放在自动关闭的方法体中
+                MysqlInstance instance = new MysqlInstance("for_learn");
+                Statement stmt = instance.getBasciStatement();
+                PreparedStatement stmtPre = instance.getPreparedStatement(sql)
+        ) {
+            long start = System.currentTimeMillis();
+            for (int i = 0; i < 100; i++) {
+                stmt.executeUpdate("INSERT INTO tmp1 VALUES (" + i + ",'普通" + i + "')");
+            }
+            System.out.println("使用Statement耗时：" + (System.currentTimeMillis() - start)); // 4814
+            long start1 = System.currentTimeMillis();
+            for (int i = 0; i < 100; i++) {
+                stmtPre.setInt(1, i);
+                stmtPre.setString(2, "预编译" + i);
+                stmtPre.executeUpdate();
+            }
+            System.out.println("使用PreparedStatement耗时：" + (System.currentTimeMillis() - start1)); // 3928
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

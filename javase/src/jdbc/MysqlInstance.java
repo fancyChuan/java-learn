@@ -3,17 +3,15 @@ package jdbc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 /**
  * 20190309
  * TODO： 这个类并没有考虑自动关闭连接，该如何优化？
+ * 需要让这个类是 AutoCloseable 这样才能在try(){}catch(Exception e) {}结构中自动关闭
  */
-public class MysqlInstance {
+public class MysqlInstance implements AutoCloseable {
     private Connection connection;
     private String driver;
     private String url;
@@ -44,13 +42,28 @@ public class MysqlInstance {
     public MysqlInstance(File file) throws Exception {
         Properties props = new Properties();
         props.load(new FileInputStream(file));
-        this.url = props.getProperty("url");
+        this.url = props.getProperty("url"); // 注意文件中a=b不能写成a="b"否则java得到的a=""b""
         this.user = props.getProperty("user");
         this.pass = props.getProperty("pass");
         this.connection = DriverManager.getConnection(this.url, this.user, this.pass);
     }
 
+    /**
+     * 获取基本的Statement对象
+     */
     public Statement getBasciStatement() throws SQLException {
         return this.connection.createStatement();
+    }
+
+    /**
+     * 预编译的Statement对象
+     */
+    public PreparedStatement getPreparedStatement(String sql) throws SQLException {
+        return this.connection.prepareStatement(sql);
+    }
+
+    @Override
+    public void close() throws Exception {
+        this.connection.close();
     }
 }
