@@ -9,14 +9,15 @@ import javax.swing.*;
  * 1. 匿名内部类与Lambda的用法区别                    testLambdaAnonymous()
  * 2. 测试Lambda表达式的各种简写                      testLambdaUsage()
  * 3. Lambda方法引用、构造器引用示例                   testUsing()
- * 4.
+ * 4. Lambda表达式和匿名内部类的相同点                  testLambdaInnerSame()
  */
 public class LambdaTest {
 
     public static void main(String[] args) {
         // testLambdaAnonymous();
         // testLambdaUsage();
-        testUsing();
+        // testUsing();
+        testLambdaInnerSame();
     }
 
     public static void testLambdaAnonymous() {
@@ -108,6 +109,12 @@ public class LambdaTest {
         JFrame jf = yourTest.win("你的窗口");
         System.out.println(jf);
     }
+
+    public static void testLambdaInnerSame() {
+        LambdaAndInner lambda = new LambdaAndInner();
+        lambda.test();
+    }
+
 }
 
 
