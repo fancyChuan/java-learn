@@ -3,6 +3,14 @@ package base.oop.lambda;
 import base.oop.interfacePackage.Command;
 import base.oop.interfacePackage.ProcessArray;
 
+import javax.swing.*;
+
+/**
+ * 1. 匿名内部类与Lambda的用法区别                    testLambdaAnonymous()
+ * 2. 测试Lambda表达式的各种简写                      testLambdaUsage()
+ * 3. Lambda方法引用、构造器引用示例                   testUsing()
+ * 4.
+ */
 public class LambdaTest {
 
     public static void main(String[] args) {
@@ -80,10 +88,25 @@ public class LambdaTest {
         Converter converter1 = from -> Integer.valueOf(from);
         Integer val1 = converter1.convert("99");
         System.out.println(val1);
-        // 使用方法引用
+        // 第一种方法引用，引用类方法(Integer.valueOf)，函数式接口中被实现方法的全部参数传给该类方法作为参数
         Converter converter2 = Integer::valueOf;
         Integer val2 = converter1.convert("88");
         System.out.println(val2);
+        // 第二种方法引用：引用特定对象的实例方法
+        // Converter converter3 = from -> "fkit.org".indexOf(from); // 特定对象 "fkit.org" 实例对象的方法
+        Converter converter3 = "fkit.org"::indexOf;
+        Integer val3 = converter3.convert("it");
+        System.out.println(val3);
+        // 第三种方法引用：引用某类对象的实例方法，函数式接口中被实现方法的第一个参数作为调用者，后面的参数全部传给该方法作为参数
+        // MyTest myTest = (a, b, c) -> a.substring(b, c); // 某类对象在这里是所有String对象
+        MyTest myTest = String::substring;
+        String str = myTest.test("what? are you crazy?", 6, 20);
+        System.out.println(str);
+        // 引用构造器：函数式接口中被实现方法的全部参数传给该构造器作为参数
+        // YourTest yourTest = (String a) -> new JFrame(a); // 基本的写法，显式指定参数的类型为string，这样就会使用带一个String参数的构造器
+        YourTest yourTest = JFrame::new;
+        JFrame jf = yourTest.win("你的窗口");
+        System.out.println(jf);
     }
 }
 
@@ -97,6 +120,20 @@ interface Flyable {
 interface Addable {
     int add(int a, int b);
 }
+
+@FunctionalInterface
+interface Converter {
+    Integer convert(String from);
+}
+@FunctionalInterface
+interface MyTest {
+    String test(String a, int b, int c);
+}
+@FunctionalInterface
+interface YourTest {
+    JFrame win(String title);
+}
+
 class LambdaQs {
     public void eat(Eatable e) {
         System.out.println(e);
