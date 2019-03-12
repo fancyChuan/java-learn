@@ -4,19 +4,23 @@ import base.oop.interfacePackage.Command;
 import base.oop.interfacePackage.ProcessArray;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 /**
  * 1. 匿名内部类与Lambda的用法区别                    testLambdaAnonymous()
  * 2. 测试Lambda表达式的各种简写                      testLambdaUsage()
  * 3. Lambda方法引用、构造器引用示例                   testUsing()
- * 4.
+ * 4. Lambda表达式和匿名内部类的相同点                  testLambdaInnerSame()
+ * 5. Lambda访问Arrays的类方法                        testLambdaArrays()
  */
 public class LambdaTest {
 
     public static void main(String[] args) {
         // testLambdaAnonymous();
         // testLambdaUsage();
-        testUsing();
+        // testUsing();
+        // testLambdaInnerSame();
+        testLambdaArrays();
     }
 
     public static void testLambdaAnonymous() {
@@ -108,6 +112,35 @@ public class LambdaTest {
         JFrame jf = yourTest.win("你的窗口");
         System.out.println(jf);
     }
+
+    /**
+     * 测试Lambda与匿名内部类的相似点
+     */
+    public static void testLambdaInnerSame() {
+        LambdaAndInner lambda = new LambdaAndInner();
+        lambda.test();
+    }
+
+    /**
+     * Lambda访问Arrays的类方法
+     */
+    public static void testLambdaArrays() {
+        String[] arr1 = new String[]{"java", "fkava", "fancy", "Chu", "an"};
+        // Lambda的目标类型是Comparator：字符串越长，字符串越大
+        Arrays.parallelSort(arr1, (o1, o2) -> o1.length()-o2.length());
+        System.out.println(Arrays.toString(arr1));
+
+        int[] arr2 = new int[]{3, 4, -1, 6};
+        // 目标类型是IntBinaryOperator，根据前后两元素计算当前元素的值
+        Arrays.parallelPrefix(arr2, (left, right) -> left * right);
+        System.out.println(Arrays.toString(arr2));
+
+        long[] arr3 = new long[5];
+        // 目标类型是IntLongFunction，根据索引来计算当前值
+        Arrays.parallelSetAll(arr3, operand -> operand * 5); // 表示当前计算的元素的索引
+        System.out.println(Arrays.toString(arr3));
+    }
+
 }
 
 
