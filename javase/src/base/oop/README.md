@@ -330,3 +330,7 @@ public enum SeasonEnum {
     - String name(); String toString()
     - int ordinal() 
     - valueOf()：获取指定枚举类的枚举值，参见 Main.testGender()
+- 枚举类通常会设计成不可变类，也就是说类的成员变量不允许改变。参见 Gender.Gender3
+    - 成员变量都用private final修饰
+    - 使用了final修饰，那么就必须在构造器里为这些成员变量执行初始值
+> 不是所有的枚举类都使用了final，非抽象的枚举类才默认使用final修饰
