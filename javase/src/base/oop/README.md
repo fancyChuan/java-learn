@@ -325,3 +325,8 @@ public enum SeasonEnum {
 }
 ```
 - 默认提供values()方法可以获取所有的枚举值
+- 常用方法：
+    - int compareTo(E o)
+    - String name(); String toString()
+    - int ordinal() 
+    - valueOf()：获取指定枚举类的枚举值，参见 Main.testGender()

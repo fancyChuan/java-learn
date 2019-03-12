@@ -2,7 +2,8 @@ package base.oop.enumPackage;
 
 public class Main {
     public static void main(String[] args) {
-        testFirstEnum();
+        // testFirstEnum();
+        testGender();
     }
 
     public static void testFirstEnum() {
@@ -15,6 +16,19 @@ public class Main {
         }
     }
 
+    public static void testGender() {
+        // 通过Enum的valueOf()方法获取指定枚举类的枚举值。TODO：好像是反射？
+        Gender g = Enum.valueOf(Gender.class, "FEMALE");
+        g.name = "女";
+        System.out.println(g + " 代表： " + g.name);
+        System.out.println("所在位置：" + g.ordinal()); // 枚举值所在位置的索引
+        System.out.println("和MALE比较： " + g.compareTo(Gender.MALE)); // 两个索引值相减
+        System.out.println("OTHER compare MALE: " + Gender.OTHER.compareTo(Gender.MALE)); // 2-0=2
+    }
+
+    /**
+     * 判断枚举值
+     */
     private static void jedge(SeasonEnum s) {
         switch (s) {
             case SPRING:
