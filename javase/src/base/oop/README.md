@@ -300,3 +300,17 @@ java8新增的Lambda表达式
     引用某类对象的实例方法 | 类名::实例方法 | 函数式接口中被实现方法的第一个参数作为调用者，后面的参数全部传给该方法作为参数
     引用构造器 | 类名::new | 函数式接口中被实现方法的全部参数传给该构造器作为参数
     
+枚举类
+- 类的对象是有限且固定的，比如季节，这些类就叫枚举类，JDK1.5以后就开始支持枚举类，关键词是enum，地位和interface、class相同
+- 和普通类的区别（枚举类是一个特殊类）
+    - 枚举类默认继承 java.lang.Enum 因此不能显式继承其他父类。其中java.lang.Enum实现了java.lang.Serializable和java.lang.Comparable
+    - 使用enum定义、非抽象的枚举类默认会使用final修饰，因此不能派生子类
+    - 枚举类的构造器只能使用private访问控制符，如果省略，系统也会默认使用private修饰
+    - 枚举类的所有实例必须在枚举类的第一行显式列出，否则不能产生实例。列出实例是，系统会自动添加public static final修饰
+```
+public enum SeasonEnum {
+    // 在第一行列出4个枚举实例
+    SPRING, SUMMER, FALL, WINTER;
+}
+```
+- 默认提供values()方法可以获取所有的枚举值
