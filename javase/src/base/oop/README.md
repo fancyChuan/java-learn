@@ -334,3 +334,4 @@ public enum SeasonEnum {
     - 成员变量都用private final修饰
     - 使用了final修饰，那么就必须在构造器里为这些成员变量执行初始值
 > 不是所有的枚举类都使用了final，非抽象的枚举类才默认使用final修饰
+- 包含抽象方法的枚举类 参见Operation.java
