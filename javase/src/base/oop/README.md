@@ -371,3 +371,28 @@ public enum SeasonEnum {
 - synchronized
 - transient
 - volatile
+
+使用jar文件
+- 全称：java archive file，Java档案文件。是一种压缩文件
+- 使用jar包的好处
+    - 安全，可以对jar包进行数字签名，只让特定用户使用
+    - 加快下载速度
+    - 压缩
+    - 包封装。能让jar包里面的文件依赖于同一版本的类文件
+    - 可移植性。能在各种平台直接使用
+- jar命令
+```
+# 1. 不显示打包细节的创建jar包
+E:\JavaWorkshop\java-learn\javase>jar cf baselib.jar src/baselib
+# 2. 显示打包细节
+E:\JavaWorkshop\java-learn\javase>jar cvf baselib.jar src/baselib
+# 3. 参数M表示不生成清单文件
+# 4. 自定义清单文件：jar cvfm test.jar xxxx.mf test 除了会默认生成清单目录，还会新增用户指定的清单文件 xxxx.mf （只是提取数据，而不是打包文件）
+# 5. 查看jar包内容
+E:\JavaWorkshop\java-learn\javase>jar tf baselib.jar
+# 6. 查看jar包的详细内容
+E:\JavaWorkshop\java-learn\javase>jar tvf baselib.jar
+# 7. 解压缩 带详细信息
+E:\JavaWorkshop\java-learn\javase>jar xfv baselib.jar
+# 8. 更新jar包
+```
