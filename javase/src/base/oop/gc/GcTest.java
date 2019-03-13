@@ -1,4 +1,4 @@
-package base.oop;
+package base.oop.gc;
 
 /**
  * 垃圾回收机制
