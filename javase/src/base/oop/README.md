@@ -394,5 +394,14 @@ E:\JavaWorkshop\java-learn\javase>jar tf baselib.jar
 E:\JavaWorkshop\java-learn\javase>jar tvf baselib.jar
 # 7. 解压缩 带详细信息
 E:\JavaWorkshop\java-learn\javase>jar xfv baselib.jar
-# 8. 更新jar包
+# 8. 更新jar包: java uvf test.jar Hello.class 存在则覆盖更新，不存在则新增
+```
+- 创建可运行的jar包
+    - 程序开发后，有三种发布方式：
+        - 使用平台相关的编译器把程序编译成平台相关的可执行文件，会丧失跨平台特性，甚至有一定的性能下降
+        - 为应用编辑一个批处理文件
+        - 制作成可执行的jar包
+    - 制作可执行的jar包关键是要让javaw命令知道jar包中哪个是主类。通过命令： java cvfe 
+```
+E:\JavaWorkshop\java-learn\javase>jar cvfe baselib.jar StringsTest.java src\baselib
 ```
