@@ -402,6 +402,29 @@ E:\JavaWorkshop\java-learn\javase>jar xfv baselib.jar
         - 为应用编辑一个批处理文件
         - 制作成可执行的jar包
     - 制作可执行的jar包关键是要让javaw命令知道jar包中哪个是主类。通过命令： java cvfe 
+    - 当使用cmd自行打包的时候要注意：
+        1. 要打包的是 *.class文件，否则执行的时候会找不到类
+        2. 所有类必须放在跟包结构对于的目录中，所以我们需要进入到包的上一级目录，也就是**工程目录**下。在这里就是E:\javaProject\java-learn\javase\target\production\javase。这个地方就是class文件的生成位置
+        3. ef参数的位置需要对应！否则会报“没有主清单属性”的错误
 ```
-E:\JavaWorkshop\java-learn\javase>jar cvfe baselib.jar StringsTest.java src\baselib
+# 打包一个java包，进入到工程目录下 .../javase
+E:\javaProject\java-learn\javase\target\production\javase>jar cvfe ..\..\jar\baselib.jar baselib.StringsTest baselib
+E:\javaProject\java-learn\javase\target\production\javase>jar ecvf baselib.StringsTest ..\..\jar\baselib.jar baselib
+已添加清单
+正在添加: baselib/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: baselib/Address.class(输入 = 360) (输出 = 255)(压缩了 29%)
+正在添加: baselib/ObjectTest.class(输入 = 1516) (输出 = 849)(压缩了 43%)
+正在添加: baselib/README.md(输入 = 3673) (输出 = 2033)(压缩了 44%)
+正在添加: baselib/ScannerTest.class(输入 = 2098) (输出 = 1062)(压缩了 49%)
+正在添加: baselib/StringsTest.class(输入 = 2052) (输出 = 1103)(压缩了 46%)
+正在添加: baselib/SystemTest.class(输入 = 3244) (输出 = 1644)(压缩了 49%)
+正在添加: baselib/User.class(输入 = 749) (输出 = 463)(压缩了 38%)
+# 打包整个java工程，也是需要进入到工程主目录下
+E:\javaProject\java-learn\javase\target\production\javase>jar cvef base.LettlePoints ..\..\jar\javase.jar .\*
+
+# 执行的命令有两种
+1. java -jar xxx.jar
+E:\javaProject\java-learn\javase\target\jar>java -jar baselib.jar
+E:\javaProject\java-learn\javase\target\jar>java -jar javase.jar
+2. javaw xxx.jar
 ```
