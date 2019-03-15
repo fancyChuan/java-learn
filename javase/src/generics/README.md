@@ -40,4 +40,6 @@ public interface ListString extends List {
         - public class Apple<T extends Number> {} 这是一个Apple泛型类，要求是Number的子类型
         - 极端情况下，需要设定多个上限时：最多一个父类上限，可以有多个接口上限，接口上限在类上限之后
         > public class Apple<T extends Number & java.io.Serializable>
-    
+- 泛型方法，在类、接口中没有使用类型形参，在方法中定义类型形参
+    - 语法： 修饰符 <T, S> 返回值类型 方法名(形参列表) 参见：testGenericMothed()
+    - 在调用的时候，不用显式指出String Object等类型，因为系统会根据传入的变量自动判断类型参数的类型 参见 testGenericMothed()                   
