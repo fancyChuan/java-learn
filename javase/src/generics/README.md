@@ -28,3 +28,12 @@ public interface ListString extends List {
 }
 ``` 
 
+类型通配符
+- List<String> 不是List<Object>的子类，参见 Main.testISNotSubClass()
+- java早期设计中，允许吧Integer[] 赋值给Number[] 变量，其实是不合理的，因为两者并不是互为父子类
+- 数组和泛型不同。Sub是Fat的子类型，那么 Sub[] 仍然是 Fat[] 的子类型，但 G<Sub>不是G<Fat>的子类型
+- 使用类型通配符
+    - List<?> 可以表示各种泛型List的父类，? 就是通配符
+    - 带这种通配符的List仅表示是各种泛型List的父类，并不能把元素加到其中 List<?> c = new ArrayList<String>(); c.add("tt"); 是错误的，唯一例外的是null，可以放进去
+    - 设定类型通配符的上限， List<? extends Shape>表示所有Shape泛型List的父类 
+    
