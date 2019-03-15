@@ -35,5 +35,9 @@ public interface ListString extends List {
 - 使用类型通配符
     - List<?> 可以表示各种泛型List的父类，? 就是通配符
     - 带这种通配符的List仅表示是各种泛型List的父类，并不能把元素加到其中 List<?> c = new ArrayList<String>(); c.add("tt"); 是错误的，唯一例外的是null，可以放进去
-    - 设定类型通配符的上限， List<? extends Shape>表示所有Shape泛型List的父类 
+    - 设定类型通配符的上限： List<? extends Shape>表示所有Shape泛型List的父类 参见 Main.testLimitMatch()
+    - 设定类型形参的上限： 在定义类型形参时设定
+        - public class Apple<T extends Number> {} 这是一个Apple泛型类，要求是Number的子类型
+        - 极端情况下，需要设定多个上限时：最多一个父类上限，可以有多个接口上限，接口上限在类上限之后
+        > public class Apple<T extends Number & java.io.Serializable>
     
