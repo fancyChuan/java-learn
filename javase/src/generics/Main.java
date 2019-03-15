@@ -83,6 +83,21 @@ public class Main {
         GenericMethod.test2(list1, list2); // 只要满足list1是list2类型的子类就可以
 
     }
+
+    /**
+     * 6. 泛型构造器
+     */
+    public static void testGenericConstructor() {
+        new Foo("xxxx");
+        new Foo(200);
+
+        new <String> Foo("fancy");
+        // new <String> Foo(11); // 这行代码会报错，因为显式指明了类型形参T的类型是String，但是实际传了Integer，会报错
+
+        MyClass<String> mc0 = new MyClass<>(5); // 利用了Java7新增的“棱形”语法，可以不显式声明构造器类型
+        MyClass<String> mc1 = new <Integer> MyClass<String>(5); // 类声明中的E形参是String，构造器声明的T是Integer
+        // MyClass<String> mc2 = new <Integer> MyClass<>(5); // 显式指定了泛型构造器中类型形参的类型，就不能使用“菱形”语法了
+    }
 }
 
 
@@ -151,5 +166,19 @@ class GenericMethod {
         for (T ele: from) {
             to.add(ele);
         }
+    }
+}
+
+/**
+ * 泛型构造器
+ */
+class Foo {
+    public <T> Foo(T t) { // <T> 在这里相当于就是先声明了形参类型T
+        System.out.println(t);
+    }
+}
+class MyClass<E> {
+    public <T> MyClass(T t) {
+        System.out.println("t的类型是：" + t);
     }
 }

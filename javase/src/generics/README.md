@@ -42,4 +42,10 @@ public interface ListString extends List {
         > public class Apple<T extends Number & java.io.Serializable>
 - 泛型方法，在类、接口中没有使用类型形参，在方法中定义类型形参
     - 语法： 修饰符 <T, S> 返回值类型 方法名(形参列表) 参见：testGenericMothed()
-    - 在调用的时候，不用显式指出String Object等类型，因为系统会根据传入的变量自动判断类型参数的类型 参见 testGenericMothed()                   
+    - 在调用的时候，不用显式指出String Object等类型，因为系统会根据传入的变量自动判断类型参数的类型 参见 testGenericMothed()
+- 泛型方法和类型通配符的区别
+    - 如果一个类型形参只使用一次，唯一效果就是传入不同的实际类型，那么就应该用通配符
+    - 如果方法中的一个形参的类型或者返回值依赖另一个形参的类型，那么就应该用泛型方法
+    - 另一个区别是：类型通配符既可以在方法签名中定义形参的类型，也可以用于定义变量的类型；但泛型方法中的类型形参必须在对于方法中显式声明
+- 泛型构造器
+    - 跟泛型方法一样，也可以在构造器签名中声明类型形参
