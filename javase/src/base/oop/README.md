@@ -405,7 +405,7 @@ E:\JavaWorkshop\java-learn\javase>jar xfv baselib.jar
     - 当使用cmd自行打包的时候要注意：
         1. 要打包的是 *.class文件，否则执行的时候会找不到类
         2. 所有类必须放在跟包结构对于的目录中，所以我们需要进入到包的上一级目录，也就是**工程目录**下。在这里就是E:\javaProject\java-learn\javase\target\production\javase。这个地方就是class文件的生成位置
-        3. ef参数的位置需要对应！否则会报“没有主清单属性”的错误
+        3. ef参数的位置需要跟值的位置对应！否则会报“没有主清单属性”的错误。如下所示
 ```
 # 打包一个java包，进入到工程目录下 .../javase
 E:\javaProject\java-learn\javase\target\production\javase>jar cvfe ..\..\jar\baselib.jar baselib.StringsTest baselib

@@ -4,6 +4,9 @@ package generics;
  * 使用泛型声明类
  *
  * 在使用的时候为T传入实际类型，这样就可以生成Apply<String>, Apply<Double>等等形式的多个逻辑子类（物理上并不存在）
+ *
+ * T： 为类型形参
+ * 变量、常量、表达式等为数据形参
  */
 public class Apple<T> {
 
