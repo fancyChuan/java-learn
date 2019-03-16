@@ -10,7 +10,8 @@ public class Main {
         // testExtends();
         // testNotNewClass();
         // testLimitMatch();
-        testGenericMothed();
+        // testGenericMothed();
+        testSuperMatch();
     }
 
     /**
@@ -81,7 +82,6 @@ public class Main {
         List<Object> list2 = new ArrayList<>();
         // GenericMethod.test1(list1, list2); 这一行会报错，因为无法推断T的类型
         GenericMethod.test2(list1, list2); // 只要满足list1是list2类型的子类就可以
-
     }
 
     /**
@@ -97,6 +97,23 @@ public class Main {
         MyClass<String> mc0 = new MyClass<>(5); // 利用了Java7新增的“棱形”语法，可以不显式声明构造器类型
         MyClass<String> mc1 = new <Integer> MyClass<String>(5); // 类声明中的E形参是String，构造器声明的T是Integer
         // MyClass<String> mc2 = new <Integer> MyClass<>(5); // 显式指定了泛型构造器中类型形参的类型，就不能使用“菱形”语法了
+    }
+
+    /**
+     * 7. 设定通配符的下限
+     */
+    public static void testSuperMatch() {
+        List<Number> dest = new ArrayList<>();
+        List<Integer> src = new ArrayList<>();
+        src.add(1);
+        src.add(2);
+
+        Integer last1 = GenericMethod.copy1(dest, src);
+        GenericMethod.copy2(dest, src); // 这行不报错
+        // Integer last2 = GenericMethod.copy2(dest, src); // 这一行编译就报错了，因为返回值是Number类型，用Integer修饰会报错
+        Integer last2 = (Integer) GenericMethod.copy2(dest, src); // 需要这样子才可以
+        System.out.println(last1);
+        System.out.println(last2);
     }
 }
 
@@ -153,7 +170,6 @@ class GenericMethod {
     // static void fromArrayToCollection(Object[] a, Collection<Object> c) {}
     // 上面这个，把Object换成通配符?也不行，因为在方法中，泛型类不能确定，无法执行 c.add()
 
-
     // 容易出错，当from和to的类型不一样时，哪怕是存在父子类关系
     static <T> void test1(Collection<T> from, Collection<T> to) {
         for (T ele: from) {
@@ -166,6 +182,25 @@ class GenericMethod {
         for (T ele: from) {
             to.add(ele);
         }
+    }
+
+    // 设置通配符的下限， <? super T> 表示? 是T的父类或者T本身
+    public static <T> T copy1(Collection<? super T> dest, Collection<T> src) {
+        T last = null;
+        for (T ele: src) {
+            last = ele;
+            dest.add(ele);
+        }
+        return last;
+    }
+    // 这是采用通配符上限的写法，但是会有问题
+    public static <T> T copy2(Collection<T> dest, Collection<? extends T> src) {
+        T last = null; //这个地方因为无法确切知道src中元素的类型，只知道是T的子类或者本身，只能用T来表示，也就是说last可能丢失了真正的数据类型
+        for (T ele: src) {
+            last = ele;
+            dest.add(ele);
+        }
+        return last;
     }
 }
 
