@@ -7,7 +7,8 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        testSafeVarargs(Arrays.asList("Hello!"), Arrays.asList("world"));
+        // testSafeVarargs(Arrays.asList("Hello!"), Arrays.asList("world"));
+        testInheritedAnnotation();
     }
 
     /**
@@ -37,9 +38,21 @@ public class Main {
         listArray[0] = myList;
         String s = listStrArray[0].get(0);
     }
+
+    /**
+     * 2. 具有继承性的注解
+     */
+    public static void testInheritedAnnotation() {
+        // 判断InheritableTest类是否有@Inheritable注解
+        System.out.println(InheritableTest.class.isAnnotationPresent(Inheritable.class));
+    }
 }
 
 // 关闭整个类里的编译器警告。针对没有使用泛型的警告
 @SuppressWarnings(value="unchecked")
 class SuppressWarningsTest {
 }
+
+@Inheritable
+class Base {}
+class InheritableTest extends Base {}
