@@ -50,3 +50,23 @@ public @interface Testable{}
 public @interface Inheritable{}
 ```
 
+自定义Annotation
+- 使用关键词 @interface
+- 可以带成员变量，只不过需要以无形参的方法形式来声明
+- 使用注解的时候，需要给定初始值。当然也可以给成员变量在定义时指定默认值，使用关键词default
+```
+public @interface MyTag {
+    // 带两个成员变量，已方法的形式来定义，age还带有默认
+    String name();
+    int age() default 24;
+}
+```
+- 根据是否有成员变量把 Annotation分为两类：
+    - 标记Annotation：无成员变量，比如@Override
+    - 元数据Annotation：提供了更多的元数据
+
+- 提取Annotation信息
+    - 使用注解不会对程序有任何的影响，这是java注解的一个重要原则。从另一个角度说，使用了注解就需要程序员手动提取信息对注解进行处理
+    - Annotation接口是所有注解的父接口
+    - AnnotatedElement接口是所有程序元素的父接口
+    - 提取的大致过程：使用反射获取特定类、方法，再执行相关的提取注解信息的方法 参见 ProcessTest.java

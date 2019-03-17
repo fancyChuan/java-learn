@@ -8,7 +8,8 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         // testSafeVarargs(Arrays.asList("Hello!"), Arrays.asList("world"));
-        testInheritedAnnotation();
+        // testInheritedAnnotation();
+        testExtractAnnotation();
     }
 
     /**
@@ -45,6 +46,17 @@ public class Main {
     public static void testInheritedAnnotation() {
         // 判断InheritableTest类是否有@Inheritable注解
         System.out.println(InheritableTest.class.isAnnotationPresent(Inheritable.class));
+    }
+
+    /**
+     * 3. 提取Annotation的信息，并判断方法是否可以测试成功，具体参见 ProcessTest.java
+     */
+    public static void testExtractAnnotation() {
+        try {
+            ProcessTest.process("annotation.MyTest");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
 
