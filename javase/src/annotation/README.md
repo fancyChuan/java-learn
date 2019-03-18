@@ -95,3 +95,7 @@ public Action FooAction{}
 @Result(name='success')
 public Action FooAction{}
 ```
+- java8新增的TypeAnnotation（类型注解）
+    - java8为ElementType新增到了 TYPE_PARAMETER、TYPE_USE 两个枚举值
+    - 类型注解可以用在任何**用到类型**的地方 参见 TypeAnnotation.java
+    - 使用类型注解是为了让编译器执行更严格的检查，但是java8本身没有提供对类型注解的检查框架
