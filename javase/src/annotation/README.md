@@ -99,3 +99,13 @@ public Action FooAction{}
     - java8为ElementType新增到了 TYPE_PARAMETER、TYPE_USE 两个枚举值
     - 类型注解可以用在任何**用到类型**的地方 参见 TypeAnnotation.java
     - 使用类型注解是为了让编译器执行更严格的检查，但是java8本身没有提供对类型注解的检查框架
+
+
+编译时处理Annotation
+- APT(Annotation Processing Tool)是一种注解处理工具
+- 使用APT可以代替传统的对代码信息和附属文件的维护工作，简化开发者的工作量
+- javac -process 可以指定一个Annotation处理器
+```
+# 指定APT去处理注解，并生成一份XML文件
+javac -process HibernateAnnotationProcessor Persion.java
+```
