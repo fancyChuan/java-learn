@@ -64,9 +64,34 @@ public @interface MyTag {
 - 根据是否有成员变量把 Annotation分为两类：
     - 标记Annotation：无成员变量，比如@Override
     - 元数据Annotation：提供了更多的元数据
-
 - 提取Annotation信息
     - 使用注解不会对程序有任何的影响，这是java注解的一个重要原则。从另一个角度说，使用了注解就需要程序员手动提取信息对注解进行处理
     - Annotation接口是所有注解的父接口
     - AnnotatedElement接口是所有程序元素的父接口
     - 提取的大致过程：使用反射获取特定类、方法，再执行相关的提取注解信息的方法 参见 ProcessTest.java
+    - 访问注解信息的方法：
+    
+    方法名 | 说明
+    --- | ---
+    getAnnotation(Class<A> annotationClass) | 获取指定类型的注解，不存在则返回null
+    getDeclaredAnnotation(Class<A> annotationClass) | java8新增，获取直接修饰程序元素的指定类型的注解
+    getAnnotations() | 获取所有注解
+    getDeclaredAnnotations() | 获取直接修饰程序元素的所有注解
+    isAnnotationParent(Class<? extends Annotation> annotationClass) | 该程序元素上是否存在指定类型的注解
+    getAnnotationsByType(Class<A> annotationClass) | java8新增，获取指定类型所有注解
+    getDeclaredAnnotationsByType(Class<A> annotationClass) | java8新增，获取直接修饰程序元素的指定类型的所有注解
+    
+    
+- java8新增的重复注解
+    - 使用@Repeatable()在value中指定一个拥有注解容器的类，参见 FKTag.java
+    - 重复注解只是一种简化写法，其实也是一种假象：多个重复注解其实还是会被作为“容器注解”的value成员的数组元素
+```
+# java8以前
+@Results({@Result(name='failed')})
+@Result(name='success')
+public Action FooAction{}
+# java8之后
+@Result(name='failed')
+@Result(name='success')
+public Action FooAction{}
+```

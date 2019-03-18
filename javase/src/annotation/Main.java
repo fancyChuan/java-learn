@@ -9,7 +9,8 @@ public class Main {
     public static void main(String[] args) {
         // testSafeVarargs(Arrays.asList("Hello!"), Arrays.asList("world"));
         // testInheritedAnnotation();
-        testExtractAnnotation();
+        // testExtractAnnotation();
+        testRepeatAnnotation();
     }
 
     /**
@@ -57,6 +58,22 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 4. 重复注解
+     */
+    public static void testRepeatAnnotation() {
+        Class<FKTagTest> clazz = FKTagTest.class;
+
+        // 使用java8新增的方法获取修饰FKTagTest的多个@FKTag注解
+        FKTag[] tags = clazz.getDeclaredAnnotationsByType(FKTag.class);
+        for ( FKTag tag: tags) {
+            System.out.println(tag.name() + "-->" + tag.age());
+        }
+        // 使用传统的方法获取修饰FKTagTest的@FKTags注解，因为java8以前不允许出现重复注解
+        FKTags container = clazz.getDeclaredAnnotation(FKTags.class);
+        System.out.println(container);
     }
 }
 
