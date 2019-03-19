@@ -17,7 +17,8 @@ public class Main {
         // testExecuteType();
         // testInitUseFile();
         // testPreparedStatement();
-        testCallableStatement();
+        // testCallableStatement();
+        testUpdatableStatement();
     }
 
     /**
@@ -171,5 +172,25 @@ end;
         }
     }
 
+    public static void testUpdatableStatement() {
+        String sql = "select * from tmp1";
+        try (
+                PreparedStatement pstmt = new MysqlInstance("for_learn").getPreparedStatement(sql
+                , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                ResultSet rs = pstmt.executeQuery()
+        ) {
+            rs.last();
+            int rowCnt = rs.getRow(); // 这个方法得到的是当前指针
+            for (int i=rowCnt; i>0; i--) {
+                rs.absolute(i); // 可以移动到任意位置索引从1开始
+                System.out.println(rs.getString(1) + "\t" + rs.getString(2));
+                rs.updateString("name", rs.getString(2) + i);
+                rs.updateRow(); // 需要表有主键才能更新成功
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
