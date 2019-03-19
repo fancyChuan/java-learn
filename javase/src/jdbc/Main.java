@@ -20,6 +20,9 @@ public class Main {
         testCallableStatement();
     }
 
+    /**
+     * 1. JDBC的使用步骤
+     */
     public static void testConnMysql() throws ClassNotFoundException {
         // 1. 加载驱动，使用反射只是
         Class.forName("com.mysql.jdbc.Driver");
@@ -53,7 +56,7 @@ public class Main {
     }
 
     /**
-     * execute的三种执行方式
+     * 2. Statement的三种执行方式
      */
     public static void testExecuteType() {
         try (
@@ -93,6 +96,9 @@ public class Main {
         }
     }
 
+    /**
+     * 3. 通过文件初始化数据库连接
+     */
     public static void testInitUseFile() {
         try (
             Statement stmt = new MysqlInstance(new File("src/jdbc/jdbc-mysql.properties")).getBasciStatement()
@@ -108,10 +114,9 @@ public class Main {
     }
 
     /**
-     * PreparedStatement用法与性能
-     *
-     * 1. PreparedStatement.execute/executeQuery/executeUpdate都不需要参数
-     * 2. PreparedStatement效率比Statement要高
+     * 4. PreparedStatement用法与性能
+     *  4.1. PreparedStatement.execute/executeQuery/executeUpdate都不需要参数
+     *  4.2. PreparedStatement效率比Statement要高
      */
     public static void testPreparedStatement() {
         String sql = "insert into tmp1 values (?, ?)";
@@ -140,7 +145,7 @@ public class Main {
     }
 
     /**
-     * CallableStatement的用法
+     * 5. CallableStatement的用法
      */
     public static void testCallableStatement() {
         /* 在MySQL执行下面的创建存储过程的语句
@@ -165,4 +170,6 @@ end;
             e.printStackTrace();
         }
     }
+
+
 }

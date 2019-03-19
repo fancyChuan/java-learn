@@ -49,19 +49,28 @@ public class MysqlInstance implements AutoCloseable {
     }
 
     /**
-     * 获取基本的Statement对象
+     * 1. 获取基本的Statement对象
      */
     public Statement getBasciStatement() throws SQLException {
         return this.connection.createStatement();
     }
 
     /**
-     * 预编译的Statement对象
+     * 2. 预编译的Statement对象
      */
     public PreparedStatement getPreparedStatement(String sql) throws SQLException {
         return this.connection.prepareStatement(sql);
     }
+    // 这里需要用到多态，python中的函数有位置参数、默认参数、关键词参数、不定参数，而java没有这种概念
+    public PreparedStatement getPreparedStatement(String sql, int resultSetType, int resultSetConcurrency)
+            throws SQLException {
+        return this.connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
+    }
 
+
+    /**
+     * 3. 可以调用存储过程的CallableStatement对象
+     */
     public CallableStatement getCallableStatement(String sql) throws SQLException {
         return this.connection.prepareCall(sql);
     }
