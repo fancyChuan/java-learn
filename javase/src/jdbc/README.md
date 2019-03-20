@@ -56,5 +56,8 @@ end;
     - Blob 二进制长对象，用于存储大文件，比如图片、视频等
     - 使用PreparedStatement的setBinaryStream() 方法传入二进制流
     - MySQL中：blob只能存储64KB，而mediumblob可以存储16MB
-    
+- 使用ResultSetMetaData 分析结果集
+    - getColumnCount()
+    - getColumnName(int index)
+    - getColumnType(int index)
     

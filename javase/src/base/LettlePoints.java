@@ -122,6 +122,8 @@ public class LettlePoints {
      *      LettlePoints.class.getClassLoader().getResource("")
      *      ClassLoader.getSystemResource("")
      *      Thread.currentThread().getContextClassLoader().getResource("")
+     *
+     * 对java来说，真正执行的是.class文件，也就是编译后的类文件，那么绝对路径取到的也是根据解析后的路径
      */
     public void testAbsPath() {
         URL base1 = this.getClass().getResource("");

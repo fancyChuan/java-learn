@@ -23,7 +23,8 @@ public class Main {
         // testPreparedStatement();
         // testCallableStatement();
         // testUpdatableStatement();
-        testBlobInsertSelect();
+        // testBlobInsertSelect();
+        testResultMetaData();
     }
 
     /**
@@ -201,6 +202,9 @@ end;
         }
     }
 
+    /**
+     * 7. 操作Blob：图片的insert和select
+     */
     public static void testBlobInsertSelect() {
         String insertSql = "insert into img_table " + "values(null, ?, ?)";
         String querySql = "select * from img_table where img_id=?";
@@ -234,6 +238,33 @@ end;
             outputStream.close();
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 8. ResultSet 元数据
+     */
+    public static void testResultMetaData() {
+        try (
+                Statement stmt = new MysqlInstance("for_learn").getBasciStatement();
+                ) {
+            ResultSet rs = stmt.executeQuery("SELECT * FROM tmp1 limit 5");
+            ResultSetMetaData metaData = rs.getMetaData();
+            for (int i=0; i< metaData.getColumnCount(); i++) {
+                System.out.print("\t");
+                System.out.print(metaData.getColumnName(i + 1));
+            }
+            System.out.println();
+            while (rs.next()) {
+                for (int i=0; i< metaData.getColumnCount(); i++) {
+                    System.out.print("\t");
+                    System.out.print(rs.getString(i + 1));
+                }
+                System.out.println();
+            }
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
