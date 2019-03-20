@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * 零散的小知识点
@@ -15,11 +17,12 @@ public class LettlePoints {
         // testReadFileOnce();
         // testGetBytes();
         // testStringBufferReverse();
-        testPlusPlus();
+        // testPlusPlus();
+        testPath();
     }
 
     /**
-     * String.toCharArray() 把字符串转为数组，每个元素分别为一个字符
+     * 1. String.toCharArray() 把字符串转为数组，每个元素分别为一个字符
      * "abc" --> ["a", "b", "c"]
      * "中文" --> ["中", "文"]
      *
@@ -34,12 +37,12 @@ public class LettlePoints {
     }
 
     /**
-     * 一次性把输入流的所有内容读出
+     * 2. 一次性把输入流的所有内容读出
      *
-     * 1. 通过File对象读出文件的元信息
-     * 2. 获取文件的长度，并转化为int类型，file.length()是long类型的
-     * 3. 用数组保存输入流读到的内容 InputStream.read()
-     * 4. 用new String() 把数组转为字符串并打印出来
+     * 2.1. 通过File对象读出文件的元信息
+     * 2.2. 获取文件的长度，并转化为int类型，file.length()是long类型的
+     * 2.3. 用数组保存输入流读到的内容 InputStream.read()
+     * 2.4. 用new String() 把数组转为字符串并打印出来
      */
     public static void testReadFileOnce() {
         File file = new File("src/base/io/copy.txt");
@@ -54,7 +57,7 @@ public class LettlePoints {
     }
 
     /**
-     * 把字符串转为字节数组 getBytes()
+     * 3. 把字符串转为字节数组 getBytes()
      * 对于abc等字母来说，一个字符为一个字节，相当于是test的一个元素
      * 对于中文字符来说，一个中文为3个字节，对应test的三个元素 【utf-8编码】【gbk编码时一个中文字符为2个字节】
      */
@@ -87,7 +90,7 @@ public class LettlePoints {
     }
 
     /**
-     * ++a a++的区别
+     * 4. ++a a++的区别
      * a++ 是先使用这个变量，再加1
      * ++a s是先加1，再使用这个变量
      */
@@ -100,4 +103,42 @@ public class LettlePoints {
             System.out.print("\t b: " + ++b + "\n"); // 这里是先把a+1再把a的值打印出来
         }
     }
+
+    /**
+     * 5. java相对路径、绝对路径
+     */
+    public static void testPath() {
+        new LettlePoints().testAbsPath();
+        new LettlePoints().testRelPath();
+    }
+
+    /**
+     * 5.1 根据类获取绝对路径
+     * 路径含包名：
+     *      this.getClass().getResource("")
+     *      LettlePoints.class.getResource("")
+     * 路径不含包名：
+     *      LettlePoints.class.getResource("/");
+     *      LettlePoints.class.getClassLoader().getResource("")
+     *      ClassLoader.getSystemResource("")
+     *      Thread.currentThread().getContextClassLoader().getResource("")
+     */
+    public void testAbsPath() {
+        URL base1 = this.getClass().getResource("");
+        System.out.println(base1); // file:/E:/javaProject/java-learn/javase/target/production/javase/base/
+        URL base2 = ClassLoader.getSystemResource("");
+        System.out.println(base2); // file:/E:/javaProject/java-learn/javase/target/production/javase/
+        URL base3 = LettlePoints.class.getResource(""); // 跟base1的效果是一样的
+        System.out.println(base3); // file:/E:/javaProject/java-learn/javase/target/production/javase/base/
+        URL base4 = LettlePoints.class.getResource("/");
+        System.out.println(base4); // file:/E:/javaProject/java-learn/javase/target/production/javase/
+        URL base5 = Thread.currentThread().getContextClassLoader().getResource("");
+        System.out.println(base5); // file:/E:/javaProject/java-learn/javase/target/production/javase/
+        URL base6 = LettlePoints.class.getClassLoader().getResource("");
+        System.out.println(base6); // file:/E:/javaProject/java-learn/javase/target/production/javase/
+    }
+    public void testRelPath() {
+
+    }
+
 }
