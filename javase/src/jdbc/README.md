@@ -52,3 +52,9 @@ end;
         - ResultSet.CONCUR_READ_ONLY: 只读并发模式（默认）
         - ResultSet.CONCUR_UPDATABLE: 可更新的并发模式
 > 可更新的结果集要满足两个条件：1. 所有数据来源一个表 2. 数据集必须包含主键
+- 管理Blob类型数据
+    - Blob 二进制长对象，用于存储大文件，比如图片、视频等
+    - 使用PreparedStatement的setBinaryStream() 方法传入二进制流
+    - MySQL中：blob只能存储64KB，而mediumblob可以存储16MB
+    
+    

@@ -1,6 +1,10 @@
 package jdbc;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.*;
 
 /**
@@ -18,7 +22,8 @@ public class Main {
         // testInitUseFile();
         // testPreparedStatement();
         // testCallableStatement();
-        testUpdatableStatement();
+        // testUpdatableStatement();
+        testBlobInsertSelect();
     }
 
     /**
@@ -172,6 +177,9 @@ end;
         }
     }
 
+    /**
+     * 6. 可更新的结果集
+     */
     public static void testUpdatableStatement() {
         String sql = "select * from tmp1";
         try (
@@ -193,4 +201,40 @@ end;
         }
     }
 
+    public static void testBlobInsertSelect() {
+        String insertSql = "insert into img_table " + "values(null, ?, ?)";
+        String querySql = "select * from img_table where img_id=?";
+        try (
+                PreparedStatement insert = new MysqlInstance("for_learn").getPreparedStatement(insertSql
+                        , Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement query = new MysqlInstance("for_learn").getPreparedStatement(querySql)
+                ) {
+            // 把图片保存到mysql
+            URL base = Main.class.getResource("");
+            String imgName = "骨骼龙.jpg";
+            File file = new File(base.getFile() + File.separator + imgName);
+            InputStream inputStream = new FileInputStream(file);
+            insert.setString(1, imgName);
+            insert.setBinaryStream(2, inputStream, (int) file.length());
+            int affect = insert.executeUpdate();
+            System.out.println("上传影响的行数：" + affect);
+            // 取出照片保存到本地
+            query.setInt(1, 1);
+            ResultSet resultSet = query.executeQuery();
+            resultSet.next();
+            // 取出Blob
+            Blob imgBlob = resultSet.getBlob("img_data");
+            // 取出Blob里的数据
+            String saveName = "骨骼龙-return.jpg";
+            // 这里使用了相对路径，默认是项目根目录
+            FileOutputStream outputStream = new FileOutputStream(new File("src/jdbc/" + saveName));
+            outputStream.write(imgBlob.getBytes(1, (int) imgBlob.length())); // getBytes()要从1开始
+
+            inputStream.close();
+            outputStream.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -66,6 +66,10 @@ public class MysqlInstance implements AutoCloseable {
             throws SQLException {
         return this.connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
     }
+    public PreparedStatement getPreparedStatement(String sql, int resultSetType)
+            throws SQLException {
+        return this.connection.prepareStatement(sql, resultSetType);
+    }
 
 
     /**
