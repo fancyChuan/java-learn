@@ -1,0 +1,83 @@
+## Maven
+
+核心用途：
+- 项目自动构建
+- 依赖管理
+- (项目信息管理)
+
+区分包的三要素：
+- groupId: 域名反写
+- artifactId: 项目中的模块名
+- version: 版本号
+- package: 打包方式（jar, war）
+
+
+### 依赖管理
+- 使用三要素坐标引用依赖项目
+- 依赖的范围：由scope标签指定
+    - compile: 默认值。编译范围有效：编译、测试、运行
+    - test: 测试依赖范围。只对测试classpath有效
+    - provided: 已提供以来范围。对于编译、测试的classpath有效，对运行无效。因为容器已提供
+
+依赖范围 | 对主代码class有效 | 对测试classpath有效 | 被打包，对运行时classpath有效 | 例子
+--- | --- | --- | --- | ---
+compile | Y | Y | Y | log4j
+test | - | Y | - | junit
+provided | Y | Y | - | servlet-api
+runtime | - | - | Y | JDBC Driver
+
+- 依赖原则
+    - 路径最近这优先
+    - 路径相同最先声明者优先
+    
+
+### 仓库管理
+本地、远程（私服、中央仓库、镜像）
+
+### 生命周期
+- 定义：
+    - Maven生命周期是对所有构建过程的抽象和统一
+    - 包括：项目清理、初始化、编译、打包、测试、部署等
+- Maven的三套相互独立的生命周期
+    - Clean Lifecycle 在正在构建前进行一些清理工作
+    - Default Lifecycle 构建的核心部分，编译、测试、打包、安装、部署等
+    - Site Lifecycle 生成项目报告，站点，发布站点
+```
+mvn clean 
+mvn install
+mvn site
+```    
+
+
+### Maven插件
+- Maven的核心仅仅定义了抽象的生命周期，具体的任务都是交由插件完成的。
+- 每个插件都能实现多个功能，每个功能就是一个插件目标
+- Maven的生命周期与插件目标相互绑定，以完成某个具体的构建任务。
+> compile就是插件maven-compiler-plugin的一个目标；
+
+
+### 项目继承
+- 父项目 parent
+    - 修改pom.xml文件，<packaging>jar</packaging>改为<packaging>pom</packaging>
+    - 把项目中的dependencies标签改为 dependencyManagement
+    - 把子项目聚合，在modules标签下添加所有子项目
+```
+    <!-- 实现多个模块工程的聚合 -->
+	<modules>
+		<!-- pom文件的相对路径 -->
+		<module>../Hello/pom.xml</module>
+		<module>../HelloFriend/pom.xml</module>
+		<module>../MakeFriends/pom.xml</module>
+		<module>../HappyWeb/pom.xml</module>
+	</modules>
+```
+- 子项目
+    - 在pom.xml中，添加
+```
+<parent>
+    <groupId>...</groupId>
+	<artifactId>...</artifactId>
+	<version>...</version>
+	<relativePath>从当前目录到父项目的pom.xml文件的相对路径</relativePath>
+</parent>
+```
