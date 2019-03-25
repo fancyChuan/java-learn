@@ -1,10 +1,13 @@
 package reflect;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Enumeration;
 
 public class Main {
-    public static void main(String[] args) {
-        testBootstrap();
+    public static void main(String[] args) throws IOException {
+        // testBootstrap();
+        testClassLoader();
     }
 
     /**
@@ -26,5 +29,36 @@ public class Main {
         file:/D:/ProgramData/jdk1.8.0_66/jre/lib/jfr.jar
         file:/D:/ProgramData/jdk1.8.0_66/jre/classes
         */
+    }
+
+    /**
+     * 2. 访问类加载器
+     *   * 类加载器的加载路径就是程序运行的当前路径
+     *   * 扩展类加载器的parent是null，并不是根类加载器(根类加载器不继承ClassLooader抽象类)
+     *   * 系统类加载器是AppClassLoader的实例，扩展类加载器是ExtClassLoader的实例。两个类都是URLClassLoader类的实例
+     */
+    public static void testClassLoader() throws IOException {
+        // 系统类加载器
+        ClassLoader systemLoader = ClassLoader.getSystemClassLoader();
+        System.out.println("系统类加载器： " + systemLoader);
+        Enumeration<URL> em1 = systemLoader.getResources("");
+        while (em1.hasMoreElements()) {
+            System.out.println(em1.nextElement());
+        }
+        // 拓展类加载器
+        ClassLoader extensionLoader = systemLoader.getParent();
+        System.out.println("拓展类加载器： " + extensionLoader);
+        System.out.println("扩展类加载器的加载路径：" + System.getProperty("java.ext.dirs"));
+        System.out.println("扩展类加载器的parent： " + extensionLoader.getParent());
+        /* 运行结果
+        =====================================
+        系统类加载器： sun.misc.Launcher$AppClassLoader@14dad5dc
+        file:/E:/javaProject/java-learn/javase/target/production/javase/
+                拓展类加载器： sun.misc.Launcher$ExtClassLoader@74a14482
+        扩展类加载器的加载路径：D:\ProgramData\jdk1.8.0_66\jre\lib\ext;C:\Windows\Sun\Java\lib\ext
+        扩展类加载器的parent： null
+        =====================================
+        */
+
     }
 }
