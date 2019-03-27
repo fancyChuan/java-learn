@@ -1,13 +1,17 @@
 package reflect;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Enumeration;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // testBootstrap();
-        testClassLoader();
+        // testClassLoader();
+        // testSelfClassLoader();
+        CompileClassLoader cll = new CompileClassLoader();
+        cll.compile("reflect/TestClassLoader.java");
     }
 
     /**
@@ -59,6 +63,16 @@ public class Main {
         扩展类加载器的parent： null
         =====================================
         */
+    }
 
+    public static void testSelfClassLoader() throws Exception {
+        String execClass = "reflect.TestClassLoader";
+        String[] args = {"hello", "world", "hhh"};
+        Object objs[] = {args};
+
+        CompileClassLoader ccl = new CompileClassLoader();
+        Class<?> clazz = ccl.loadClass(execClass);
+        Method main = clazz.getMethod("main", (new String[0]).getClass());
+        main.invoke(null, objs);
     }
 }
