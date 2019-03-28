@@ -9,9 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // testBootstrap();
         // testClassLoader();
-        // testSelfClassLoader();
-        CompileClassLoader cll = new CompileClassLoader();
-        cll.compile("reflect/TestClassLoader.java");
+        testSelfClassLoader();
     }
 
     /**
@@ -65,11 +63,18 @@ public class Main {
         */
     }
 
+    /**
+     * 3. 测试自定义的类加载器。
+     *  TODO：其实很疑惑，为什么在idea里面，总是会找不到路径呢？是相对路径的问题还是idea用了Java-agent的原因？
+     */
     public static void testSelfClassLoader() throws Exception {
+//        CompileClassLoader cll = new CompileClassLoader();
+//        cll.compile("reflect\\TestClassLoader.java");
+
         String execClass = "reflect.TestClassLoader";
         String[] args = {"hello", "world", "hhh"};
         Object objs[] = {args};
-
+        Object[] objs2 = args;
         CompileClassLoader ccl = new CompileClassLoader();
         Class<?> clazz = ccl.loadClass(execClass);
         Method main = clazz.getMethod("main", (new String[0]).getClass());

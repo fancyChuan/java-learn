@@ -35,13 +35,17 @@ public class CompileClassLoader extends ClassLoader {
         System.out.println("======= 进入编译环节 =======");
         System.out.println("正在编译： " + javaFile + " ...");
         System.out.println("当前路径： " + ClassLoader.getSystemResource(""));
-        Process p = Runtime.getRuntime().exec("javac -encoding utf-8 " + javaFile);
+//        System.out.println("当前路径path： " + ClassLoader.getSystemResource("").getPath());
+        javaFile = ClassLoader.getSystemResource("").getPath() + File.separator + javaFile; // 这一行是使用了绝对路径，用相对路径的时候，在Main中是无法执行的
+        Process p = Runtime.getRuntime().exec("javac -encoding utf-8 " + javaFile); // 这是一个新的进程，要特别注意环境的问题
 
         try {
             p.waitFor();
             String msg = new BufferedReader(new InputStreamReader(p.getErrorStream(),"GBK")).readLine(); // 编译过程的错误信息
             if (msg != null) {
-                System.out.println(msg);
+                System.out.println("[error] " + msg);
+            } else {
+                System.out.println("编译成功");
             }
         }
         catch (Exception e) {
@@ -62,6 +66,7 @@ public class CompileClassLoader extends ClassLoader {
         String classFileName = fileStub + ".class";
         File javaFile = new File(javaFileName);
         File classFile = new File(classFileName);
+
         if (javaFile.exists() && (!classFile.exists() || classFile.lastModified() < javaFile.lastModified())) {
             try {
                 if(!compile(javaFileName) || !classFile.exists()) {
