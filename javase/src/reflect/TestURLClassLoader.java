@@ -12,7 +12,7 @@ public class TestURLClassLoader {
 
     public static Connection getConnection(String url, String user, String pass) throws Exception {
         if (connection == null) {
-            // 创建一个数组，从任意地方读取mysql驱动文件，这样一来就不需要吧驱动放在 classpath 里面了
+            // 创建一个数组，从任意地方读取mysql驱动文件，这样一来就不需要吧驱动放在 classpath 里面了。file:表示从本地文件加载
             URL[] urls = {new URL("file:E:\\JavaWorkshop\\java-learn\\javase\\jar\\mysql-connector-java-5.1.46.jar")};
             // 以默认的ClassLoader作为父ClassLoader，创建URLClassLoader对象
             URLClassLoader myClassLoader = new URLClassLoader(urls);

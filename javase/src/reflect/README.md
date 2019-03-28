@@ -51,4 +51,48 @@
 - URLClassLoader类
     - 该类是系统类加载器和扩展类加载器的父类（此处的父类，就是类与类之间的继承关系）
     - 可以从本地文件系统中获取二进制文件来加载类，也可以从远程主机中获取、加载
-    - 
+
+通过反射查看类信息
+- 对象运行时的两种类型：编译时类型、运行时类型。如 Person p = new Student()
+    - 编译时类型是 Person
+    - 运行时类型是 Student
+    - 很多情况下需要调用运行时类型的方法、属性，有两种解决方法：
+        - 编译时知道类型的具体信息，通过 instanceof 判断之后做**强制类型转换**
+        - 编译时不知道类型的具体信息，通过反射来解决
+- 获得Class对象
+    - 三种方式：
+        - Class.forName(String className)  className需要是全限定类名
+        - 类名.Class
+        - 对象实例.getClass()
+    - 相比第一种，第二种方式更好：
+        - 代码更安全，类名.Class在编译的时候编译器会做检查，以免类不存在
+        - 性能更好，因为第二种方式不需要调用方法
+- 获取Class对象的信息
+    - 获取构造器
+        - getConstructor()
+        - getDeclaredConstructor()
+    - 获取方法 
+        - getMethod() getMethods() 获取public方法
+        - getDeclaredMethod() getDeclaredMethods() 与访问权限无关的方法
+    - 获取成员变量
+        - getField() getFields() 获取public成员变量
+        - getDeclaredField() getDeclaredFields() 与访问权限无关的成员变量
+    - 获取注解
+        - getAnnotation() getAnnotations() 
+        - getDeclaredAnnotation() getDeclaredAnnotations() 获取**直接**修饰该类的注解
+        - getAnnotationByType() getAnnotationsByType() 因java8新增重复注解，这里用于获取指定注解类型的多各注解
+    - 其他
+        - getDeclaringClass() 获取Class对象所在的外部类
+        - getDeclaredClass() 获取包含的所有内部类
+        - getInterface() 获取类所实现的接口
+        - getSubClass()
+        - getModifiers() 获取类、接口的所有修饰符。返回的整数需要通过Modifier工具解码
+        - getPackage() getName() getSimpleName() isXxx()...
+```
+public void info()
+public void info(String name)
+public void info(String name, Integer num)
+=============== 获取方法时，指定方法名，同时需要指定形参列表，而获取构造器则只需要形参列表的类型
+clazz.getMethod("info", String.Class)  获取到 info(String name)
+clazz.getMethod("info", String.Class, Integer.Class)  获取到 info(String name, Integer num)
+```

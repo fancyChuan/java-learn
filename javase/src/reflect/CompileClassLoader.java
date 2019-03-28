@@ -109,10 +109,10 @@ public class CompileClassLoader extends ClassLoader {
         CompileClassLoader ccl = new CompileClassLoader();
         Class<?> clazz = ccl.loadClass(progClass);
         System.out.println("加载得到对象：" + clazz);
-        System.out.println(new String[0]);
+        System.out.println(new String[0]); // 这一行的作用是创建一个string类型的数组，但是数组的长度是0
         System.out.println((new String[0]).getClass());
 
-        Method main = clazz.getMethod("main", (new String[0]).getClass());
+        Method main = clazz.getMethod("main", (new String[0]).getClass()); // 通过反射获取方法时，需要指明方法形参的类型，因为可能有多个同名方法
         Object argsArray[] = {progArgs};
         main.invoke(null, argsArray);
     }
