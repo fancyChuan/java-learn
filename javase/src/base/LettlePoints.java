@@ -18,7 +18,8 @@ public class LettlePoints {
         // testGetBytes();
         // testStringBufferReverse();
         // testPlusPlus();
-        testPath();
+        // testPath();
+        testArrayAssign();
     }
 
     /**
@@ -143,4 +144,19 @@ public class LettlePoints {
 
     }
 
+    /**
+     * 6. java数组赋值细节
+     */
+    public static void testArrayAssign() {
+        String[] args = {"hello", "world", "hhh"};
+        Object[] objs0 = args;
+        Object objs1[] = args;
+        Object objs2[] = {args}; // 把整个args数据对象作为objs2的一个元素
+        Object[] objs3 = {args}; // 上一种新建数组跟这一个是一样的，都是把整个args数据对象作为新数组的一个元素
+        System.out.println(args); // [Ljava.lang.String;@4554617c
+        System.out.println(objs0); // [Ljava.lang.String;@4554617c
+        System.out.println(objs1); // [Ljava.lang.String;@4554617c
+        System.out.println(objs2); // [Ljava.lang.Object;@74a14482
+        System.out.println(objs3); // [Ljava.lang.Object;@424c0bc4
+    }
 }
