@@ -81,3 +81,8 @@ mvn site
 	<relativePath>从当前目录到父项目的pom.xml文件的相对路径</relativePath>
 </parent>
 ```
+
+## pom文件常用元素
+元素名 | 含义 | 示例
+--- | --- | ---
+classifier | 类似于关键词，识别特定的jar包 | json-lib-2.4-jdk15.jar json-lib-2.4-jdk13.jar 可以通过classifier=jdk15 识别
