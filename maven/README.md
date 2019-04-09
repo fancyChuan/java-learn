@@ -100,3 +100,35 @@ classifier | 类似于关键词，识别特定的jar包 | json-lib-2.4-jdk15.jar
 #### target/classes
 
 打包插件默认会把这个目录中的所有内容打入到jar包或者war包中。
+
+## 其他
+- 打包指定JDK版本
+```
+<plugin>  
+    <groupId>org.apache.maven.plugins</groupId>  
+    <artifactId>maven-compiler-plugin</artifactId>  
+    <version>3.1</version>  
+    <configuration>  
+        <verbose>true</verbose>  
+        <fork>true</fork>  
+        <executable>${JAVA_HOME}/bin/javac</executable>  
+    </configuration>  
+</plugin>  
+```
+另外一种方式
+```
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+```
