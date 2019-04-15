@@ -28,3 +28,20 @@ Double score = jsonObject.optDouble("score");
 Student student = new Student(id, name, score);
 ```
 - 列表，使用 JSONARRAY() 操作类类似于 JSONObject() 参见 [OfficalJSON](https://github.com/fancyChuan/java-learn/blob/master/json-learn/src/main/java/offical/OfficalJSON.java)
+
+#### FastJSON
+com.alibaba.fastjson.JSON
+- 序列化成json字符串： JSON.toJSONString(obj)
+- 反序列化成对象： JSON.parseObject(str, Xxx.Class)，跟官方JSON相比，只需要传入对象类就可以
+- 列表对象序列化： JSON.toJSONString(list);
+- 列表对象的字符串格式反序列化： JSON.parseObject(JSONStr, new TypeReference<List<Student>>() {})
+
+参见 [OfficalJSON](https://github.com/fancyChuan/java-learn/blob/master/json-learn/src/main/java/fastjson/FastJSON.java)
+
+#### 其他
+【maven地址】
+- 官方JSON：[https://mvnrepository.com/artifact/org.json/json](https://mvnrepository.com/artifact/org.json/json)
+- fastjson:[https://mvnrepository.com/artifact/com.alibaba/fastjson](https://mvnrepository.com/artifact/com.alibaba/fastjson)
+
+【参考文档】
+1. [Java学习总结（二十）——JSON解析：官方解析，GSON解析，FastJSON解析，-墨营的博客-51CTO博客](https://blog.51cto.com/13501268/2129213)
