@@ -16,7 +16,7 @@ public class CollectionTest {
     }
 
     /**
-     * ArrayList、HashSet示例
+     * 1. ArrayList、HashSet示例
      *
      *  实例化的时候，可以指定集合元素的类型 通过 Collection<xxx>来指定，或者ArrayList<xxx>，其中xxx就限定了元素的类型。
      *  比如Collection<String> test = new ArrayList()，这样test.add(666)就会报错，虽然可以自动装箱
@@ -46,7 +46,7 @@ public class CollectionTest {
     }
 
     /**
-     * 使用Lambda表达式遍历集合
+     * 2. 使用Lambda表达式遍历集合
      */
     public static void testLambdaEach() {
         Collection hashSet = new HashSet();
@@ -72,7 +72,7 @@ public class CollectionTest {
     }
 
     /**
-     * 测试Iterator的快速失败(fail-fast)机制:
+     * 3. 测试Iterator的快速失败(fail-fast)机制:
      *      一旦在迭代的过程中发现集合被修改（通常被其他线程修改），会立即报java.util.ConcurrentModificationException的错误
      *      但是要注意，如果是最后一个元素，不一定会报错
      */
@@ -92,6 +92,9 @@ public class CollectionTest {
         System.out.println(hashSet);
     }
 
+    /**
+     * 4. removeIf() 的使用
+     */
     public static void testRemoveIf() {
         Collection hashSet = new HashSet();
         hashSet.add("9年义务教育");
@@ -102,6 +105,9 @@ public class CollectionTest {
         System.out.println(hashSet);
     }
 
+    /**
+     * 5. java8新增的Predicate操作，可以充分简化集合的运算
+     */
     public static void testPredicate() {
         Collection hashSet = new HashSet();
         hashSet.add("9年义务教育");
@@ -121,7 +127,9 @@ public class CollectionTest {
         return total;
     }
 
-
+    /**
+     * 6. java8新增的Stream操作集合
+     */
     public static void testStream() {
         IntStream intStream = IntStream.builder().add(20).add(10).add(50).add(-2).add(18).build();
 
@@ -136,6 +144,9 @@ public class CollectionTest {
         newIntStream.forEach(System.out::println);
     }
 
+    /**
+     * 7. stream()获取流
+     */
     public static void testCollStream() {
         Collection hashSet = new HashSet();
         hashSet.add("9年义务教育");
