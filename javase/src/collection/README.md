@@ -55,4 +55,10 @@ Set就是Collection，只是Set不允许包含重复元素
     - 放进TreeSet的类，需要实现Comparable接口，并实现compareTo()方法（除了第一个元素没有要求）
     - 判断两元素相等的唯一标准是，调用compareTo()方法，得到0。TreeSet只会让compareTo()方法不等于0的元素进入
     - 一个可变对象被修改后导致与其他对象的大小发生变化，TreeSet不会重写调整顺序，甚至可能导致compareTo()返回0
+- EnumSet类
     
+- 各Set实现类的性能分析
+    - HashSet 和 TreeSet 是Set的两个典型实现，HashSet的性能总是比TreeSet好，因为后者需要排序
+    - HashSet有一个子类LinkedHashSet，比HashSet稍微慢点，但遍历时比HashSet快
+    - EnumSet是所有Set实现类中性能最好的，但只能保存同一个枚举类的枚举值作为集合元素
+    - HashSet/TreeSet/EnumSet都是线程不安全的。可以使用 Collections.synchronizedSortedSet(new Treeset(...)) 来保证线程安全
