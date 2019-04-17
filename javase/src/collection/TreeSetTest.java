@@ -59,14 +59,32 @@ public class TreeSetTest {
 
         System.out.println(treeSet.remove(new R(-2))); // 删除被修改过的对象，失败
         System.out.println(treeSet);
-        System.out.println(treeSet.remove(new R(5))); // 删除没被修改过的对象，成功
+        System.out.println(treeSet.remove(new R(5))); // 删除没被修改过的对象，成功，这时会重建索引
         System.out.println(treeSet);
+        System.out.println(treeSet.remove(new R(-2))); // 重建索引后就可以删除被修改过的对象了，先删除前面一个
+        System.out.println(treeSet);
+    }
+
+    /**
+     * 4. 测试定制排序，通过Lambda实现Comparator函数式接口
+     */
+    public static void testSelfCompare() {
+        TreeSet ts = new TreeSet((o1, o2) -> {
+            M m1 = (M) o1;
+            M m2 = (M) o2;
+            return m1.age > m2.age ? -1 : m1.age < m2.age ? 1 : 0;
+        });
+        ts.add(new M(2));
+        ts.add(new M(9));
+        ts.add(new M(-1));
+        System.out.println(ts);
     }
 
     public static void main(String[] args) {
         // testTreeSet();
         // testCompareTo();
-        testChangeEle();
+        // testChangeEle();
+        testSelfCompare();
     }
 }
 
@@ -102,7 +120,7 @@ class R implements Comparable {
     }
     @Override
     public String toString() {
-        return "R[count:" + count + "]";
+        return "R[count:" + count + " id:" + this.hashCode() + "]";
     }
 
     @Override
@@ -122,5 +140,20 @@ class R implements Comparable {
         R r = (R) o;
         // return count > r.count ? 1 : count < r.count ? -1 : 0; // 这种写法可以替换为下面一行
         return Integer.compare(count, r.count);
+    }
+}
+
+/**
+ * 用于测试定制排序，通过Lambda表达式实现逻辑，就可以不实现Comparable接口
+ */
+class M {
+    int age;
+
+    public M(int age) {
+        this.age = age;
+    }
+    @Override
+    public String toString() {
+        return "M[count:" + age + "]";
     }
 }
