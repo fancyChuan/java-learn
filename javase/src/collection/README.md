@@ -48,7 +48,11 @@ Set就是Collection，只是Set不允许包含重复元素
         - lower() higher()
         - subSet() headSet() tailSet()
     - 采用**红黑树**的数据结构来存储集合元素
+    - 排序方式
+        - 自然排序：调用元素的compareTo()方法比较元素大小
+        - 定制排序：
     - 要让TreeSet能正常工作，只能添加同一种类型的对象
-    - 放进TreeSet的类，需要实现Comparable接口，并实现compareTo()方法
-    - 判断两元素相等的唯一标准是，调用compareTo()方法，得到0
+    - 放进TreeSet的类，需要实现Comparable接口，并实现compareTo()方法（除了第一个元素没有要求）
+    - 判断两元素相等的唯一标准是，调用compareTo()方法，得到0。TreeSet只会让compareTo()方法不等于0的元素进入
+    - 一个可变对象被修改后导致与其他对象的大小发生变化，TreeSet不会重写调整顺序，甚至可能导致compareTo()返回0
     
