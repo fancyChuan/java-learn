@@ -56,7 +56,16 @@ Set就是Collection，只是Set不允许包含重复元素
     - 判断两元素相等的唯一标准是，调用compareTo()方法，得到0。TreeSet只会让compareTo()方法不等于0的元素进入
     - 一个可变对象被修改后导致与其他对象的大小发生变化，TreeSet不会重写调整顺序，甚至可能导致compareTo()返回0
 - EnumSet类
-    
+    - 为枚举类设计的集合类，其中的元素必须是指定枚举类型的**枚举值**
+    - EnumSet在内部以位向量的形式存储，非常紧凑、高效，占用内存小，运行效率高
+    - 不允许加入null元素
+    - 没有构造器，需要通过EnumSet类创建对象
+        - EnumSet.allOf(Class enumClass) 包含所有枚举值的EnumSet集合
+        - complementOf()
+        - copyOf(Collection c) copyOf(EnumSet s)
+        - noneOf(Class enumClass)
+        - of(E first, E...rest)
+        - range(E from, E to) 
 - 各Set实现类的性能分析
     - HashSet 和 TreeSet 是Set的两个典型实现，HashSet的性能总是比TreeSet好，因为后者需要排序
     - HashSet有一个子类LinkedHashSet，比HashSet稍微慢点，但遍历时比HashSet快
