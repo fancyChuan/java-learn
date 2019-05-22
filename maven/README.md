@@ -48,6 +48,30 @@ mvn install
 mvn site
 ```    
 
+### 常用编译命令
+命　令 | 含　义
+--- | ---
+mvn clean | 清理编译结果
+mvn compile [-Pnative] | 编译源代码
+mvn test [-Pnative] | 运行测试程序
+mvn package | 创建JAR 包
+mvn compile findbugs:findbugs | 运行findbugs
+mvn compile checkstyle:checkstyle | 运行checkstyle（检查编程规范）
+mvn install | 将JAR 包放到M2 缓存中
+mvn deploy | 将JAR 部署到Maven 仓库中
+mvn package [-Pdist][-Pdocs][-Psrc][-Pnative][-Dtar] | 构建发布版
+mvn versions:set -DnewVersion=NEWVERSION | 修改版本
+
+- 如果仅编译生成JAR 包而无须编译native code、测试用例和生成文档，使用以下命令：
+```
+mvn package -Pdist -DskipTests -Dtar
+```  
+- 如果编译JAR 包、native code 并生成文档，可使用以下命令：
+```
+mvn package -Pdist,native,docs -DskipTests -Dtar
+```
+- 如果仅编译Hadoop 的某一个子模块，需将该模块依赖的JAR 包作为它的第三方库引入。一种简单的实现方式是在Hadoop安装目录下输入以下命令编译所有源代码：
+```mvn install -DskipTests``` 然后进入子模块目录，编译生成对应的JAR 包。
 
 ### Maven插件
 - Maven的核心仅仅定义了抽象的生命周期，具体的任务都是交由插件完成的。
