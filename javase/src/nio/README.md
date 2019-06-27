@@ -20,5 +20,27 @@
     - java.nio.charset.spi：包含与字符集相关的服务提供者编程接口
     
     
+### 1. 使用Buffer
+Buffer是一个抽象类，有ByteBuffer、CharBuffer、IntBuffer等常用子类
+> MappedByteBuffer用于表示Channel将磁盘文件的部分或全部内存映射到内存中得到的结果
 
-    
+Buffer中有三个重要的概念
+- 容量capacity：该Buffer对象缓冲区的大小，不能为负值，创建后不能改变
+- 界限limit：位于limit后的数据不可被读写
+- 位置position：下一个可以被读写的索引，相当于IO流中的指针
+- 支持一个可选标记mark，允许将position定位到该mark处
+> 0 <= mark <= position <= limit <= capacity
+
+两个重要方法：
+- flip() 在Buffer装完数据以后调用，把limit=position，然后position=0，为读取数据做准备
+- clear() 为重新想Buffer写入数据做准备，position=0，limit=capacity
+
+其他常用方法：
+- Buffer position(int newPos) 设置position的位置，返回修改后的Buffer对象
+- Buffer rewind() 把position=0，取消设置的mark
+- Buffer reset() 把position转到mark所在的位置
+
+用put/get来访问数据时，有两种形式：
+- 相对：从当前position出读或写，然后position按照处理的元素个数增加
+- 绝对：直接根据索引进行读或写，不会影响position的值
+
