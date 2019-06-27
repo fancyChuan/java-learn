@@ -21,8 +21,9 @@
     
     
 ### 1. 使用Buffer
-Buffer是一个抽象类，有ByteBuffer、CharBuffer、IntBuffer等常用子类
-> MappedByteBuffer用于表示Channel将磁盘文件的部分或全部内存映射到内存中得到的结果
+Buffer是一个抽象类，有ByteBuffer、CharBuffer、IntBuffer等常用子类，一般通过XxxBuffer.allocate(int cap)创建对象
+- MappedByteBuffer用于表示Channel将磁盘文件的部分或全部内存映射到内存中得到的结果
+- ByteBuffer还要一个allocateDirect()方法来创建直接Buffer，成本高但是效率也更高，一般只用在长生存期的Buffer
 
 Buffer中有三个重要的概念
 - 容量capacity：该Buffer对象缓冲区的大小，不能为负值，创建后不能改变
