@@ -48,6 +48,30 @@ mvn install
 mvn site
 ```    
 
+### 常用编译命令
+命　令 | 含　义
+--- | ---
+mvn clean | 清理编译结果
+mvn compile [-Pnative] | 编译源代码
+mvn test [-Pnative] | 运行测试程序
+mvn package | 创建JAR 包
+mvn compile findbugs:findbugs | 运行findbugs
+mvn compile checkstyle:checkstyle | 运行checkstyle（检查编程规范）
+mvn install | 将JAR 包放到M2 缓存中
+mvn deploy | 将JAR 部署到Maven 仓库中
+mvn package [-Pdist][-Pdocs][-Psrc][-Pnative][-Dtar] | 构建发布版
+mvn versions:set -DnewVersion=NEWVERSION | 修改版本
+
+- 如果仅编译生成JAR 包而无须编译native code、测试用例和生成文档，使用以下命令：
+```
+mvn package -Pdist -DskipTests -Dtar
+```  
+- 如果编译JAR 包、native code 并生成文档，可使用以下命令：
+```
+mvn package -Pdist,native,docs -DskipTests -Dtar
+```
+- 如果仅编译Hadoop 的某一个子模块，需将该模块依赖的JAR 包作为它的第三方库引入。一种简单的实现方式是在Hadoop安装目录下输入以下命令编译所有源代码：
+```mvn install -DskipTests``` 然后进入子模块目录，编译生成对应的JAR 包。
 
 ### Maven插件
 - Maven的核心仅仅定义了抽象的生命周期，具体的任务都是交由插件完成的。
@@ -100,3 +124,35 @@ classifier | 类似于关键词，识别特定的jar包 | json-lib-2.4-jdk15.jar
 #### target/classes
 
 打包插件默认会把这个目录中的所有内容打入到jar包或者war包中。
+
+## 其他
+- 打包指定JDK版本
+```
+<plugin>  
+    <groupId>org.apache.maven.plugins</groupId>  
+    <artifactId>maven-compiler-plugin</artifactId>  
+    <version>3.1</version>  
+    <configuration>  
+        <verbose>true</verbose>  
+        <fork>true</fork>  
+        <executable>${JAVA_HOME}/bin/javac</executable>  
+    </configuration>  
+</plugin>  
+```
+另外一种方式
+```
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+```
