@@ -2,7 +2,8 @@ package multithreads;
 
 public class Main {
     public static void main(String[] args) {
-        firstThread();
+        // firstThread();
+        testRunableThread();
     }
 
     /**
@@ -16,5 +17,14 @@ public class Main {
         new FirstThread("x", "线程A").start();
         new FirstThread("y", "线程B").start();
         new FirstThread("z", "线程C").start();
+    }
+
+    public static void testRunableThread() {
+        Thread threadA = new Thread(new RunableThread("线程A"));
+        Thread threadB = new Thread(new RunableThread("线程B"));
+        Thread threadC = new Thread(new RunableThread("线程C"));
+        threadA.start();
+        threadB.start();
+        threadC.start();
     }
 }
