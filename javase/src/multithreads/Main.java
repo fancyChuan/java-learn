@@ -3,7 +3,8 @@ package multithreads;
 public class Main {
     public static void main(String[] args) {
         // firstThread();
-        testRunableThread();
+        // testRunableThread();
+        testLambdaRunable();
     }
 
     /**
@@ -19,6 +20,9 @@ public class Main {
         new FirstThread("z", "线程C").start();
     }
 
+    /**
+     * 2. 通过Runable接口实现多线程
+     */
     public static void testRunableThread() {
         Thread threadA = new Thread(new RunableThread("线程A"));
         Thread threadB = new Thread(new RunableThread("线程B"));
@@ -26,5 +30,17 @@ public class Main {
         threadA.start();
         threadB.start();
         threadC.start();
+    }
+
+    public static void testLambdaRunable() {
+        for (int i = 0; i < 3; i++) {
+            String title = "线程对象-" + i;
+            Runnable run = () -> {
+                for (int x = 0; x < 5; x ++) {
+                    System.out.println(title + "运行，x=" + x);
+                }
+            };
+            new Thread(run).start();
+        }
     }
 }
