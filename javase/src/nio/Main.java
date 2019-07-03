@@ -58,9 +58,14 @@ public class Main {
 
     /**
      * 2. FileChannel的简单应用
+     *
+     *  * Channel也是可以设置position
+     *  * Channel.map()把数据映射到虚拟内存中
+     *  * read、write的使用
      */
     public static void testChannel() {
         File file = new File("src/nio/test-channel-read.txt");
+        File readWriteFile = new File("src/nio/test-channel-read-write.txt");
 
         try (
             FileChannel inChannel = new FileInputStream(file).getChannel();
@@ -85,6 +90,15 @@ public class Main {
             buffer.flip(); // 从inChannel读完数据后，buffer需要调用该方法，把position置为0
             CharBuffer charBuffer1 = decoder.decode(buffer);
             System.out.println(charBuffer1);
+
+            // 使用RandomFileChannel 进行读写
+            RandomAccessFile rwf = new RandomAccessFile(readWriteFile, "rw");
+            FileChannel randomChannel = rwf.getChannel();
+            MappedByteBuffer byteBufferAll = randomChannel.map(FileChannel.MapMode.READ_WRITE, 0, readWriteFile.length());
+            // channel也有position(）这个方法可以设置位置，下面这行把position设置到文件结尾处
+            randomChannel.position(readWriteFile.length());
+            randomChannel.write(byteBufferAll); // 把读出来的数据再写一份回去
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,2 @@
+hannel可以直接把文件的部门或全部直接映射成buffer
+hannel可以直接把文件的部门或全部直接映射成buffer
