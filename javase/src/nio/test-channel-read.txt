@@ -1,0 +1,3 @@
+与传统流对象的区别：
+- Channel可以直接把文件的部门或全部直接映射成buffer
+- 程序不能直接访问Channel中的数据，Channel只能与Buffer交互。

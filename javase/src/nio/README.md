@@ -45,3 +45,20 @@ Buffer中有三个重要的概念
 - 相对：从当前position出读或写，然后position按照处理的元素个数增加
 - 绝对：直接根据索引进行读或写，不会影响position的值
 
+### 2. 使用Channel
+与传统流对象的区别：
+- Channel可以直接把文件的部门或全部直接映射成buffer
+- 程序不能直接访问Channel中的数据，Channel只能与Buffer交互。
+
+新IO里的Channel是按功能来划分的：
+- Pipe.SinkChannel/Pipe.SourceChannel用于支持线程间通信的管道Channel
+- ServerSocketChannel/SocketChannel用于支持TCP网络通信的Channel
+- DatagramChannel用于支持UDF网络通信的Channel
+- FileChannel
+- SelectableChannel
+
+Channel的获取：不通过构造器，而是通过InputStream、OutputStream的getChannel()方法来返回相对应的Channel
+
+最常用的方法：
+- map(mode, start, end) 将Channel对应的部分或全部数据映射成ByteBuffer，第一个参数用于控制Buffer是只读还是读写的权限，第2/3个参数控制哪些数据映射成Buffer
+- read()/write() 从Buffer中读或写
