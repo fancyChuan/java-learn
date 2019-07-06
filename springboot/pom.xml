@@ -33,7 +33,7 @@
 
 	<build>
 		<plugins>
-			<plugin>
+			<plugin><!-- 这个插件用于将应用打成一个可执行的jar包 -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
