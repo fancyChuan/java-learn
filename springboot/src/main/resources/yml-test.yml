@@ -1,0 +1,14 @@
+
+person:
+  lastName: fancy
+  age: 25
+  boss: false
+  birth: 2019/7/11
+  maps: {k1: v1, k2: 666}
+  lists:
+    - first
+    - second
+    - third
+  dog:
+    name: 狗子
+    age: 2
