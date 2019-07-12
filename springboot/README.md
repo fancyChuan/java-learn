@@ -68,3 +68,23 @@ public @interface SpringBootApplication {
 ​	@**AutoConfigurationPackage**：自动配置包
 
 ​	@**Import**：给容器导入组件
+
+
+
+## 二、配置文件
+
+
+
+### 1、配置文件
+
+SpringBoot支持两种配置文件（是全局的配置文件）：
+
+- application.properties
+- application.yml
+
+
+
+
+
+
+
