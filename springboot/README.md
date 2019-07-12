@@ -95,7 +95,7 @@ SpringBoot会扫描一下位置的application.properties或者application.yml文
 
 优先级由高到低。搞优先级的配置会覆盖低优先级的配置。
 
-
+**互补配置**：高优先级没有配置的属性会使用低优先级的
 
 也可以通过spring.config.location来改变默认的配置文件位置，注意是打包后运行时使用：
 
