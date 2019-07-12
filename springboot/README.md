@@ -100,7 +100,7 @@ SpringBoot会扫描一下位置的application.properties或者application.yml文
 也可以通过spring.config.location来改变默认的配置文件位置，注意是打包后运行时使用：
 
 ```
-java -jar xxx.jar --spring.config.location
+java -jar xxx.jar --spring.config.location=G://xxxxxx/xxxx
 ```
 
 
