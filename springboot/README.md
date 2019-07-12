@@ -103,6 +103,28 @@ SpringBoot会扫描一下位置的application.properties或者application.yml文
 java -jar xxx.jar --spring.config.location=G://xxxxxx/xxxx
 ```
 
+### 7、外部配置加载顺序
+[参考官网](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/htmlsingle/#boot-features-external-config)
+
+优先级由高到低，所有配置构成互补配置
+- (1)命令行参数： java -jar xx.jar --server.port=8088
+- (2)来自java:comp/env的JNDI属性
+- (3)java系统属性System.getProperties()
+- (4)操作系统环境变量
+- (5)RandomValuePropertySource配置的random.*属性值
+
+由jar包外向jar包内寻找，有限加载带profile的
+- (6)jar包外的application-{profile}.properties或者application.yml（带spring.profile）配置文件
+- (7)jar内外的application-{profile}.properties或者application.yml（带spring.profile）配置文件
+
+再加载不带profile的
+- (8)jar包外的application.properties或者application.yml（不带spring.profile）配置文件
+- (9)jar内外的application.properties或者application.yml（不带spring.profile）配置文件
+
+其他
+- (10)@Configuration注解类上的@PropertySource
+- (11)通过SpringApplication.setDefaultProperties指定的默认属性
+
 
 
 
