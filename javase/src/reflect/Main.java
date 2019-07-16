@@ -1,6 +1,7 @@
 package reflect;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Date;
@@ -84,7 +85,9 @@ public class Main {
     }
 
     /**
-     * 5. 从配置文件中读取类的名字并创建类的实例：使用 Class对象的newInstance()方法，也就是  Class.forName(name).newInstance()
+     * 5. 利用反射创建对象
+     *  1. 从配置文件中读取类的名字并创建类的实例：使用 Class对象的newInstance()方法，也就是  Class.forName(name).newInstance()
+     *  2. 使用指定构造器创建对象
      */
     public static void testCreateClazzInstance() throws Exception {
         ObjectPoolFactory factory = new ObjectPoolFactory();
@@ -92,5 +95,14 @@ public class Main {
         // 配置文件中 a=java.util.Date 表示a是一个Date对象，那么经过对象池工厂处理后，我们就可以通过a这个关键词拿到一个Date对象
         System.out.println(factory.getObject("a"));
         System.out.println("自己创建的Date实例: " + new Date());
+
+        // 下面演示通过指定的构造器创建对象
+        Class<?> clazz = Class.forName("reflect.Person");
+        Constructor<?> selfConstructor = clazz.getConstructor(String.class, int.class);
+        Constructor<?> defaultConstructor = clazz.getConstructor();
+        Object self = selfConstructor.newInstance("fancy", 233);
+        Object def = defaultConstructor.newInstance();
+        System.out.println(self);
+        System.out.println(def);
     }
 }

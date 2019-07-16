@@ -120,4 +120,6 @@ Class对象可以获得该类的方法（由Method对象表示）、构造器（
 - 先获取Class对象的Constructor对象，然后调用Constructor对象的newInstance()方法
 
 JEE很多框架都需要根据配置文件信息来创建java对象（读到类名，也就是字符串，再通过反射创建实例） 参见 ObjectPoolFactory.java
+> 使用反射创建对象时性能会相对差一点
+
 
