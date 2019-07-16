@@ -3,13 +3,15 @@ package reflect;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.Date;
 import java.util.Enumeration;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         // testBootstrap();
         // testClassLoader();
-        testSelfClassLoader();
+        // testSelfClassLoader();
+        testCreateClazzInstance();
     }
 
     /**
@@ -79,5 +81,16 @@ public class Main {
         Class<?> clazz = ccl.loadClass(execClass);
         Method main = clazz.getMethod("main", (new String[0]).getClass());
         main.invoke(null, objs);
+    }
+
+    /**
+     * 5. 从配置文件中读取类的名字并创建类的实例：使用 Class对象的newInstance()方法，也就是  Class.forName(name).newInstance()
+     */
+    public static void testCreateClazzInstance() throws Exception {
+        ObjectPoolFactory factory = new ObjectPoolFactory();
+        factory.initPool("E:\\JavaWorkshop\\java-learn\\javase\\src\\reflect\\obj-config.txt");
+        // 配置文件中 a=java.util.Date 表示a是一个Date对象，那么经过对象池工厂处理后，我们就可以通过a这个关键词拿到一个Date对象
+        System.out.println(factory.getObject("a"));
+        System.out.println("自己创建的Date实例: " + new Date());
     }
 }

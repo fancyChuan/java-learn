@@ -106,3 +106,18 @@ public void info(String name, Integer num)
 clazz.getMethod("info", String.Class)  获取到 info(String name)
 clazz.getMethod("info", String.Class, Integer.Class)  获取到 info(String name, Integer num)
 ```
+
+
+### 4. 使用反射生成并操作对象
+Class对象可以获得该类的方法（由Method对象表示）、构造器（由Constructor对象表示）、成员变量（由Field表示），三个类都位于java.lang.reflect中，实现了java.lang.reflect.Member接口
+- 我们可以通过Method对象来执行对应的方法
+- 通过Constructor对象来调用对应的构造器创建实例
+- 通过Field对象直接访问并修改对象的成员变量值
+
+#### 4.1 创建对象
+两种方式：
+- 使用Class对象的newInstance()方法，要求该Class对象有默认构造器，否则失败
+- 先获取Class对象的Constructor对象，然后调用Constructor对象的newInstance()方法
+
+JEE很多框架都需要根据配置文件信息来创建java对象（读到类名，也就是字符串，再通过反射创建实例） 参见 ObjectPoolFactory.java
+
