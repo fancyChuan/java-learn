@@ -12,7 +12,8 @@ public class Main {
         // testBootstrap();
         // testClassLoader();
         // testSelfClassLoader();
-        testCreateClazzInstance();
+        // testCreateClazzInstance();
+        testInvokeMethod();
     }
 
     /**
@@ -104,5 +105,20 @@ public class Main {
         Object def = defaultConstructor.newInstance();
         System.out.println(self);
         System.out.println(def);
+    }
+
+    /**
+     * 6. 调用方法： Method.invoke(obj, params)
+     *      Method为通过反射拿到的方法的信息
+     *      obj是调用这个方法的实例对象，比如 person.setName("fancy")  那么person就是这里的obj
+     */
+    public static void testInvokeMethod() throws Exception {
+        ExtendedObjectPoolFactory factory = new ExtendedObjectPoolFactory();
+        factory.init("E:\\JavaWorkshop\\java-learn\\javase\\src\\reflect\\obj-config2.txt");
+        factory.initPool();
+        System.out.println("设置属性值之前：" + factory.getObject("person"));
+        // 开始从配置文件中注入属性值
+        factory.initProperty();
+        System.out.println("设置属性值之后：" + factory.getObject("person"));
     }
 }

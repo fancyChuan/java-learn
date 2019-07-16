@@ -1,0 +1,5 @@
+a=java.util.Date
+# 下面三个创建一个实例，并通过setter方法给属性赋值，也就是java bean的注入
+person=reflect.Person
+person%Name=fancy
+person%Age=255
