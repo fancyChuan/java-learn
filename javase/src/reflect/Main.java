@@ -1,10 +1,12 @@
 package reflect;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 
@@ -15,7 +17,8 @@ public class Main {
         // testSelfClassLoader();
         // testCreateClazzInstance();
         // testInvokeMethod();
-        testField();
+        // testField();
+        testArray();
     }
 
     /**
@@ -140,5 +143,34 @@ public class Main {
         ageField.setInt(person, 66);
 
         System.out.println(person);
+    }
+
+    /**
+     * 8. 操作数组
+     * TODO:有什么使用场景？
+     */
+    public static void testArray() {
+        Object arr = Array.newInstance(String.class, 10);// 创建一个元素类型为String长度为10的数组
+        Array.set(arr, 1, "这是第2个元素");
+        Array.set(arr, 3, "这是第4个元素");
+
+        String[] realArr = (String[]) arr;
+        for (int i = 0; i < realArr.length; i++) {
+            System.out.print(realArr[i] + "\t");
+        }
+        System.out.println();
+        System.out.println(Array.get(arr, 1));
+        System.out.println(Array.get(arr, 3));
+        // 创建一个三维数组
+        Object arr2 = Array.newInstance(String.class, 3, 4, 5);
+        Object index2 = Array.get(arr2, 2); // 拿到的index2是三维数组的第3个元素，其本身是一个二维数组
+        Array.set(index2, 1, new String[] {"三维0", "三维1", "三维2", "三维3", "三维4"}); // 再给index2这个二维数组的第2个元素赋值，值应该为一维数组
+
+        String[][][] realArr2 = (String[][][]) arr2;
+        System.out.println(realArr2[2][1][0]);
+        System.out.println(realArr2[2][1][1]);
+        System.out.println(realArr2[2][1][2]);
+        System.out.println(realArr2[2][1][3]);
+        System.out.println(realArr2[2][1][4]);
     }
 }
