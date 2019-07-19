@@ -27,7 +27,7 @@
     Extension ClassLoader | 扩展类加载器 | 负责加载JRE的扩展目录(%JAVA_HOME%/jre/lib/ext或由java.ext.dirs指定的目录)中的jar包的类
     Sysytem ClassLoader | 系统类加载器 | 也叫应用加载器，负责JVM启动时加载来自java命令的-classpath，java.class.path或者CLASSPATH环境变量所指的jar包或类路径
 - 类加载机制
-    - 全盘负责：某个类的所有以来、引用都由一个类加载器负责，除非显式使用另一个类加载器
+    - 全盘负责：某个类的所有依赖、引用都由一个类加载器负责，除非显式使用另一个类加载器
     - 父类委托：先让父类的加载器尝试加载，失败时才由自己加载
         > 类加载器之间的父子关系是类加载器实例之间的关系，而不是类继承上的父子关系
     - 缓存机制：所有加载过的类都会缓存起来，当使用某个类时优先到缓存中寻找
@@ -123,4 +123,6 @@ JEE很多框架都需要根据配置文件信息来创建java对象（读到类�
 > 使用反射创建对象时性能会相对差一点
 
 #### 4.2 调用方法
-
+- 通过Class对象的getMethod()方法拿到Method对象后，执行 invoke(Object obj, Object... args)方法，obj是方法的主调，args是传入的参数
+- 在调用时，java会要求obj有执行该方法的权限
+    - 需要调用某个对象的private方法时，可以先调用Method对象的setAccessible(boolean flag)，为true表示取消java的访问权限检查
