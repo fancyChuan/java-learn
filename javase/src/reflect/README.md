@@ -126,3 +126,7 @@ JEE很多框架都需要根据配置文件信息来创建java对象（读到类�
 - 通过Class对象的getMethod()方法拿到Method对象后，执行 invoke(Object obj, Object... args)方法，obj是方法的主调，args是传入的参数
 - 在调用时，java会要求obj有执行该方法的权限
     - 需要调用某个对象的private方法时，可以先调用Method对象的setAccessible(boolean flag)，为true表示取消java的访问权限检查
+    
+#### 4.3 访问成员变量值
+- 通过getFields()或者getField()方法获得该类的成员变量
+- Field对象通过getXxx() setXxx()来获取、设置成员变量的值，相当于调用getter、setter方法

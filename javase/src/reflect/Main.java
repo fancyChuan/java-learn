@@ -2,6 +2,7 @@ package reflect;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Date;
@@ -13,7 +14,8 @@ public class Main {
         // testClassLoader();
         // testSelfClassLoader();
         // testCreateClazzInstance();
-        testInvokeMethod();
+        // testInvokeMethod();
+        testField();
     }
 
     /**
@@ -120,5 +122,23 @@ public class Main {
         // 开始从配置文件中注入属性值
         factory.initProperty();
         System.out.println("设置属性值之后：" + factory.getObject("person"));
+    }
+
+    /**
+     * 7. 访问成员变量值，适用于类没有提供getter/setter方法的时候
+     *  注意，如果Person类没有setter方法，也是可以通过反射的方式给person对象的成员变量赋值的！
+     */
+    public static void testField() throws NoSuchFieldException, IllegalAccessException {
+        Person person = new Person();
+        Class<Person> clazz = Person.class;
+        Field nameField = clazz.getDeclaredField("name"); // 获取各种访问权限的成员变量
+        Field ageField = clazz.getDeclaredField("age");
+        nameField.setAccessible(true); // 取消访问权限检查
+        ageField.setAccessible(true);
+        // 给person对象赋值
+        nameField.set(person, "xxx");
+        ageField.setInt(person, 66);
+
+        System.out.println(person);
     }
 }
