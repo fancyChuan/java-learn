@@ -116,7 +116,7 @@ Class对象可以获得该类的方法（由Method对象表示）、构造器（
 
 #### 4.1 创建对象
 两种方式：
-- 使用Class对象的newInstance()方法，要求该Class对象有默认构造器，否则失败
+- 使用Class对象的newInstance()方法，要求该Class对象有默认构造器，否则失败（JDK1.9以后该方法被废弃，主要因为需要有默认构造器）
 - 先获取Class对象的Constructor对象，然后调用Constructor对象的newInstance()方法
 
 JEE很多框架都需要根据配置文件信息来创建java对象（读到类名，也就是字符串，再通过反射创建实例） 参见 ObjectPoolFactory.java
@@ -136,3 +136,13 @@ java.lang.reflect包下有一个Array类，可以代表所有数组，有以下�
 - static Object newInstance(type, int... length) 创建一个具有指定元组类型、指定维度的新数组
 - static xxx getXxx(Ojbect array, int index) 获取array数组的第index个元素，xxx为基本数据类型，如果是引用类型，则方法为：get(array, index)
 - static setXxx(Object array, int index, xxx value) 给第index个元素赋值
+
+#### 5. 使用反射生成JDK动态代理
+java.lang.reflect提供一个Proxy类和InvocationHandler接口
+
+
+
+### 二、应用
+#### 1. 反射与工厂设计模式
+
+接口 -> 接口实现子类 -> 静态工厂 -> 动态工厂 -> 泛型动态工厂
