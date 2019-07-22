@@ -1,6 +1,8 @@
 package reflect;
 
 
+import java.lang.reflect.InvocationTargetException;
+
 public class ReflectAndFactory {
 
     public static void main(String[] args) {
@@ -15,7 +17,11 @@ public class ReflectAndFactory {
         System.out.println("=========== 动态工厂方法 ===========");
         IMessage msg = MessageFactory.getInstanceDyn("reflect.CloudMessage");
         msg.send();
-
+        // 那么问题又来了，但有更多的接口的时候，还是需要去修改工厂类
+        // 解决方法：使用泛型+反射 例如：GenericsFactory
+        System.out.println("=========== 泛型+动态工厂方法 ===========");
+        IMessage genDynInstance = GenericsFactory.getInstance("reflect.NetMessage", IMessage.class);
+        genDynInstance.send();
     }
 }
 
@@ -42,7 +48,7 @@ class CloudMessage implements IMessage {
  * 工厂类的核心作用是解决子类和客户端的耦合问题
  */
 class MessageFactory {
-    private MessageFactory() {}
+    private MessageFactory() {} // 不允许被实例化，因为这个类没有产生实例化的意义
 
     /**
      * 这种是静态工厂方法，能够解决接口和客户端的耦合问题，
@@ -72,7 +78,26 @@ class MessageFactory {
     }
 }
 
-
+/**
+ * 泛型工厂类
+ */
 class GenericsFactory {
+    private GenericsFactory() {}
 
+    /**
+     * 获取接口实例化对象
+     * @param className 接口的子类命（全限定类名）
+     * @param clazz     描述的是接口的类型
+     * @param <T>       泛型
+     * @return          如果子类存在则返回指定接口实例化对象
+     */
+    public static <T> T getInstance(String className, Class<T> clazz) {
+        T instance = null;
+        try {
+            instance = (T) Class.forName(className).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return instance;
+    }
 }
