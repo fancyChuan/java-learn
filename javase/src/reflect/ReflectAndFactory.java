@@ -1,8 +1,5 @@
 package reflect;
 
-
-import java.lang.reflect.InvocationTargetException;
-
 public class ReflectAndFactory {
 
     public static void main(String[] args) {
