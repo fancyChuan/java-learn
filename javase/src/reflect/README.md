@@ -155,3 +155,9 @@ java.lang.reflect提供一个Proxy类和InvocationHandler接口
 
 单例模式一共有两类：懒汉式、饿汉式
 
+懒汉式： 参见 reflect/ReflectAndSingleton.java
+
+【面试题】请编写单例模式
+- 【100%】直接编写一个饿汉式的单例设计模式，并且实现构造方法私有化
+- 【120%】在java中哪里使用到了单例模式？Runtime类、Class、Spring
+- 【200%】懒汉式单例模式的问题？
