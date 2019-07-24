@@ -1,5 +1,7 @@
 package reflect;
 
+import reflect.demo.SomeOne;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -18,7 +20,8 @@ public class Main {
         // testCreateClazzInstance();
         // testInvokeMethod();
         // testField();
-        testArray();
+        // testArray();
+        testGetClassInfo();
     }
 
     /**
@@ -172,5 +175,24 @@ public class Main {
         System.out.println(realArr2[2][1][2]);
         System.out.println(realArr2[2][1][3]);
         System.out.println(realArr2[2][1][4]);
+    }
+
+    /**
+     * 9. 获取类的信息
+     */
+    public static void testGetClassInfo() {
+        Class<SomeOne> clazz = SomeOne.class;
+        System.out.println("=========获得包名称=======");
+        Package pkg = clazz.getPackage();
+        System.out.println(pkg.getName());
+        System.out.println("=========获得继承父类=======");
+        Class<? super SomeOne> parent = clazz.getSuperclass();
+        System.out.println(parent.getName());
+        System.out.println(parent.getSuperclass().getName());
+        System.out.println("=========获得父接口=======");
+        Class<?>[] interfaces = clazz.getInterfaces();
+        for (Class<?> anInterface : interfaces) {
+            System.out.println(anInterface.getName());
+        }
     }
 }
