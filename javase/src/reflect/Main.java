@@ -194,5 +194,19 @@ public class Main {
         for (Class<?> anInterface : interfaces) {
             System.out.println(anInterface.getName());
         }
+        System.out.println("=========获得构造方法=======");
+        System.out.println("=========获取普通方法=======");
+        // Method中有方法的标识符、方法名、参数、返回值类型等，都可以通过反射拿到
+        System.out.println("=========获取普通方法=======");
+        System.out.println("=========获取成员变量=======");
+        System.out.println("[父类]");
+        Field[] fields = clazz.getFields();
+        for (Field field : fields) {
+            System.out.println(field);
+        }
+        System.out.println("[本类]");
+        for (Field field: clazz.getDeclaredFields()) {
+            System.out.println(field);
+        }
     }
 }

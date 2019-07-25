@@ -5,6 +5,9 @@ import reflect.service.IChannelService;
 import reflect.service.IMessageService;
 
 public class SomeOne extends AbstractBase implements IMessageService, IChannelService {
+
+    private String who = "I'm from SomeOne";
+
     @Override
     public boolean connect() {
         return false;
