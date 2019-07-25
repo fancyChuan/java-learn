@@ -137,11 +137,11 @@ public class Main {
     public static void testField() throws NoSuchFieldException, IllegalAccessException {
         Person person = new Person();
         Class<Person> clazz = Person.class;
-        Field nameField = clazz.getDeclaredField("name"); // 获取各种访问权限的成员变量
+        Field nameField = clazz.getDeclaredField("name"); // 获取本类的成员变量
         Field ageField = clazz.getDeclaredField("age");
         nameField.setAccessible(true); // 取消访问权限检查
         ageField.setAccessible(true);
-        // 给person对象赋值
+        // 给person对象赋值，成员变量的赋值需要在对象实例化之后才进行
         nameField.set(person, "xxx");
         ageField.setInt(person, 66);
 
@@ -207,6 +207,11 @@ public class Main {
         System.out.println("[本类]");
         for (Field field: clazz.getDeclaredFields()) {
             System.out.println(field);
+        }
+        // Field中最常用的是getType()方法，常跟Method配合完成对象的getter/setter
+        System.out.println("[父类成员类型]");
+        for (Field field : fields) {
+            System.out.println(field.getType().getName() + "\t" + field.getType().getSimpleName());
         }
     }
 }
