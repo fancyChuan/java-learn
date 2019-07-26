@@ -167,3 +167,19 @@ Unsafe类：可以利用反射来获取对象的相关信息，并在底层直�
 - 私有常量：private static final Unsafe theUnsafe = new Unsafe()
 > 这个类并没有提供static方法，并且构造方法也是私有的，要想获得这个对象，就只能通过反射机制来完成。比如Main.testUnsafe()
 - Unsafe类最大的特点扩展了java语言的表达能力，便于在更高层的代码里实现原本要在更底层实现的核心类库
+
+#### 3. 属性自动赋值（bean注入）
+传统的对象属性赋值存在的弊端：setter编写麻烦，且存在大量重复
+```
+// 传统的赋值操作，有多少个属性就得调用多少次setter方法
+Person person = new Person()
+person.setXxx(yyy)
+person.setXxx(yyy)
+person.setXxx(yyy)
+```
+
+属性自动化赋值的思路：
+- 传入字符串的格式："属性名:属性值|属性名:属性值"
+- 开发一个ClassInstanceFactory，将传入的字符串注入到bean，完成对象实例化
+- BeanUtils类负责完成注入
+- StringUtils负责把首字母大写
