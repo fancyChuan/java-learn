@@ -162,7 +162,8 @@ java.lang.reflect提供一个Proxy类和InvocationHandler接口
 - 【120%】在java中哪里使用到了单例模式？Runtime类、Class、Spring
 - 【200%】懒汉式单例模式的问题？
 
-> Unsafe类：可以利用反射来获取对象的相关信息，并在底层直接使用c++来代替JVM执行，即：可以绕过JVM的对象管理机制。一旦所使用了Unsafe类，就无法继续使用JVM的内存管理机制和垃圾回收
-> - 构造方法：private Unsafe(){}
-> - 私有常量：private static final Unsafe theUnsafe = new Unsafe()
+Unsafe类：可以利用反射来获取对象的相关信息，并在底层直接使用c++来代替JVM执行，即：可以绕过JVM的对象管理机制。一旦所使用了Unsafe类，就无法继续使用JVM的内存管理机制和垃圾回收。一般不建议使用
+- 构造方法：private Unsafe(){}
+- 私有常量：private static final Unsafe theUnsafe = new Unsafe()
 > 这个类并没有提供static方法，并且构造方法也是私有的，要想获得这个对象，就只能通过反射机制来完成。比如Main.testUnsafe()
+- Unsafe类最大的特点扩展了java语言的表达能力，便于在更高层的代码里实现原本要在更底层实现的核心类库

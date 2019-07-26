@@ -224,7 +224,7 @@ public class Main {
         field.setAccessible(true);
         Unsafe unsafeObject = (Unsafe) field.get(null); // static属性不需要传递实例化对象
         // 利用Unsafe类绕过JVM管理机制，可以在没有实例化对象的情况下获取一个实例化对象
-        SingletonNotMethod instance = (SingletonNotMethod) unsafeObject.allocateInstance(SingletonNotMethod);
+        SingletonNotMethod instance = (SingletonNotMethod) unsafeObject.allocateInstance(SingletonNotMethod.class);
         instance.print();
     }
 }
