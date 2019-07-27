@@ -10,6 +10,8 @@ InetAddress实例获取对应IP地址和主机的方法：
 - getHostName() 获取主机名
 - isReachable() 是否可达
 
+#### 1.2 使用URLDecoder和URLEncoder
+主要是两个静态方法decode()和encode()
 
 ### 
 socket编程中需要注意的点：
