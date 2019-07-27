@@ -1,6 +1,15 @@
 ## 网络编程
 
-### java的基本网络支持
+### 1.java的基本网络支持
+#### 1.1 使用InetAddress
+该类没有提供构造器，但是有静态方法：getByName(String host) getByAddress(byte[] ip)
+
+InetAddress实例获取对应IP地址和主机的方法：
+- getCanonicalHostName() 获取全限定域名
+- getHostAddress() 获取IP地址字符串
+- getHostName() 获取主机名
+- isReachable() 是否可达
+
 
 ### 
 socket编程中需要注意的点：
