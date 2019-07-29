@@ -7,7 +7,7 @@ import java.lang.reflect.Proxy;
 /**
  * 动态代理
  */
-public class DynamicProxy {
+public class DynamicProxyApp {
     public static void main(String[] args) {
         MLDNProxy proxy = new MLDNProxy();
         IMessage instance = (IMessage) proxy.bind(new MessageImpl());
