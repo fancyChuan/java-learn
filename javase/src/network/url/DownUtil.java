@@ -8,6 +8,10 @@ import java.net.URL;
 
 /**
  * 多线程下载工具类
+ *
+ * todo:
+ *  1. RandomAccessFile 是否线程安全？
+ *  2. 为什么这里要用RandomAccessFile？
  */
 public class DownUtil {
     private String path; // 下载资源的路径
