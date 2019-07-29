@@ -22,6 +22,10 @@ public class StaticDynamicProxyApp {
     }
 }
 
+
+
+
+// ************************************************************************************************************
 /**
  * DynamicProxyClass是动态代理的一部分，不是真正的代理类，这个类是辅助真正的代理类去工作的
  */
@@ -36,14 +40,15 @@ class DynamicProxyClass implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("【动态代理】目标方法调用前");
+        System.out.println("【动态代理】目标方法调用前"); // 对目标功能进行前置功能增强
         // 真正调用目标方法的地方
         Object result = method.invoke(target, args);
-        System.out.println("【动态代理】目标方法调用后");
+        System.out.println("【动态代理】目标方法调用后"); // 进行后置增强
         return result;
     }
 }
 
+// ************************************************************************************************************
 class StaticProxyClass implements TargetClass {
     TargetClass target;
     public StaticProxyClass(TargetClass target) { // 通过构造器的方法和目标对象绑定在一起，也就是代理了目标对象
@@ -57,7 +62,7 @@ class StaticProxyClass implements TargetClass {
     }
 }
 
-
+// ************************************************************************************************************
 interface TargetClass {
     public void sayHello();
 }
