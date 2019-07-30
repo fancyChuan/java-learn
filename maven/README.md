@@ -169,3 +169,14 @@ classifier | 类似于关键词，识别特定的jar包 | json-lib-2.4-jdk15.jar
         </profile>
     </profiles>
 ```
+一级配置的方式
+```
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+</properties>
+<dependencies>
+...
+</dependencies>
+```
