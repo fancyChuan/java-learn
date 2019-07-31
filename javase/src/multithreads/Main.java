@@ -32,6 +32,9 @@ public class Main {
         threadC.start();
     }
 
+    /**
+     * 3.使用Lambda表示式实现Runable接口
+     */
     public static void testLambdaRunable() {
         for (int i = 0; i < 3; i++) {
             String title = "线程对象-" + i;
@@ -41,6 +44,17 @@ public class Main {
                 }
             };
             new Thread(run).start();
+        }
+    }
+
+    /**
+     * 4. 使用FutureTask来获取线程执行后的返回值
+     */
+    public static void testFutureTask() {
+        try {
+            CreateThreadApp.main(null);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
