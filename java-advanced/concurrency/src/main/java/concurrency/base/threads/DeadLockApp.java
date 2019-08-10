@@ -2,6 +2,7 @@ package concurrency.base.threads;
 
 /**
  * 演示死锁
+ * TODO：如何查看每个线程在做什么事情
  */
 public class DeadLockApp {
     private static String A = "A";
