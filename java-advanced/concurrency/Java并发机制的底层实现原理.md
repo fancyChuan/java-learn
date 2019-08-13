@@ -17,12 +17,11 @@ volatile的两条实现原则：
 
 
 
-synchronized的内存语义：
-- （加锁）进入synchronized块：把使用到的变量从线程的工作内存中清除，这样synchronized使用该变量时直接从主内存中获取
-- （释放锁）退出synchronized块：把synchronized块内对共享变量的修改刷新到主内存中
-
+java内存模型规定，将所有变量都存在主内存中，当线程使用变量时，会把主内存中的变量复制到自己的工作空间或者叫工作内存
+- synchronized的内存语义：
+    - （加锁）进入synchronized块：把使用到的变量从线程的工作内存中清除，这样synchronized使用该变量时直接从主内存中获取
+    - （释放锁）退出synchronized块：把synchronized块内对共享变量的修改刷新到主内存中
 > synchronized也经常被用来实现原子性操作
-
-volatile的内存语义：
-- 线程写入等价于退出synchronized块，把写入工作内存的值刷新到主内存
-- 线程读取等价于进入synchronized块，把线程本地内存的该变量的值清空，再从主内存获取最新值
+- volatile的内存语义：
+    - 线程写入等价于退出synchronized块，把写入工作内存的值刷新到主内存
+    - 线程读取等价于进入synchronized块，把线程本地内存的该变量的值清空，再从主内存获取最新值
