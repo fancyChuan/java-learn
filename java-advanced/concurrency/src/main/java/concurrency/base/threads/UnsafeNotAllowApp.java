@@ -3,7 +3,7 @@ package concurrency.base.threads;
 import sun.misc.Unsafe;
 
 /**
- * 测试Unsafe类：不允许的用法
+ * 使用Unsafe类：不允许的用法
  *
  * 这个代码是跑不通的，主要是因为Unsafe是直接操作内存的，不安全。
  * JDK开发组在Unsafe源码中做了限制，不让开发人员在正规渠道使用Unsafe类，而是在rt.jar包的核心类中使用
