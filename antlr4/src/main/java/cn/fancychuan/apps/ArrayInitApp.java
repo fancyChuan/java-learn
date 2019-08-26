@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
 
@@ -26,5 +27,12 @@ public class ArrayInitApp {
         // 针对我们定义的init规则开始语法分析
         ParseTree tree = parser.init();
         System.out.println(tree.toStringTree(parser)); // 打印LISP风格的语法树
+
+        /**
+         * 下面开始遍历语法树，并执行翻译的功能
+         */
+        ParseTreeWalker walker = new ParseTreeWalker(); // 通用的、能够触发回调函数的语法分析树遍历器
+        walker.walk(new ShortToUnicodeString(), tree);  // 遍历语法树，触发回调
+        System.out.println("\n========= done! =========");
     }
 }
