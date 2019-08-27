@@ -1,7 +1,7 @@
 package cn.fancychuan.apps;
 
-import cn.fancychuan.g4out.ArrayInitBaseListener;
-import cn.fancychuan.g4out.ArrayInitParser;
+import cn.fancychuan.g4out.arrayinit.ArrayInitBaseListener;
+import cn.fancychuan.g4out.arrayinit.ArrayInitParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 /**
