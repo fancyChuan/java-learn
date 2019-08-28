@@ -1,5 +1,5 @@
 // Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\ArrayInit.g4 by ANTLR 4.7.2
-package cn.fancychuan.g4out.arrayinit;
+package cn.fancychuan.arrayinit.g4out;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

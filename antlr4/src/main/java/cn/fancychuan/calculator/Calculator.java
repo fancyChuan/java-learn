@@ -1,8 +1,8 @@
-package cn.fancychuan.apps;
+package cn.fancychuan.calculator;
 
-import cn.fancychuan.g4out.exprlabel.ExprLibLabelBaseVisitor;
-import cn.fancychuan.g4out.exprlabel.ExprLibLabelLexer;
-import cn.fancychuan.g4out.exprlabel.ExprLibLabelParser;
+import cn.fancychuan.calculator.g4out.exprlabel.ExprLibLabelBaseVisitor;
+import cn.fancychuan.calculator.g4out.exprlabel.ExprLibLabelLexer;
+import cn.fancychuan.calculator.g4out.exprlabel.ExprLibLabelParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

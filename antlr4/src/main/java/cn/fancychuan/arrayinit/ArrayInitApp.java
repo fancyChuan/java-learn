@@ -1,7 +1,7 @@
-package cn.fancychuan.apps;
+package cn.fancychuan.arrayinit;
 
-import cn.fancychuan.g4out.arrayinit.ArrayInitLexer;
-import cn.fancychuan.g4out.arrayinit.ArrayInitParser;
+import cn.fancychuan.arrayinit.g4out.ArrayInitLexer;
+import cn.fancychuan.arrayinit.g4out.ArrayInitParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

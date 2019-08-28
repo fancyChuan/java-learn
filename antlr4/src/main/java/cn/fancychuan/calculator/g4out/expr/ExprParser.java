@@ -1,5 +1,5 @@
-// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\ExprLibLabel.g4 by ANTLR 4.7.2
-package cn.fancychuan.g4out.exprlabel;
+// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\Expr.g4 by ANTLR 4.7.2
+package cn.fancychuan.calculator.g4out.expr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,14 +10,14 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class ExprLibLabelParser extends Parser {
+public class ExprParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, MUL=4, DIV=5, ADd=6, SUB=7, ID=8, INT=9, NEWLINE=10, 
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, ID=8, INT=9, NEWLINE=10, 
 		WS=11;
 	public static final int
 		RULE_prog = 0, RULE_stat = 1, RULE_expr = 2;
@@ -30,13 +30,13 @@ public class ExprLibLabelParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'='", "'('", "')'", "'*'", "'/'", "'+'", "'-'"
+			null, "'='", "'*'", "'/'", "'+'", "'-'", "'('", "')'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, "MUL", "DIV", "ADd", "SUB", "ID", "INT", "NEWLINE", 
+			null, null, null, null, null, null, null, null, "ID", "INT", "NEWLINE", 
 			"WS"
 		};
 	}
@@ -75,7 +75,7 @@ public class ExprLibLabelParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "ExprLibLabel.g4"; }
+	public String getGrammarFileName() { return "Expr.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -86,7 +86,7 @@ public class ExprLibLabelParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public ExprLibLabelParser(TokenStream input) {
+	public ExprParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -104,15 +104,15 @@ public class ExprLibLabelParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_prog; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterProg(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterProg(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitProg(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitProg(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitProg(this);
+			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitProg(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -137,7 +137,7 @@ public class ExprLibLabelParser extends Parser {
 				setState(9); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << ID) | (1L << INT) | (1L << NEWLINE))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << ID) | (1L << INT) | (1L << NEWLINE))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -152,71 +152,26 @@ public class ExprLibLabelParser extends Parser {
 	}
 
 	public static class StatContext extends ParserRuleContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode NEWLINE() { return getToken(ExprParser.NEWLINE, 0); }
+		public TerminalNode ID() { return getToken(ExprParser.ID, 0); }
 		public StatContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_stat; }
-	 
-		public StatContext() { }
-		public void copyFrom(StatContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class BlankContext extends StatContext {
-		public TerminalNode NEWLINE() { return getToken(ExprLibLabelParser.NEWLINE, 0); }
-		public BlankContext(StatContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterBlank(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterStat(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitBlank(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitStat(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitBlank(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class PrintExprContext extends StatContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public TerminalNode NEWLINE() { return getToken(ExprLibLabelParser.NEWLINE, 0); }
-		public PrintExprContext(StatContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterPrintExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitPrintExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitPrintExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AssignContext extends StatContext {
-		public TerminalNode ID() { return getToken(ExprLibLabelParser.ID, 0); }
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public TerminalNode NEWLINE() { return getToken(ExprLibLabelParser.NEWLINE, 0); }
-		public AssignContext(StatContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterAssign(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitAssign(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitAssign(this);
+			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitStat(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -229,7 +184,6 @@ public class ExprLibLabelParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
-				_localctx = new PrintExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(11);
@@ -239,7 +193,6 @@ public class ExprLibLabelParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new AssignContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(14);
@@ -253,7 +206,6 @@ public class ExprLibLabelParser extends Parser {
 				}
 				break;
 			case 3:
-				_localctx = new BlankContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(19);
@@ -274,114 +226,29 @@ public class ExprLibLabelParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
+		public TerminalNode INT() { return getToken(ExprParser.INT, 0); }
+		public TerminalNode ID() { return getToken(ExprParser.ID, 0); }
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
-	 
-		public ExprContext() { }
-		public void copyFrom(ExprContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class ParensContext extends ExprContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public ParensContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterParens(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitParens(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitParens(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class MulDivContext extends ExprContext {
-		public List<ExprContext> expr() {
-			return getRuleContexts(ExprContext.class);
-		}
-		public ExprContext expr(int i) {
-			return getRuleContext(ExprContext.class,i);
-		}
-		public TerminalNode MUL() { return getToken(ExprLibLabelParser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(ExprLibLabelParser.DIV, 0); }
-		public MulDivContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterMulDiv(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitMulDiv(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitMulDiv(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AddSubContext extends ExprContext {
-		public List<ExprContext> expr() {
-			return getRuleContexts(ExprContext.class);
-		}
-		public ExprContext expr(int i) {
-			return getRuleContext(ExprContext.class,i);
-		}
-		public TerminalNode ADd() { return getToken(ExprLibLabelParser.ADd, 0); }
-		public TerminalNode SUB() { return getToken(ExprLibLabelParser.SUB, 0); }
-		public AddSubContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterAddSub(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitAddSub(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitAddSub(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class IdContext extends ExprContext {
-		public TerminalNode ID() { return getToken(ExprLibLabelParser.ID, 0); }
-		public IdContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterId(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitId(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitId(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class IntContext extends ExprContext {
-		public TerminalNode INT() { return getToken(ExprLibLabelParser.INT, 0); }
-		public IntContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).enterInt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprLibLabelListener ) ((ExprLibLabelListener)listener).exitInt(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprLibLabelVisitor ) return ((ExprLibLabelVisitor<? extends T>)visitor).visitInt(this);
+			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -407,34 +274,24 @@ public class ExprLibLabelParser extends Parser {
 			switch (_input.LA(1)) {
 			case INT:
 				{
-				_localctx = new IntContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-
 				setState(23);
 				match(INT);
 				}
 				break;
 			case ID:
 				{
-				_localctx = new IdContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
 				setState(24);
 				match(ID);
 				}
 				break;
-			case T__1:
+			case T__5:
 				{
-				_localctx = new ParensContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
 				setState(25);
-				match(T__1);
+				match(T__5);
 				setState(26);
 				expr(0);
 				setState(27);
-				match(T__2);
+				match(T__6);
 				}
 				break;
 			default:
@@ -454,13 +311,13 @@ public class ExprLibLabelParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 					case 1:
 						{
-						_localctx = new MulDivContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(31);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(32);
 						_la = _input.LA(1);
-						if ( !(_la==MUL || _la==DIV) ) {
+						if ( !(_la==T__1 || _la==T__2) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -474,13 +331,13 @@ public class ExprLibLabelParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new AddSubContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(34);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(35);
 						_la = _input.LA(1);
-						if ( !(_la==ADd || _la==SUB) ) {
+						if ( !(_la==T__3 || _la==T__4) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -533,13 +390,13 @@ public class ExprLibLabelParser extends Parser {
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\r-\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\3\2\6\2\n\n\2\r\2\16\2\13\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\5\3\27\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4 \n\4\3\4\3\4\3\4\3\4\3\4"+
-		"\3\4\7\4(\n\4\f\4\16\4+\13\4\3\4\2\3\6\5\2\4\6\2\4\3\2\6\7\3\2\b\t\2\60"+
+		"\3\4\7\4(\n\4\f\4\16\4+\13\4\3\4\2\3\6\5\2\4\6\2\4\3\2\4\5\3\2\6\7\2\60"+
 		"\2\t\3\2\2\2\4\26\3\2\2\2\6\37\3\2\2\2\b\n\5\4\3\2\t\b\3\2\2\2\n\13\3"+
 		"\2\2\2\13\t\3\2\2\2\13\f\3\2\2\2\f\3\3\2\2\2\r\16\5\6\4\2\16\17\7\f\2"+
 		"\2\17\27\3\2\2\2\20\21\7\n\2\2\21\22\7\3\2\2\22\23\5\6\4\2\23\24\7\f\2"+
 		"\2\24\27\3\2\2\2\25\27\7\f\2\2\26\r\3\2\2\2\26\20\3\2\2\2\26\25\3\2\2"+
-		"\2\27\5\3\2\2\2\30\31\b\4\1\2\31 \7\13\2\2\32 \7\n\2\2\33\34\7\4\2\2\34"+
-		"\35\5\6\4\2\35\36\7\5\2\2\36 \3\2\2\2\37\30\3\2\2\2\37\32\3\2\2\2\37\33"+
+		"\2\27\5\3\2\2\2\30\31\b\4\1\2\31 \7\13\2\2\32 \7\n\2\2\33\34\7\b\2\2\34"+
+		"\35\5\6\4\2\35\36\7\t\2\2\36 \3\2\2\2\37\30\3\2\2\2\37\32\3\2\2\2\37\33"+
 		"\3\2\2\2 )\3\2\2\2!\"\f\7\2\2\"#\t\2\2\2#(\5\6\4\b$%\f\6\2\2%&\t\3\2\2"+
 		"&(\5\6\4\7\'!\3\2\2\2\'$\3\2\2\2(+\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*\7\3\2"+
 		"\2\2+)\3\2\2\2\7\13\26\37\')";

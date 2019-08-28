@@ -1,5 +1,5 @@
 // Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\ExprLibLabel.g4 by ANTLR 4.7.2
-package cn.fancychuan.g4out.exprlabel;
+package cn.fancychuan.calculator.g4out.exprlabel;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
