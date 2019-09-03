@@ -87,4 +87,5 @@ antlr尽可能多的使用共享数据结构来节省内存
 
 
 定制语法分析过程
-- 在语法中嵌入任意动作 [Rows.g4]()
+- 在语法中嵌入任意动作 [Rows.g4](https://github.com/fancychuan/java-learn/tree/master/antlr4/src/main/java/cn/fancychuan/rows)
+- 使用语义判定改变语法分析过程 [Data.g4](https://github.com/fancychuan/java-learn/tree/master/antlr4/src/main/java/cn/fancychuan/data)
