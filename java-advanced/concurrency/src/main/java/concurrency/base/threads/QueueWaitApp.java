@@ -30,7 +30,7 @@ public class QueueWaitApp {
                 synchronized (queue) {
                     while (queue.size() == MAX_SIZE) { // 队列满了，需要一直阻塞直到消费者开始消费，这里用while循环是为了避免虚假唤醒
                         try {
-                            queue.wait(); // Object类有wait方法，也就是说所有对象都有wait方法，而执行了wait方法就会被阻塞挂起
+                            queue.wait(); // Object类有wait方法，也就是说所有对象都有wait方法，而执行了wait方法就会被阻塞挂起，暂时让出同步锁。注意：synchronized锁是在这里释放的
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -38,7 +38,7 @@ public class QueueWaitApp {
                     String ele = getNowTime();
                     queue.add(ele);
                     System.out.println("[生产者]add： " + ele);
-                    queue.notifyAll(); // 产生数据了，通知消费者
+                    queue.notifyAll(); // 产生数据了，通知消费者 // 注意：这里不释放锁，只是通知调用了wait方法的线程可以去参与所的竞争
                 }
             }
         });
