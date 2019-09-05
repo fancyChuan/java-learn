@@ -30,3 +30,17 @@ java内存模型规定，将所有变量都存在主内存中，当线程使用�
 使用volatile的场景：
 - 写入变量值不依赖变量的当前值时。如果依赖当前值，那么就是获取-计算-写入三步操作，这三步操作不是原子性的，不能用volatile
 - 读写变量值时没有加锁。因为加了锁就已经保证了内存可见性，不需要再把变量声明为volatile
+
+
+synchronized使用的注意点：
+- 通过wait方法可以释放锁，但是需要注意调用该方法的时候需要在synchronized代码块内
+```
+synchronized (resourceA) {
+    System.out.println("threadA get resourceA lock");
+}
+synchronized (resourceB) {
+    System.out.println("threadA get resourceB lock");
+    System.out.println("threadA release resourceA lock");
+    resourceA.wait(); // 这个地方执行执行会报IllegalMonitorStateException的错误，因为上面的代码已经退出了synchronized的代码块，锁已经释放，这里调用wait方法是没有拿到监视器的
+}
+```
