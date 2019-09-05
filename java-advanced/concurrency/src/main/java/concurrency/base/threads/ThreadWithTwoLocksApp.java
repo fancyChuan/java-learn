@@ -21,7 +21,7 @@ public class ThreadWithTwoLocksApp {
                             System.out.println("threadA get resourceB lock");
                             System.out.println("threadA release resourceA lock");
                             resourceA.wait(); // 释放了resourceA上的锁，同时阻塞线程，也就是下面的代码是暂时不会执行的
-                            resourceB.wait();
+                            resourceB.wait(); // 这里的代码要执行，要么线程B通过resourceA.notify()唤醒线程，要么上一行代码resourceA.wait(t)加个超时参数
                         }
                     }
                 } catch (InterruptedException e) {
