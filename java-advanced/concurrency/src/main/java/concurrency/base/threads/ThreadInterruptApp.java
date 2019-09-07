@@ -19,6 +19,17 @@ public class ThreadInterruptApp {
         System.out.println("main is over");
 
         System.out.println("========== interrupted和isInterrupted的区别 ==========");
-
+        Thread thread2 = new Thread(() -> {
+            for (; ; ) {
+            }
+        });
+        thread2.start();
+        thread2.interrupt();
+        System.out.println("isInterrupted: " + thread2.isInterrupted());
+        System.out.println("isIterrupted: " + thread2.interrupted()); // 获得中断标识并重置。这里获取到的其实是主线程的中断标识
+        System.out.println("isIterrupted: " + Thread.interrupted());  // 获得中断标识并重置。同上，其实也是主线程的中断标识
+        System.out.println("isIterrupted: " + thread2.isInterrupted());
+        thread2.join();
+        System.out.println("over over");
     }
 }
