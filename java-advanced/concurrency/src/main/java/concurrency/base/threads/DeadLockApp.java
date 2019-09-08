@@ -8,8 +8,9 @@ public class DeadLockApp {
     private static String A = "A";
     private static String B = "B";
 
-    public static void main(String[] args) {
-        deadLock();
+    public static void main(String[] args) throws InterruptedException {
+        // deadLock();
+        avoidDeadLock();
     }
 
     private static void deadLock() {
@@ -44,5 +45,46 @@ public class DeadLockApp {
 
         t1.start();
         t2.start();
+    }
+
+    public static void avoidDeadLock() throws InterruptedException {
+        Thread threadX = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (A) {
+                    System.out.println("[线程x]拿到资源A");
+                    try {
+                        Thread.currentThread().sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("[线程x]wait for B ...");
+                    synchronized (B) {
+                        System.out.println("[线程x]拿到资源B");
+                    }
+                }
+            }
+        });
+
+        Thread threadY = new Thread(() -> {
+            synchronized (A) {
+                System.out.println("[线程y]拿到资源A");
+                try {
+                    Thread.currentThread().sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("[线程y]wait for B ...");
+                synchronized (B) {
+                    System.out.println("[线程y]拿到资源B");
+                }
+            }
+        });
+
+        threadX.start();
+        threadY.start();
+        threadX.join();
+        threadY.join();
+        System.out.println("main done ");
     }
 }
