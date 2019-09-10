@@ -1,4 +1,4 @@
-package concurrency.base.threads;
+package concurrency.base.others;
 
 /**
  * java指令重排序下的并发编程问题

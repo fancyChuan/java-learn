@@ -1,8 +1,8 @@
-package concurrency.base.threads;
+package concurrency.base.others;
 
 /**
  * 测试并发执行和串行执行的速度
- * 【结论】并发执行不一定比串行执行快：执行次数不超过百万次的时候并行执行速度要鳗鱼串行执行
+ * 【结论】并发执行不一定比串行执行快：执行次数不超过百万次的时候并行执行速度要慢于串行执行
  *
  */
 public class ConcurrencyAndSerialApp {

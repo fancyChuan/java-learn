@@ -1,4 +1,4 @@
-package concurrency.base.threads;
+package concurrency.base.others;
 
 /**
  * 线程安全与不安全的示例
