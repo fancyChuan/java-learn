@@ -1,7 +1,9 @@
 package concurrency.base.threads;
 
 /**
- * 线程本地化ThreadLocal
+ * 变量线程本地化ThreadLocal
+ *
+ * TODO：实现原理
  */
 public class ThreadLocalApp {
     static ThreadLocal<String> localVariable = new ThreadLocal<>();
