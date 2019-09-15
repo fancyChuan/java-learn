@@ -3,7 +3,7 @@ package concurrency.base.threads;
 /**
  * 变量线程本地化ThreadLocal
  *
- * TODO：实现原理
+ * TODO：threadB.threadLocals.set(threadB, "values") 这里是不能直接获取的，应该是private权限或者protect，需要好好品味访问权限的实际应用
  *
  * localVariable.set("threadB lcoal variable"); 这一行代码其实等价于 threadB.threadLocals.set(threadB, "values")
  * 也就是说，虽然是共享变量调用了set方法，但实际上是在当前线程中拿到它自己的threadLocals这个私有变量。
@@ -29,6 +29,8 @@ public class ThreadLocalApp {
             print("threadOne");
             System.out.println("threadB remove after: " + localVariable.get());
         });
+
+        // threadB.threadLocals; // 这行代码会报错
 
         threadA.start();
         threadB.start();
