@@ -4,6 +4,11 @@ package concurrency.base.threads;
  * 变量线程本地化ThreadLocal
  *
  * TODO：实现原理
+ *
+ * localVariable.set("threadB lcoal variable"); 这一行代码其实等价于 threadB.threadLocals.set(threadB, "values")
+ * 也就是说，虽然是共享变量调用了set方法，但实际上是在当前线程中拿到它自己的threadLocals这个私有变量。
+ * 而static ThreadLocal<String> localVariable 这个共享变量的作用就相当于是一个"傀儡”，在调用set方法的时候通过Thread.currentThread
+ * 拿到当前的线程，再进一步拿到当前线程的threadLocals变量，最后执行赋值操作。
  */
 public class ThreadLocalApp {
     static ThreadLocal<String> localVariable = new ThreadLocal<>();
