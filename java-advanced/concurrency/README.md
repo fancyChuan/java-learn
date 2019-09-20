@@ -13,6 +13,11 @@
 - 异步事件的简化处理
 - 响应更加灵敏的用户界面
 
+本工程代码结构
+- 基础篇：[base](https://github.com/fancychuan/java-learn/tree/master/java-advanced/concurrency/src/main/java/concurrency/base)
+- 高级篇：[advance](https://github.com/fancychuan/java-learn/tree/master/java-advanced/concurrency/src/main/java/concurrency/advance)
+- 使用篇：[using](https://github.com/fancychuan/java-learn/tree/master/java-advanced/concurrency/src/main/java/concurrency/using)
+
 
 书籍：
 - 《java并发编程实战》
