@@ -7,13 +7,14 @@ import java.util.concurrent.Semaphore;
  *  1. new Semaphore(n) 表示同一时间只有n个线程同时执行acquire方法。 n>1的时候不能保证线程安全性
  *  2. semaphore.acquire(2) 表示使用2个许可
  *  3. 使用release方法动态添加许可
+ *  4. 使用acquireUninterruptibly()来设置线程不可被打断
  */
 public class SemaphoreApp {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         SemaphoreApp app = new SemaphoreApp();
         // app.testBaseUsing();
         // testAddPermits();
-        app.testInterrupt();
+        app.testCanNotInterrupt();
     }
 
     /**
@@ -49,55 +50,69 @@ public class SemaphoreApp {
     }
 
     /**
-     *
+     * 测试使用acquireUninterruptibly()来设置线程不可被打断
+     * 注意：如果方法里面有Thread.sleep()等其他会抛出InterruptedException异常的代码，那么即使使用了acquireUninterruptibly还是会被打断
+     * 比如 Service.testInterrupt()里的for循环改成Thread.sleep(10000) 就能够被打断
      */
-    public void testInterrupt() throws InterruptedException {
-        Service service = new Service(10);
-        Thread thread1 = new Thread(new MyRunable(service), "thread1");
+    public void testCanNotInterrupt() {
+        Service service = new Service();
+        Runnable runnable = () -> service.testInterrupt();
+        Thread thread1 = new Thread(runnable, "thread1");
         thread1.start();
-        Thread.sleep(2000);
         thread1.interrupt();
         System.out.println("main thread 中断了 " + thread1.getName());
 
-        Thread.sleep(5000);
+        // 休眠。让上面的代码完成执行完毕
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("sleep被打断");
+        }
         System.out.println("====================");
-        Service service1 = new Service(11);
-        service1.setInterruptFlag(false); // 设置不允许中断
-        Thread thread2 = new Thread(new MyRunable(service1), "thread2");
+        service.setCanInterrupt(false); // 设置不允许中断
+        Thread thread2 = new Thread(runnable, "thread2");
         thread2.start();
-        Thread.sleep(1000);
         thread2.interrupt();
     }
 
     class Service {
-        int sleepTime;
-        boolean interruptFlag = true;
-        public Service(int sleepTime) { // 休眠多久
-            this.sleepTime = sleepTime * 1000;
-        }
+        boolean canInterrupt;
         public Service() {
-            this.sleepTime = 3000;
+            this.canInterrupt = true;
         }
 
         private Semaphore semaphore = new Semaphore(1); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
         public void testMethod() {
             try {
-                if (interruptFlag) {
-                    semaphore.acquire(); // 也可以加一个参数，表示一次消费多少个许可
-                } else {
-                    semaphore.acquireUninterruptibly(); // 不能被中断
-                }
+                semaphore.acquire(); // 也可以加一个参数，表示一次消费多少个许可
+                semaphore.acquireUninterruptibly();
                 System.out.println(Thread.currentThread().getName() + " begin time = " + System.currentTimeMillis());
-                Thread.sleep(sleepTime);
+                Thread.sleep(5000);
                 System.out.println(Thread.currentThread().getName() + " end   time = " + System.currentTimeMillis());
                 semaphore.release();
             } catch (InterruptedException e) {
-                System.out.println(Thread.currentThread().getName() + " was interrupted!");
                 e.printStackTrace();
             }
         }
-        public void setInterruptFlag(boolean interruptFlag) {
-            this.interruptFlag = interruptFlag;
+        public void testInterrupt() {
+            try {
+                if (canInterrupt) semaphore.acquire();
+                else semaphore.acquireUninterruptibly();
+                System.out.println(Thread.currentThread().getName() + " begin time = " + System.currentTimeMillis());
+                for (int i = 0; i < Integer.MAX_VALUE / 50; i++) {
+                    Math.random();
+                }
+                System.out.println(Thread.currentThread().getName() + " end   time = " + System.currentTimeMillis());
+            } catch (InterruptedException e) {
+                System.out.println(Thread.currentThread().getName() + "被中断了");
+                e.printStackTrace();
+            }
+        }
+        public boolean isCanInterrupt() {
+            return canInterrupt;
+        }
+        public void setCanInterrupt(boolean canInterrupt) {
+            this.canInterrupt = canInterrupt;
         }
     }
 
