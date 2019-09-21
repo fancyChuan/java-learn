@@ -9,15 +9,17 @@ import java.util.concurrent.Semaphore;
  *  3. 使用acquireUninterruptibly()来设置线程不可被打断
  *  4. drainPermits() availablePermits
  *  5. 获取当前等待许可的线程队列信息
+ *  6. 公平与非公平信号量
  */
 public class SemaphoreApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SemaphoreApp app = new SemaphoreApp();
         // app.testBaseUsing();
         // testAddPermits();
         // app.testCanNotInterrupt();
         // testPermitsMethod();
-        app.testQueueInfo();
+        // app.testQueueInfo();
+        app.testFairNonFair();
     }
 
     /**
@@ -109,13 +111,50 @@ public class SemaphoreApp {
         }
     }
 
+    /**
+     * 6. 公平与非公平信号量
+     * new Semaphore(1, isFair) 默认是非公平的，意思是线程的启动顺序与获得许可semaphore.acquire()的顺序无关，先启动不代表先获得许可
+     * 公平信号量则表示启动顺序与获得锁的顺序有关，但也有小概率的可能获得锁的顺序与启动顺序无关
+     */
+    public void testFairNonFair() throws InterruptedException {
+        Service service = new Service();
+        Runnable runnable = () -> {
+            try {
+                service.semaphore.acquire();
+                System.out.println("线程" + Thread.currentThread().getName() + "启动了");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                service.semaphore.release();
+            }
+        };
+        System.out.println("=========== 非公平信号量 ============");
+        Thread thread1 = new Thread(runnable, "thread1");
+        Thread thread2 = new Thread(runnable, "thread2");
+        Thread thread3 = new Thread(runnable, "thread3");
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread1.join();
+        thread2.join();
+        thread3.join();
+        System.out.println("=========== 公平信号量 ============");
+        service.setFair(true); // 设置为公平信号量
+        for (int i = 0; i < 3; i++) {
+            Thread thread = new Thread(runnable, "thread" + i);
+            thread.start();
+        }
+    }
+
     class Service {
-        boolean canInterrupt;
+        boolean canInterrupt;  // 是否允许被中断，默认允许
+        boolean isFair; // 信号量的获取是否公平，默认是false，也就是非公平
         public Service() {
             this.canInterrupt = true;
+            isFair = false;
         }
 
-        private Semaphore semaphore = new Semaphore(1); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
+        Semaphore semaphore = new Semaphore(1, isFair); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
         void testMethod() {
             try {
                 semaphore.acquire(); // 也可以加一个参数，表示一次消费多少个许可
@@ -154,7 +193,11 @@ public class SemaphoreApp {
                 semaphore.release();
             }
         }
-        public boolean isCanInterrupt() {
+        void setFair(boolean fair) {
+            this.isFair = fair;
+            semaphore = new Semaphore(1, this.isFair);
+        }
+        boolean isCanInterrupt() {
             return canInterrupt;
         }
         void setCanInterrupt(boolean canInterrupt) {
