@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
  *  2. 使用release方法动态添加许可
  *  3. 使用acquireUninterruptibly()来设置线程不可被打断
  *  4. drainPermits() availablePermits
+ *  5. 获取当前等待许可的线程队列信息
  */
 public class SemaphoreApp {
     public static void main(String[] args) {
@@ -15,7 +16,8 @@ public class SemaphoreApp {
         // app.testBaseUsing();
         // testAddPermits();
         // app.testCanNotInterrupt();
-        testPermitsMethod();
+        // testPermitsMethod();
+        app.testQueueInfo();
     }
 
     /**
@@ -95,6 +97,18 @@ public class SemaphoreApp {
         }
     }
 
+    /**
+     * 5. 获取当前等待许可的线程队列信息
+     */
+    public void testQueueInfo() {
+        Service service = new Service();
+        Runnable runnable = () -> service.testQueueInfo();
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(runnable, "thread" + i);
+            thread.start();
+        }
+    }
+
     class Service {
         boolean canInterrupt;
         public Service() {
@@ -102,7 +116,7 @@ public class SemaphoreApp {
         }
 
         private Semaphore semaphore = new Semaphore(1); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
-        public void testMethod() {
+        void testMethod() {
             try {
                 semaphore.acquire(); // 也可以加一个参数，表示一次消费多少个许可
                 semaphore.acquireUninterruptibly();
@@ -114,7 +128,7 @@ public class SemaphoreApp {
                 e.printStackTrace();
             }
         }
-        public void testInterrupt() {
+        void testInterrupt() {
             try {
                 if (canInterrupt) semaphore.acquire();
                 else semaphore.acquireUninterruptibly();
@@ -128,10 +142,22 @@ public class SemaphoreApp {
                 e.printStackTrace();
             }
         }
+        void testQueueInfo() {
+            try {
+                semaphore.acquire();
+                Thread.sleep(1000);
+                System.out.println("大约还有 " + semaphore.getQueueLength() + " 个线程在等待");
+                System.out.println("是否还有线程正在等待信号量：" + semaphore.hasQueuedThreads());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                semaphore.release();
+            }
+        }
         public boolean isCanInterrupt() {
             return canInterrupt;
         }
-        public void setCanInterrupt(boolean canInterrupt) {
+        void setCanInterrupt(boolean canInterrupt) {
             this.canInterrupt = canInterrupt;
         }
     }
