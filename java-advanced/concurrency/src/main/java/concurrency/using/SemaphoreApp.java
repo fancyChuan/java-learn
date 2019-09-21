@@ -4,21 +4,24 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Semaphore的使用
- *  1. new Semaphore(n) 表示同一时间只有n个线程同时执行acquire方法。 n>1的时候不能保证线程安全性
- *  2. semaphore.acquire(2) 表示使用2个许可
- *  3. 使用release方法动态添加许可
- *  4. 使用acquireUninterruptibly()来设置线程不可被打断
+ *  1. 基本用法
+ *  2. 使用release方法动态添加许可
+ *  3. 使用acquireUninterruptibly()来设置线程不可被打断
+ *  4. drainPermits() availablePermits
  */
 public class SemaphoreApp {
     public static void main(String[] args) {
         SemaphoreApp app = new SemaphoreApp();
         // app.testBaseUsing();
         // testAddPermits();
-        app.testCanNotInterrupt();
+        // app.testCanNotInterrupt();
+        testPermitsMethod();
     }
 
     /**
-     * 基本用法
+     * 1. 基本用法
+     *  new Semaphore(n) 表示同一时间只有n个线程同时执行acquire方法。 n>1的时候不能保证线程安全性
+     *  semaphore.acquire(2) 表示使用2个许可
      */
     public void testBaseUsing() {
         Service service = new Service();
@@ -34,7 +37,7 @@ public class SemaphoreApp {
     }
 
     /**
-     * 动态增加permits
+     * 2.动态增加permits
      */
     public static void testAddPermits() throws InterruptedException {
         Semaphore semaphore = new Semaphore(2);
@@ -50,7 +53,7 @@ public class SemaphoreApp {
     }
 
     /**
-     * 测试使用acquireUninterruptibly()来设置线程不可被打断
+     * 3.测试使用acquireUninterruptibly()来设置线程不可被打断
      * 注意：如果方法里面有Thread.sleep()等其他会抛出InterruptedException异常的代码，那么即使使用了acquireUninterruptibly还是会被打断
      * 比如 Service.testInterrupt()里的for循环改成Thread.sleep(10000) 就能够被打断
      */
@@ -73,6 +76,23 @@ public class SemaphoreApp {
         Thread thread2 = new Thread(runnable, "thread2");
         thread2.start();
         thread2.interrupt();
+    }
+
+    /**
+     * 4.测试permit相关的两个方法
+     *  availablePermits: 当前可用的许可数，一般用于调试
+     *  drainPermits: 获取并返回立即可用的所有许可数，并将可用许可数置为0
+     */
+    public static void testPermitsMethod() {
+        Semaphore semaphore = new Semaphore(2);
+        try {
+            semaphore.acquire();
+            System.out.println(semaphore.availablePermits());
+            System.out.println(semaphore.drainPermits() + "\t" + semaphore.availablePermits());
+            System.out.println(semaphore.drainPermits() + "\t" + semaphore.availablePermits());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     class Service {
