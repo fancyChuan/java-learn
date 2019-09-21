@@ -12,23 +12,14 @@ public class SemaphoreApp {
     public static void main(String[] args) throws InterruptedException {
         SemaphoreApp app = new SemaphoreApp();
         // app.testBaseUsing();
-        app.testAddPermits();
+        // testAddPermits();
+        app.testInterrupt();
     }
 
     /**
      * 基本用法
      */
     public void testBaseUsing() {
-        class MyRunable implements Runnable {
-            private Service service;
-            public MyRunable(Service service) {
-                this.service = service;
-            }
-            @Override
-            public void run() {
-                service.testMethod();
-            }
-        }
         Service service = new Service();
         Thread threadA = new Thread(new MyRunable(service));
         threadA.setName("A");
@@ -44,7 +35,7 @@ public class SemaphoreApp {
     /**
      * 动态增加permits
      */
-    public void testAddPermits() throws InterruptedException {
+    public static void testAddPermits() throws InterruptedException {
         Semaphore semaphore = new Semaphore(2);
         semaphore.acquire();
         semaphore.acquire();
@@ -57,18 +48,49 @@ public class SemaphoreApp {
         System.out.println("可用permits: " + semaphore.availablePermits());
     }
 
+    /**
+     *
+     */
+    public void testInterrupt() {
+        Service service = new Service(60);
+        Thread subThread = new Thread(new MyRunable(service), "subThread");
+        subThread.start();
+        subThread.interrupt();
+        System.out.println("main thread 中断了 " + subThread.getName());
+    }
+
     class Service {
+        int sleepTime;
+        public Service(int sleepTime) {
+            this.sleepTime = sleepTime * 1000;
+        }
+        public Service() {
+            this.sleepTime = 3000;
+        }
+
         private Semaphore semaphore = new Semaphore(2); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
         public void testMethod() {
             try {
                 semaphore.acquire(); // 也可以加一个参数，表示一次消费多少个许可
                 System.out.println(Thread.currentThread().getName() + " begin time = " + System.currentTimeMillis());
-                Thread.sleep(3000);
+                Thread.sleep(sleepTime);
                 System.out.println(Thread.currentThread().getName() + " end   time = " + System.currentTimeMillis());
                 semaphore.release();
             } catch (InterruptedException e) {
+                System.out.println(Thread.currentThread().getName() + " was interrupted!");
                 e.printStackTrace();
             }
+        }
+    }
+
+    class MyRunable implements Runnable {
+        private Service service;
+        public MyRunable(Service service) {
+            this.service = service;
+        }
+        @Override
+        public void run() {
+            service.testMethod();
         }
     }
 }
