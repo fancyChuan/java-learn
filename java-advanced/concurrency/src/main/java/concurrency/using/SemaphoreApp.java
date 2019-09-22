@@ -2,6 +2,7 @@ package concurrency.using;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Semaphore的使用
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  *  5. 获取当前等待许可的线程队列信息
  *  6. 公平与非公平信号量
  *  7. tryAcquire方法的使用：尝试获取许可
+ *  8. 多进路-单处理-多出路
  */
 public class SemaphoreApp {
     public static void main(String[] args) throws InterruptedException {
@@ -22,7 +24,8 @@ public class SemaphoreApp {
         // testPermitsMethod();
         // app.testQueueInfo();
         // app.testFairNonFair();
-        app.testTryAcquire();
+        // app.testTryAcquire();
+        app.testMoreOne();
     }
 
     /**
@@ -165,6 +168,19 @@ public class SemaphoreApp {
         threadBB.start();
     }
 
+    /**
+     * 8. 多进路-单处理-多出路：允许多个线程同时处理任务，但是执行任务的顺序是同步的，也就是阻塞的
+     * 把 LockService类中的 lock.lock()和lock.unlock() 去掉，则是 多进路-多处理-多出路
+     */
+    public void testMoreOne() {
+        LockService service = new LockService();
+        Runnable runnable = service::sayHello;
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(runnable, "thread" + i);
+            thread.start();
+        }
+    }
+
     class Service {
         Semaphore semaphore;
         int permits;
@@ -251,6 +267,29 @@ public class SemaphoreApp {
         @Override
         public void run() {
             service.testMethod();
+        }
+    }
+
+    class LockService {
+        private Semaphore semaphore = new Semaphore(3);
+        private ReentrantLock lock =  new ReentrantLock();
+        public void sayHello() {
+            try {
+                String threadName = Thread.currentThread().getName();
+                semaphore.acquire();
+                System.out.println("[x]线程" + threadName + "准备 " + System.currentTimeMillis());
+                lock.lock(); // 从lock.lock()到lock.unlock() 这部分代码是同步的，能够保证统一时间只有一个线程在执行
+                System.out.println(threadName + " 开始执行   " + System.currentTimeMillis());
+                for (int i = 0; i < 5; i++) {
+                    System.out.println(threadName + "\t" + i);
+                }
+                Thread.sleep(11); // 计算机执行速度太快了，结果会看起来像同时运行一样，区分下
+                lock.unlock();
+                semaphore.release();
+                System.out.println("[x]线程" + threadName + "结束 " + System.currentTimeMillis());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
