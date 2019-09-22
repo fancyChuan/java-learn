@@ -1,6 +1,7 @@
 package concurrency.using;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Semaphore的使用
@@ -10,6 +11,7 @@ import java.util.concurrent.Semaphore;
  *  4. drainPermits() availablePermits
  *  5. 获取当前等待许可的线程队列信息
  *  6. 公平与非公平信号量
+ *  7. tryAcquire方法的使用：尝试获取许可
  */
 public class SemaphoreApp {
     public static void main(String[] args) throws InterruptedException {
@@ -19,7 +21,8 @@ public class SemaphoreApp {
         // app.testCanNotInterrupt();
         // testPermitsMethod();
         // app.testQueueInfo();
-        app.testFairNonFair();
+        // app.testFairNonFair();
+        app.testTryAcquire();
     }
 
     /**
@@ -146,15 +149,35 @@ public class SemaphoreApp {
         }
     }
 
+    /**
+     * 7. tryAcquire方法的使用：尝试获取许可
+     *  tryAcquire() 默认尝试获取一个许可，非阻塞
+     *  tryAcquire(int permits) 默认尝试获取指定数量的许可
+     *  tryAcquire(long timeout, TimeUnit nuit) 带超时的尝试获取1个许可
+     *  tryAcquire(int permits, long timeout, TimeUnit nuit) 带超时的尝试获取多个许可
+     */
+    public void testTryAcquire() {
+        Service service = new Service(3);
+        Runnable runnable = service::testTryAcquire;
+        Thread threadAA = new Thread(runnable, "threadAA");
+        Thread threadBB = new Thread(runnable, "threadBB");
+        threadAA.start();
+        threadBB.start();
+    }
+
     class Service {
+        Semaphore semaphore;
+        int permits;
         boolean canInterrupt;  // 是否允许被中断，默认允许
         boolean isFair; // 信号量的获取是否公平，默认是false，也就是非公平
-        public Service() {
+        public Service(int permits) {
+            this.permits = permits;
             this.canInterrupt = true;
             isFair = false;
+            this.semaphore = new Semaphore(this.permits, isFair); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
         }
+        public Service() {this(1);}
 
-        Semaphore semaphore = new Semaphore(1, isFair); // 构造参数permits是许可的意思，表示同一时间内最多允许多少个线程同时执行acquire()/release()
         void testMethod() {
             try {
                 semaphore.acquire(); // 也可以加一个参数，表示一次消费多少个许可
@@ -191,6 +214,21 @@ public class SemaphoreApp {
                 e.printStackTrace();
             } finally {
                 semaphore.release();
+            }
+        }
+        void testTryAcquire() {
+            try {
+                if (semaphore.tryAcquire(3, 3, TimeUnit.SECONDS)) {
+                    System.out.println("线程" + Thread.currentThread().getName() + "成功进入");
+                    for (int i = 0; i < Integer.MAX_VALUE / 10; i++) {
+                        Math.random();// 把这行代码注释掉，那么两个线程都能够顺利拿到许可。因为在3s之内许可已经释放了
+                    }
+                    semaphore.release(2);
+                } else {
+                    System.out.println("线程" + Thread.currentThread().getName() + "未能成功进入");
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         void setFair(boolean fair) {
