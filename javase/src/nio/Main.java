@@ -5,8 +5,11 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
+import java.util.SortedMap;
 
 /**
  * 1. Buffer的使用
@@ -14,10 +17,11 @@ import java.nio.charset.CharsetDecoder;
  * 3. FileChannel可读可写，取决于从哪种类型的文件流创建。（RandomAccessFile）
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // testBuffer();
         // testChannel();
-        testRandomAccessFileChannel();
+        // testRandomAccessFileChannel();
+        testCharset();
     }
 
     /**
@@ -132,5 +136,26 @@ public class Main {
         }
     }
 
+    public static void testCharset() throws Exception {
+        SortedMap<String, Charset> map = Charset.availableCharsets();
+        for (String alias : map.keySet()) {
+            System.out.println(alias + " ---> " + map.get(alias));
+        }
+        System.out.println("==================================");
+        System.out.println("本地文件系统的编码：" + System.getProperty("file.encoding")); // 注意在idea可能是utf-8，在本地命令行执行则是GBK
+        System.out.println("==================================");
+        Charset charset = Charset.forName("UTF-8");
+        CharsetDecoder decoder = charset.newDecoder();
+        CharsetEncoder encoder = charset.newEncoder();
+        CharBuffer buffer = CharBuffer.allocate(8);
+        buffer.put("猴");
+        buffer.put("子");
+        buffer.flip();
+        ByteBuffer encodedBuffer = encoder.encode(buffer); // 将字符序列转为字节序列
+        for (int i = 0; i < encodedBuffer.limit(); i++) {
+            System.out.print(encodedBuffer.get(i) + " ");
+        }
+        System.out.println("\n" + decoder.decode(encodedBuffer)); // 重新解码为字符序列
+    }
 
 }

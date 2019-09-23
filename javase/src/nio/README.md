@@ -63,4 +63,8 @@ Channel的获取：不通过构造器，而是通过InputStream、OutputStream�
 - map(mode, start, end) 将Channel对应的部分或全部数据映射成ByteBuffer，第一个参数用于控制Buffer是只读还是读写的权限，第2/3个参数控制哪部分数据映射成Buffer
 - read()/write() 从Buffer中读或写，有一系列重载方法
 
-
+### 3. 字符集和Charset
+- Charset.availableCharset() 获取当前JDK支持的所有字符集
+- charset = Charset.forName("GBK") 创建字符集对象
+- charset.newDecoder()/newEncoder() 
+- 调用decode() 和 encode() 方法完成编码解码 
