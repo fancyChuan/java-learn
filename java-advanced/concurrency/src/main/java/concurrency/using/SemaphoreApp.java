@@ -1,7 +1,10 @@
 package concurrency.using;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -14,6 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *  6. 公平与非公平信号量
  *  7. tryAcquire方法的使用：尝试获取许可
  *  8. 多进路-单处理-多出路
+ *  9. 使用Semaphore创建字符串池
  */
 public class SemaphoreApp {
     public static void main(String[] args) throws InterruptedException {
@@ -25,7 +29,8 @@ public class SemaphoreApp {
         // app.testQueueInfo();
         // app.testFairNonFair();
         // app.testTryAcquire();
-        app.testMoreOne();
+        // app.testMoreOne();
+        app.testSemaphorePoolList();
     }
 
     /**
@@ -181,6 +186,26 @@ public class SemaphoreApp {
         }
     }
 
+    /**
+     * 9. 使用Semaphore创建字符串池
+     *  使用ReentrantLock加锁
+     *  使用Condition做线程间通信
+     */
+    public void testSemaphorePoolList() {
+        ListPool pool = new ListPool();
+        Runnable runnable = () -> {
+            for (int i = 0; i < Integer.MAX_VALUE; i++) {
+                String string = pool.get();
+                System.out.println(Thread.currentThread().getName() + "取得值： " + string);
+                pool.put(string);
+            }
+        };
+        for (int i = 0; i < 12; i++) {
+            Thread thread = new Thread(runnable, "thread" + i);
+            thread.start();
+        }
+    }
+
     class Service {
         Semaphore semaphore;
         int permits;
@@ -290,6 +315,44 @@ public class SemaphoreApp {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    // poolList只有三个元素，用完之后放回。
+    class ListPool {
+        int poolMaxSize = 3;
+        int semaphorePermits = 5;
+        private List<String> list = new ArrayList<>();
+        private Semaphore semaphore = new Semaphore(semaphorePermits);
+        private ReentrantLock lock = new ReentrantLock();
+        private Condition condition = lock.newCondition();
+
+        public ListPool() {
+            // super(); // todo: 为什么示例要加这行代码？都没有继承类啊
+            for (int i = 0; i < poolMaxSize; i++) {
+                list.add("fancy" + (i + 1));
+            }
+        }
+        public String get() {
+            String getString = null;
+            try {
+                semaphore.acquire();
+                lock.lock();
+                while (list.size() == 0) {
+                    condition.await();
+                }
+                getString = list.remove(0);
+                lock.unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return getString;
+        }
+        public void put(String value) {
+            lock.lock();
+            list.add(value);
+            condition.signalAll();
+            lock.unlock();
+            semaphore.release();
         }
     }
 }
