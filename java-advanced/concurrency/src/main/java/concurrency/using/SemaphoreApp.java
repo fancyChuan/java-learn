@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *  7. tryAcquire方法的使用：尝试获取许可
  *  8. 多进路-单处理-多出路
  *  9. 使用Semaphore创建字符串池
+ *  10. 使用Semaphore实现多生产者/多消费者模式
  */
 public class SemaphoreApp {
     public static void main(String[] args) throws InterruptedException {
@@ -30,7 +31,8 @@ public class SemaphoreApp {
         // app.testFairNonFair();
         // app.testTryAcquire();
         // app.testMoreOne();
-        app.testSemaphorePoolList();
+        // app.testSemaphorePoolList();
+        app.testMultiProducerConsumer();
     }
 
     /**
@@ -206,6 +208,32 @@ public class SemaphoreApp {
         }
     }
 
+    /**
+     * 10. 使用Semaphore实现多生产者/多消费者模式
+     *  生产时：队列满了，需要等待 —— setCondition.await() 成功生产时唤醒消费者getCondition.signalAll()
+     *  消费时：队列空了，需要等待 —— getCondition.await() 成功消费时唤醒生产者setCondition.signalAll()
+     *  加锁细节：
+     *      * get()/set() 方法，也就是生产一个菜品/消费一个菜品时，是需要加锁保证队列的同步性的，否则消费时以为没有就休眠，而可能休眠的瞬间马上就生存好了
+     *      * 设计多线程程序时，需要优先考虑哪些资源（比如队列、列表、数组等）需要保证同步性，对需要保证同步性的，要记得加锁
+     *  TODO：使用线程池，模拟只有10个厨师
+     */
+    public void testMultiProducerConsumer() {
+        RepastService service = new RepastService();
+        Runnable pRunnable = service::set;
+        Runnable cRunnable = service::get;
+        Thread[] arrP = new Thread[60];
+        Thread[] arrC = new Thread[60];
+        for (int i = 0; i < 60; i++) {
+            arrP[i] = new Thread(pRunnable);
+            arrC[i] = new Thread(cRunnable);
+            // 不直接在这里地方启动线程是为了模拟真正的并发，不然每次循环都需要创建线程对象，是需要耗费时间，就不是真正意义的并发了
+        }
+        for (int i = 0; i < 60; i++) {
+            arrP[i].start();
+            arrC[i].start();
+        }
+    }
+
     class Service {
         Semaphore semaphore;
         int permits;
@@ -317,7 +345,10 @@ public class SemaphoreApp {
             }
         }
     }
-    // poolList只有三个元素，用完之后放回。
+
+    /**
+     * poolList只有三个元素，用完之后放回。
+     */
     class ListPool {
         int poolMaxSize = 3;
         int semaphorePermits = 5;
@@ -353,6 +384,82 @@ public class SemaphoreApp {
             condition.signalAll();
             lock.unlock();
             semaphore.release();
+        }
+    }
+
+    class RepastService {
+        volatile private Semaphore setSemaphore = new Semaphore(10); // 厨师
+        volatile private Semaphore getSemaphore = new Semaphore(20); // 顾客
+        volatile private ReentrantLock lock = new ReentrantLock();
+        volatile private Condition setCondition = lock.newCondition();
+        volatile private Condition getCondition = lock.newCondition();
+        volatile private Object[] producePosition = new Object[4]; // 表示最多只有4个盒子存放菜品
+
+        private boolean isEmpty() {
+            boolean isEmpty = true;
+            for (int i = 0; i < producePosition.length; i++) {
+                if (producePosition[i] != null) {
+                    isEmpty = false;
+                    break;
+                }
+            }
+            return isEmpty;
+        }
+        private boolean isFull() {
+            boolean isFull = true;
+            for (int i = 0; i < producePosition.length; i++) {
+                if (producePosition[i] == null) {
+                    isFull = false;
+                    break;
+                }
+            }
+            return isFull;
+        }
+        private void set() {
+            try {
+                setSemaphore.acquire();
+                lock.lock();
+                while (isFull()) {
+                    System.out.println("生产者在等待");
+                    setCondition.await();
+                }
+                for (int i = 0; i < producePosition.length; i++) {
+                    if (producePosition[i] == null) {
+                        producePosition[i] = "菜x";
+                        System.out.println(Thread.currentThread().getName() + "生产了 " + producePosition[i]);
+                        break; // 这里跳出循环，一次只能生产一个菜品
+                    }
+                }
+                getCondition.signalAll();
+                lock.unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                setSemaphore.release();
+            }
+        }
+        private void get() {
+            try {
+                getSemaphore.acquire();
+                lock.lock();
+                while (isEmpty()) {
+                    System.out.println("消费者在等待");
+                    getCondition.await();
+                }
+                for (int i = 0; i < producePosition.length; i++) {
+                    if (producePosition[i] != null) {
+                        System.out.println(Thread.currentThread().getName() + "消费了 " + producePosition[i]);
+                        producePosition[i] = null;
+                        break; // 一次只能消费一个菜品
+                    }
+                }
+                setCondition.signalAll();
+                lock.unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                getSemaphore.release();
+            }
         }
     }
 }
