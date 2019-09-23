@@ -1,7 +1,7 @@
 ## NIO
 传统的IO中
 - 输入输出流都是阻塞式的，如BufferedReader、InputStream读取数据时，如果没有读到有效数据就会阻塞该线程
-- 传统的额输入流、输出流都是通过字节的移动来处理的，也就是说，面向流的输入、输出系统一次只能处理一个字节，通常效率不高
+- 传统的输入流、输出流都是通过字节的移动来处理的，也就是说，面向流的输入、输出系统一次只能处理一个字节，通常效率不高
 
 新IO
 - 采用内存映射文件的方式来处理输入、输出
@@ -60,5 +60,7 @@ Buffer中有三个重要的概念
 Channel的获取：不通过构造器，而是通过InputStream、OutputStream的getChannel()方法来返回相对应的Channel
 
 最常用的方法：
-- map(mode, start, end) 将Channel对应的部分或全部数据映射成ByteBuffer，第一个参数用于控制Buffer是只读还是读写的权限，第2/3个参数控制哪些数据映射成Buffer
-- read()/write() 从Buffer中读或写
+- map(mode, start, end) 将Channel对应的部分或全部数据映射成ByteBuffer，第一个参数用于控制Buffer是只读还是读写的权限，第2/3个参数控制哪部分数据映射成Buffer
+- read()/write() 从Buffer中读或写，有一系列重载方法
+
+

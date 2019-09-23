@@ -8,7 +8,17 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
+/**
+ * 1. Buffer的使用
+ * 2. FileChannel的简单使用
+ * 3. FileChannel可读可写，取决于从哪种类型的文件流创建。（RandomAccessFile）
+ */
 public class Main {
+    public static void main(String[] args) throws IOException {
+        // testBuffer();
+        // testChannel();
+        testRandomAccessFileChannel();
+    }
 
     /**
      * 1. Buffer的日常使用
@@ -58,7 +68,6 @@ public class Main {
 
     /**
      * 2. FileChannel的简单应用
-     *
      *  * Channel也是可以设置position
      *  * Channel.map()把数据映射到虚拟内存中
      *  * read、write的使用
@@ -104,8 +113,24 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        // testBuffer();
-        testChannel();
+    /**
+     * 3. FileChannel可读可写，取决于从哪种类型的文件流创建
+     *  FileInputStream   ->  FileChannel 只可读
+     *  FileoutputStream  ->  FileChannel 只可写
+     *  RandomAccessFile  ->  FileChannel 可读可写
+     */
+    public static void testRandomAccessFileChannel() throws IOException {
+        File file = new File("E:\\JavaWorkshop\\java-learn\\javase\\src\\nio\\test-channel-randomAccess.txt");
+        try (
+                RandomAccessFile raf = new RandomAccessFile(file, "rw");
+                FileChannel randomChannel = raf.getChannel()
+        ) {
+            // 把所有数据映射成ByteBuffer
+            MappedByteBuffer byteBuffer = randomChannel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
+            randomChannel.position(file.length()); // 把指针移到末尾
+            randomChannel.write(byteBuffer); // 把Buffer中的所有数据写入文件
+        }
     }
+
+
 }
