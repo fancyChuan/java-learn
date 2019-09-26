@@ -1,10 +1,14 @@
 package multithreads;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+
 public class Main {
     public static void main(String[] args) {
         // firstThread();
         // testRunableThread();
-        testLambdaRunable();
+        // testLambdaRunable();
+        testLambdaCallable();
     }
 
     /**
@@ -57,4 +61,29 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 5. 使用FutureTask：用Lambda表达式生成Callable
+     */
+    public static void testLambdaCallable() {
+        FutureTask<Integer> task = new FutureTask<>((Callable<Integer>) () -> {
+            int i = 0;
+            for (; i < 100; i++) { // 注意这里的for循环的写法，不需要再写int i=0;
+                System.out.println(Thread.currentThread().getName() + "的循环变量i的值： " + i);
+            }
+            return i;
+        });
+        for (int i = 0; i < 200; i++) {
+            System.out.println(Thread.currentThread().getName() + "的循环变量i的值： " + i);
+            if (i == 20) {
+                new Thread(task, "带返回值的线程threadX").start();
+            }
+        }
+        try {
+            System.out.println("子线程返回值：" + task.get()); // 获取返回值可以设置超时
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
