@@ -15,4 +15,33 @@
 - 使用FutureTask方式
     - 可以获取返回值
 
-    
+
+线程的控制：
+- join
+- 后台线程
+- sleep
+- 线程让步：yield
+- 改变线程的优先级
+    - 优先级高的线程能获得更多执行机会。线程的优先级默认与创建它的父线程相同
+    - Thread.MAX_PRIORITY 10; Thread.MIN_PRIORITY 0; Thread.NORM_PRIORITY 5; main线程具有普通优先级，也就是5
+    - 通过setPriority()设置
+
+线程同步
+- synchronized
+    - 释放同步监视器的情况
+        - 正常结束、break/return终止代码块、未处理的错误或异常
+        - 调用wait()方法
+    - 不会释放同步监视器锁：
+        - 调用Thread.sleep() Thread.yield()方法
+        - 线程执行同步代码块，其他线程调用了该线程的supend方法将线程挂起。
+> 尽可能避免使用supend()/resume()来控制线程
+- 同步锁Lock
+    - JDK1.5开始提供
+    - 两个根接口：Lock，ReadWriteLock读写锁
+    - 两个实现类：ReentrantLock可重入锁、ReentrantReadwriteLock
+- 死锁
+
+线程通信
+- 传统的线程通信：wait() notify() notifyAll()
+- 使用Condition控制线程通信
+- 使用阻塞队列BlockingQueue控制线程通信
