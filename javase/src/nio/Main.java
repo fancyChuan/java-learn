@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.CharacterCodingException;
+import java.nio.channels.FileLock;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
@@ -15,6 +15,8 @@ import java.util.SortedMap;
  * 1. Buffer的使用
  * 2. FileChannel的简单使用
  * 3. FileChannel可读可写，取决于从哪种类型的文件流创建。（RandomAccessFile）
+ * 4. 字符序列与字节序列的相互转换
+ * 5. 文件锁的使用
  */
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -136,6 +138,9 @@ public class Main {
         }
     }
 
+    /**
+     * 4. 字符序列与字节序列的相互转换
+     */
     public static void testCharset() throws Exception {
         SortedMap<String, Charset> map = Charset.availableCharsets();
         for (String alias : map.keySet()) {
@@ -151,11 +156,28 @@ public class Main {
         buffer.put("猴");
         buffer.put("子");
         buffer.flip();
-        ByteBuffer encodedBuffer = encoder.encode(buffer); // 将字符序列转为字节序列
+        ByteBuffer encodedBuffer = encoder.encode(buffer); // 将字符序列转为字节序列 用"猴子".getBytes("UTF-8")也可以达到同样的目的
         for (int i = 0; i < encodedBuffer.limit(); i++) {
             System.out.print(encodedBuffer.get(i) + " ");
         }
         System.out.println("\n" + decoder.decode(encodedBuffer)); // 重新解码为字符序列
+    }
+
+    /**
+     * 5. 文件锁的使用
+     */
+    public static void testFileLock() {
+        File file = new File("E:\\JavaWorkshop\\java-learn\\javase\\src\\nio\\test-channel-randomAccess.txt");
+        try {
+            FileChannel channel = new FileInputStream(file).getChannel();
+            FileLock lock = channel.tryLock(); // 获取文件锁
+            Thread.sleep(10000);
+            lock.release();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -68,3 +68,12 @@ Channel的获取：不通过构造器，而是通过InputStream、OutputStream�
 - charset = Charset.forName("GBK") 创建字符集对象
 - charset.newDecoder()/newEncoder() 
 - 调用decode() 和 encode() 方法完成编码解码 
+
+### 4. 文件锁
+- 使用文件锁可以有效㢟多个进程并发修改同一个文件。JDK1.4的NIO开始提供对文件锁的支持
+- FileLock类
+    - lock(long position, long size, boolean shared) 阻塞，对文件从position开始长度为size的文件内容加锁
+    - tryLock(long position, long size, boolean shared) 非阻塞
+    - shared=true时表示为共享锁，允许多个进程来读取该文件，但阻止其他进程获取对该文件的排他锁
+    - shared=false表示为排他锁，锁住对该文件的读写
+> 注意：应该尽量避免使用文件锁，不同平台上可能会存在差异，而已不一定是强制性的（即即使没有获得文件锁也可能可以对该文件进行读写）
