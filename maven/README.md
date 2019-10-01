@@ -27,9 +27,35 @@ provided | Y | Y | - | servlet-api
 runtime | - | - | Y | JDBC Driver
 
 - 依赖原则
-    - 路径最近这优先
-    - 路径相同最先声明者优先
-    
+    - 路径最近的这优先。
+    - 路径相同最先声明者优先。这里声明的先后顺序指的是dependency标签配置的顺序
+
+- 依赖的传递
+    - A依赖B、B依赖C、而C只有scope是compile的时候，对于A才是可见的    
+- 依赖的排除
+    - A依赖B，而B依赖commons-logging1.1.1，那么对于A来说commons-logging就是间接依赖
+    - 而A需要的是commons-logging1.1.2那么这个时候我们就需要用exclusion标签来排除依赖
+```
+# A的pom.xml
+<dependency>
+	<groupId>com.fancychuan.maven</groupId>
+	<artifactId>B</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- 依赖排除，要把B的依赖里面的commons-logging排除掉 -->
+	<exclusions>
+		<exclusion>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<dependency>
+	<groupId>commons-logging</groupId>
+	<artifactId>commons-logging</artifactId>
+	<version>1.1.2</version>
+</dependency>
+```
+
 
 ### 仓库管理
 本地、远程（私服、中央仓库、镜像）
