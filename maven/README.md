@@ -109,7 +109,7 @@ mvn package -Pdist,native,docs -DskipTests -Dtar
 ### 项目继承
 - 父项目 parent
     - 修改pom.xml文件，<packaging>jar</packaging>改为<packaging>pom</packaging>
-    - 把项目中的dependencies标签改为 dependencyManagement
+    - 把项目中的dependencies标签用 dependencyManagement 包含起来
     - 把子项目聚合，在modules标签下添加所有子项目
 ```
     <!-- 实现多个模块工程的聚合 -->
@@ -121,6 +121,7 @@ mvn package -Pdist,native,docs -DskipTests -Dtar
 		<module>../HappyWeb/pom.xml</module>
 	</modules>
 ```
+> 如果没有使用聚合，那么每个模块需要安装到仓库后才能生效，修改源码也需要逐个手动clean操作
 - 子项目
     - 在pom.xml中，添加
 ```
