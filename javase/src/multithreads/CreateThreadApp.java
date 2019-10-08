@@ -6,17 +6,7 @@ import java.util.concurrent.FutureTask;
 
 public class CreateThreadApp {
     // 使用FutureTask来实现线程
-    public static void main(String[] args) throws InterruptedException {
-
-        FutureTask<String> future = new FutureTask<>(new CallerTask());
-        new Thread(future).start(); // 启动线程
-        try {
-            String result = future.get();
-            System.out.println(result);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+    public static void main(String[] args) {}
 }
 
 /**
@@ -57,7 +47,7 @@ class RunableThread implements Runnable {
 }
 
 /**
- * 使用FutureTask
+ * 使用Callable
  */
 class CallerTask implements Callable<String> {
 
