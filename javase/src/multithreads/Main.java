@@ -59,7 +59,9 @@ public class Main {
             FutureTask<String> future = new FutureTask<>(new CallerTask());
             new Thread(future).start(); // 启动线程
             try {
-                String result = future.get();
+                System.out.println("开始调用获取线程返回值的方法");
+                String result = future.get(); // 这个地方其实是阻塞的，如果线程还没有完成任务的话
+                System.out.println("获取线程返回值结束");
                 System.out.println(result);
             } catch (ExecutionException e) {
                 e.printStackTrace();

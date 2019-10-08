@@ -53,6 +53,9 @@ class CallerTask implements Callable<String> {
 
     @Override
     public String call() throws Exception {
+        System.out.println("开始休眠");
+        Thread.sleep(3000);
+        System.out.println("休眠结束");
         return "hello, FutrueTask ~";
     }
 }
