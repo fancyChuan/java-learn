@@ -37,7 +37,7 @@ public class EchoClient {
             ChannelFuture f = b.connect().sync();
             f.channel().closeFuture().sync();
         } finally {
-            group.shutdownGracefully().sync();
+            group.shutdownGracefully().sync(); // 关闭线程池并且释放所有资源
         }
     }
 
