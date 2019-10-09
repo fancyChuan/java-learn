@@ -17,5 +17,6 @@ netty的核心组件
 - Future：JDK预置了java.util.concurrent.Future接口，其实现FutureTask是阻塞的，netty提供了自己的实现ChannelFuture
 - 事件和ChannelHandler：netty使用不同的事件触发合适的动作，并预提供了多种ChannelHandler实现
 
-### 第一个netty应用
-[实现echo服务](https://github.com/fancychuan/java-learn/tree/master/netty/src/main/java/cn/fancychuan/app/echo)
+### netty应用
+- 第一个netty应用：[实现echo服务](https://github.com/fancychuan/java-learn/tree/master/netty/src/main/java/cn/fancychuan/app/echo)
+- BIO/NIO/AIO/Netty使用对比：[多个方式实现时间服务](https://github.com/fancychuan/java-learn/tree/master/netty/src/main/java/cn/fancychuan/app/timeserver)
