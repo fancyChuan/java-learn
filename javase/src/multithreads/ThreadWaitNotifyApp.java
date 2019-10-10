@@ -13,12 +13,12 @@ public class ThreadWaitNotifyApp {
         Account account = app.new Account(0);
         Random random = new Random();
         Runnable depositRunnable = () -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 4; i++) {
                 account.deposit(random.nextInt(10), i);
             }
         };
         Runnable drawRunnable = () -> {
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 6; i++) {
                 account.draw(random.nextInt(10), i);
             }
         };
@@ -45,7 +45,8 @@ public class ThreadWaitNotifyApp {
             try {
                 if (!drawFlag) { // 不允许取款
                     wait();
-                } else {
+                }
+                synchronized (this) {
                     balance -= drawAmt;
                     System.out.println(Thread.currentThread().getName() + " " + index + "次开始取款 " + drawAmt + "\t之后余额为 " + balance);
                     drawFlag = false;
@@ -59,7 +60,8 @@ public class ThreadWaitNotifyApp {
             try {
                 if (drawFlag) {
                     wait();
-                } else {
+                }
+                synchronized (this) {
                     balance += depositAmt;
                     System.out.println(Thread.currentThread().getName() + " " + index + "次开始存款 " + depositAmt + "\t之后余额为 " + balance);
                     drawFlag = true;
