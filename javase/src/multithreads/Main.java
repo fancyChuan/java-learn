@@ -96,4 +96,23 @@ public class Main {
         }
     }
 
+    @Test
+    public void testYield() throws InterruptedException {
+        Runnable runnable = () -> {
+            for (int i = 0; i < 50; i++) {
+                System.out.println(Thread.currentThread().getName() + ": " + i);
+                if (i == 20) {
+                    Thread.yield();
+                }
+            }
+        };
+        Thread threadA = new Thread(runnable, "高级线程A");
+        Thread threadB = new Thread(runnable, "低级线程B");
+        threadA.setPriority(Thread.MAX_PRIORITY); // 这两行不设置优先级的时候，可能出现A线程执行到20的时候就切换到线程B
+        threadB.setPriority(Thread.MIN_PRIORITY); // 设置了优先级之后，线程A虽然赞同，但是没有比他优先级相同或者更好
+        threadA.start();
+        threadB.start();
+        threadA.join();
+        threadB.join();
+    }
 }
