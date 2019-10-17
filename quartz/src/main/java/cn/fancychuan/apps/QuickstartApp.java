@@ -7,6 +7,7 @@ public class QuickstartApp {
     public static void main(String[] args) throws InterruptedException {
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+            // scheduler.start(); // 启动
 
             JobDetail job = JobBuilder.newJob(HelloJob.class) // 真正执行逻辑所在的地方
                     .withIdentity("job1", "group1")
@@ -17,14 +18,16 @@ public class QuickstartApp {
                     .withIdentity("trigger1", "group1")
                     .startNow() // 一旦加入scheduler立即生效
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule() // 使用simpleScheduler
-                            .withIntervalInSeconds(2) // 每隔2秒执行一次
-                            .repeatForever() // 一直执行下去
+                            //.withIntervalInSeconds(2) // 每隔2秒执行一次
+                            // .repeatForever() // 一直执行下去
+                            .repeatSecondlyForever(2)
                             )
                     .build();
+
+            System.out.println("定义完成，准备加入调度");
             // 加入调度
             scheduler.scheduleJob(job, trigger);
-            System.out.println("定义完成，准备启动");
-            scheduler.start(); // 启动
+            scheduler.start();
 
             Thread.sleep(10000);
             scheduler.shutdown(true);

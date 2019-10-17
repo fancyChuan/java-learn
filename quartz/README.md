@@ -3,7 +3,7 @@
 核心概念；
 - Job 表示一个作业，要执行的具体内容。该接口只有一个execute方法
 - JobDetail 表示一个具体的可执行调度程序，job是这个可执行调度程序索要执行的内容。还包含有这个任务调度的方案和策略
-- Trigger 代表一个调度参数的配置，什么时候去调
+- Trigger触发器，代表一个调度参数的配置，什么时候去调
 - Scheduler 代表一个调度容器，可以注册多个JobDetail和Trigger。当Trigger和JobDetail组合就可以被Scheduler容调度了
 
 
