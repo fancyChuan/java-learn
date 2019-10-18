@@ -32,5 +32,17 @@ Web及远程操作
 - 主要工作是从数据库中加载数据并实例化为领域对象，或者将领域对象持久化到数据库中
 
 
+声明式事务处理
+```
+// 将两个DAO组织起来共同完成一个事务性的数据操作。这就是Spring声明式事务配置的高明之处，让业务类也可以享受EJB声明式事务的好处
+    public void loginSuccess(User user) {
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUserId(user.getUserId());
+        loginLog.setIp(user.getLastIp());
+        loginLog.setLoginDate(user.getLastVisit());
+        loginLogDao.insertLoginLog(loginLog);
+    }
+```
+
 【参考资料】
 1. [Spring3.0就这么简单 - 陈雄华](https://github.com/djsecret/sprProjects)
