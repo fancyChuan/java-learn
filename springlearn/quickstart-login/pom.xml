@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>quickstart-login</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <!--① 依赖的Spring模块类库 -->
@@ -96,7 +97,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>chapter1</finalName>
+        <finalName>quickstart</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -112,10 +113,10 @@
                 <configuration>
                     <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
-                    <contextPath>/chapter1</contextPath>
+                    <contextPath>/quickstart</contextPath>
                     <connectors>
                         <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                            <port>8088</port>
+                            <port>11188</port>
                         </connector>
                     </connectors>
                 </configuration>
