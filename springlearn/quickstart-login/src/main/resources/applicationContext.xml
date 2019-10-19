@@ -14,9 +14,9 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://localhost:3306/sampledb"
-          p:username="root"
-          p:password="fancyChuan" />
+          p:url="jdbc:mysql://hadoop02:3306/superset_upload"
+          p:username="root_user"
+          p:password="rootuser123" />
     <!-- 这里定义了一个JDBC模板bean，这样就可以通过@Autowired将这个bean注入到DAO中（通过id来确认注入的位置） -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
           p:dataSource-ref="dataSource" />

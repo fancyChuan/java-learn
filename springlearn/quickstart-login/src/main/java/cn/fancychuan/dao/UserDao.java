@@ -21,7 +21,7 @@ public class UserDao {
 
     public User findUserByUserName(final String userName) {
         final User user = new User();
-        String sqlStr = "select user_id, username from t_user where user_name=?";
+        String sqlStr = "select user_id, user_name from t_user where user_name=?";
         jdbcTemplate.query(sqlStr, new Object[]{userName}, new RowCallbackHandler() {
             @Override
             public void processRow(ResultSet resultSet) throws SQLException {
