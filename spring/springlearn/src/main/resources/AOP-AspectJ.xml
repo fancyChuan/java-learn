@@ -5,7 +5,7 @@
 
     <aop:aspectj-autoproxy/> <!-- 启动AspectJ支持 -->
 
-    <bean id="customerBo" class="com.fancychuan.spring.aop.aspectj.CustomerBo"/>
-    <bean id="logAspect" class="com.fancychuan.spring.aop.aspectj.LoggingAspect"/>
+    <bean id="customerBo" class="cn.fancychuan.spring.aop.aspectj.CustomerBo"/>
+    <bean id="logAspect" class="cn.fancychuan.spring.aop.aspectj.LoggingAspect"/>
 
 </beans>

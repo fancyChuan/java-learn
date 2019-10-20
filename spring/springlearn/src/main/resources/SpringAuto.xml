@@ -14,14 +14,14 @@
             http://www.springframework.org/schema/context/spring-context.xsd
     -->
     <!--
-    <bean id="customerService" class="com.fancychuan.spring.spring_auto.services.CustomerService">
+    <bean id="customerService" class="CustomerService">
         <property name="customerDao" ref="customerDao"/>
     </bean>
 
-    <bean id="customerDao" class="com.fancychuan.spring.spring_auto.dao.CustomerDao"/>
+    <bean id="customerDao" class="CustomerDao"/>
     -->
 
-    <context:component-scan base-package="com.fancychuan.spring"/>
+    <context:component-scan base-package="cn.fancychuan.spring"/>
 
     <!-- 使用过滤组件
     <context:component-scan base-package="com.fancychuan.spring" >

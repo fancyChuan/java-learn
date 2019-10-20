@@ -4,21 +4,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 这是一个公共的bean -->
-    <bean id="personBean" class="com.fancychuan.spring.innerbean.Person">
+    <bean id="personBean" class="cn.fancychuan.spring.innerbean.Person">
         <property name="name" value="fancy1"/>
         <property name="age" value="21"/>
         <property name="address" value="shenzhen1"/>
     </bean>
 
 
-    <bean id="customers" class="com.fancychuan.spring.collections.Customers">
+    <bean id="customers" class="cn.fancychuan.spring.collections.Customers">
         <!-- List -->
         <property name="lists">
             <list>
                 <value>1</value>
                 <ref bean="personBean" /><!-- List 属性既可以通过 <value> 注入字符串，也可以通过 <ref> 注入容器中其他的 Bean-->
                 <value>2</value>
-                <bean class="com.fancychuan.spring.innerbean.Person">
+                <bean class="cn.fancychuan.spring.innerbean.Person">
                     <property name="name" value="fancy2"/>
                     <property name="age" value="22"/>
                     <property name="address" value="shenzhen2"/>
@@ -32,7 +32,7 @@
                 <value>1</value>
                 <ref bean="personBean" /><!-- 与List类似 -->
                 <value>2</value>
-                <bean class="com.fancychuan.spring.innerbean.Person">
+                <bean class="cn.fancychuan.spring.innerbean.Person">
                     <property name="name" value="fancy2"/>
                     <property name="age" value="22"/>
                     <property name="address" value="shenzhen2"/>
@@ -46,7 +46,7 @@
                 <entry key="key1" value="value1"/> <!-- 一个entry就是一个map元素 -->
                 <entry key="key2" value-ref="personBean"/>
                 <entry key="key3">
-                    <bean class="com.fancychuan.spring.innerbean.Person">
+                    <bean class="cn.fancychuan.spring.innerbean.Person">
                         <property name="name" value="fancy3"/>
                         <property name="age" value="22"/>
                         <property name="address" value="shenzhen3"/>

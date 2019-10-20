@@ -3,9 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="OutputHelper" class="com.fancychuan.spring.loosely_coupled.OutputHelper">
+    <bean id="OutputHelper" class="cn.fancychuan.spring.loosely_coupled.OutputHelper">
         <property name="outputGenerator" ref="CsvOutputGenerator"/> <!-- property 对于一个request参数，必须要有ref或者value -->
     </bean>
-    <bean id="CsvOutputGenerator" class="com.fancychuan.spring.loosely_coupled.CsvOutputGenerator" />
-    <bean id="JsonOutputGenerator" class="com.fancychuan.spring.loosely_coupled.JsonOutputGenerator" />
+    <bean id="CsvOutputGenerator" class="cn.fancychuan.spring.loosely_coupled.CsvOutputGenerator" />
+    <bean id="JsonOutputGenerator" class="cn.fancychuan.spring.loosely_coupled.JsonOutputGenerator" />
 </beans>

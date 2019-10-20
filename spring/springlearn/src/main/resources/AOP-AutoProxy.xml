@@ -3,12 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="studentService" class="com.fancychuan.spring.aop.advice.StudentService">
+    <bean id="studentService" class="cn.fancychuan.spring.aop.advice.StudentService">
         <property name="name" value="fancy"/>
         <property name="url" value="fancychuan.cn"/>
     </bean>
 
-    <bean id="hijackAroundMethodBean" class="com.fancychuan.spring.aop.advice.HijackAroundMethod"/>
+    <bean id="hijackAroundMethodBean" class="cn.fancychuan.spring.aop.advice.HijackAroundMethod"/>
 
     <!--<bean id="studentServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">-->
         <!--<property name="target" ref="studentService"/>-->

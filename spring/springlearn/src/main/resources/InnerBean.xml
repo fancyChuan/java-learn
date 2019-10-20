@@ -4,20 +4,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 第一种方法 -->
-    <bean id="CustomerBean" class="com.fancychuan.spring.innerbean.Customer" >
+    <bean id="CustomerBean" class="cn.fancychuan.spring.innerbean.Customer" >
         <property name="person" ref="PersonBean"/> <!-- ref指示的PersonBean，不能再被其他Bean引用 -->
     </bean>
 
-    <bean id="PersonBean" class="com.fancychuan.spring.innerbean.Person" >
+    <bean id="PersonBean" class="cn.fancychuan.spring.innerbean.Person" >
         <property name="address" value="汕头"/>
         <property name="age" value="24"/>
         <property name="name" value="fancy"/>
     </bean>
 
     <!-- 第二种方法（最好）:在CustomerBean中声明一个内部bean -->
-    <bean id="CustomerBean2" class="com.fancychuan.spring.innerbean.Customer" >
+    <bean id="CustomerBean2" class="cn.fancychuan.spring.innerbean.Customer" >
         <property name="person">
-            <bean class="com.fancychuan.spring.innerbean.Person">
+            <bean class="cn.fancychuan.spring.innerbean.Person">
                 <property name="address" value="汕头"/>
                 <property name="age" value="25"/>
                 <property name="name" value="fancy2"/>
@@ -26,9 +26,9 @@
     </bean>
 
     <!-- 第三种方法：通过构造函数注入 -->
-    <bean id="CustomerBean3" class="com.fancychuan.spring.innerbean.Customer">
+    <bean id="CustomerBean3" class="cn.fancychuan.spring.innerbean.Customer">
         <constructor-arg>
-            <bean class="com.fancychuan.spring.innerbean.Person">
+            <bean class="cn.fancychuan.spring.innerbean.Person">
                 <property name="name" value="fancy3" />
                 <property name="address" value="汕头" />
                 <property name="age" value="26" />
