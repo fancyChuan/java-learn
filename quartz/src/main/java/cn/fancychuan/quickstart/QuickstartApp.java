@@ -16,6 +16,7 @@ public class QuickstartApp {
 
             SimpleTrigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity("trigger1", "group1")
+                    .usingJobData("name", "from trigger") // 覆盖前面设置的
                     .startNow() // 一旦加入scheduler立即生效
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule() // 使用simpleScheduler
                             //.withIntervalInSeconds(2) // 每隔2秒执行一次

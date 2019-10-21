@@ -6,6 +6,11 @@
 - Trigger触发器，代表一个调度参数的配置，什么时候去调
 - Scheduler 代表一个调度容器，可以注册多个JobDetail和Trigger。当Trigger和JobDetail组合就可以被Scheduler容调度了
 
+Job和Trigger分离的好处：
+- 同一个Job可以有多个Trigger
+- 当scheduler中的job关联的trigger都过期时，可以配置job被重新调度而不需要重新定义job
+- 可以修改和替换trigger而不需要重新定义与之关联的job
+
 
 运行环境：
 - 可以运行嵌入在另一个独立式应用程序
