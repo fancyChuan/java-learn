@@ -1,4 +1,4 @@
-package cn.fancychuan.apps;
+package cn.fancychuan.quickstart;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -34,15 +34,6 @@ public class QuickstartApp {
 
         } catch (SchedulerException e) {
             e.printStackTrace();
-        }
-    }
-
-    class HelloJob implements Job {
-        @Override
-        public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-            JobDetail detail = jobExecutionContext.getJobDetail();
-            System.out.println(detail);
-            System.out.println(Thread.currentThread().getName() + ": hello ~ " + detail.getJobDataMap().getString("name"));
         }
     }
 }
