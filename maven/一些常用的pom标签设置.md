@@ -33,3 +33,17 @@
 </build>
 
 ```
+- 将非resources下的xml等资源文件打包进classes目录
+```
+    <packaging>jar</packaging> <!-- 这个地方不能少！如果没有这一行，加了下面的内容还是不生效的 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+```
