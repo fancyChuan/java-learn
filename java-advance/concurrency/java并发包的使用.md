@@ -1,6 +1,6 @@
 ## java并发包
 ### 1. Semaphore和Exchanger的使用
-- Semaphore：主要用于控制线程并发的数量 参见[SemaphoreApp.java](https://github.com/fancychuan/java-learn/tree/master/java-advanced/concurrency/src/main/java/concurrency/using/SemaphoreApp.java)
+- Semaphore：主要用于控制线程并发的数量 参见[SemaphoreApp.java](https://github.com/fancychuan/java-learn/tree/master/java-advance/concurrency/src/main/java/concurrency/using/SemaphoreApp.java)
     - 基本用法
     - 使用release方法动态添加许可
     - 使用acquireUninterruptibly()来设置线程不可被打断
