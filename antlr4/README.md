@@ -20,7 +20,7 @@ ANTLR元语言：antlr语法本身遵循的一种专门用来描述其他语言�
 
 递归下降的语法分析器最神奇的地方在于：通过对方法stat() assign() expr() 的调用描述出调用路线图，并将其映射到语法分析书的节点上
 ```
-// assign: ID '=' expr ';'
+// assign: ID '=' expr ';' // 这是一条规则，规则名字为 assign
 void assign() {     // 根据assign规则生成的方法
     match(ID);      // 将当前的输入符号和ID相比较，然后将其消费掉
     match('=');
@@ -63,13 +63,12 @@ TokenStream： 连接词法分析器和语法分析器的管道
 
 antlr尽可能多的使用共享数据结构来节省内存
 
-
-语法分析树监听器：
-- 监听器机制的优秀之处在于：一切都是自动进行的，我们不需要编写对语法分析树的遍历代码，也不需要让监听器显式访问子节点
-
-语法分析树访问器：
-- 在命令行中输入-visitor就可以指示antlr为一个语法生成访问器接口（visitor interface）。
-- 语法中每条规则对应接口中的一个visit方法
+语法分析树的遍历：Antlr提供了两种方法
+- 语法分析树监听器：
+    - 监听器机制的优秀之处在于：一切都是自动进行的，我们不需要编写对语法分析树的遍历代码，也不需要让监听器显式访问子节点
+- 语法分析树访问器：
+    - 在命令行中输入-visitor就可以指示antlr为一个语法生成访问器接口（visitor interface）。
+    - 语法中每条规则对应接口中的一个visit方法
 
 
 语法分析器的规则以小写字母开头
@@ -89,3 +88,5 @@ antlr尽可能多的使用共享数据结构来节省内存
 定制语法分析过程
 - 在语法中嵌入任意动作 [Rows.g4](https://github.com/fancychuan/java-learn/tree/master/antlr4/src/main/java/cn/fancychuan/rows)
 - 使用语义判定改变语法分析过程 [Data.g4](https://github.com/fancychuan/java-learn/tree/master/antlr4/src/main/java/cn/fancychuan/data)
+
+
