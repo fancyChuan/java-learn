@@ -45,6 +45,7 @@ public class DemoLoginModule implements LoginModule {
     @Override
     public boolean commit() throws LoginException {
         if (success) {
+            System.out.println("认证成功");
             // 认证成功到subject添加一个Principal对象
             // 表示用户认证通过并且登录了该应用，也就标识了谁在执行该程序
             this.subject.getPrincipals().add(new DemoPrincipal(user));

@@ -1,3 +1,9 @@
+grant principal jaas.apps.demo.DemoPrincipal "fancy" {
+    permission java.util.PropertyPermission "java.home", "read";
+};
+
 grant  {
-	permission java.util.PropertyPermission "java.home", "read";
+	permission javax.security.auth.AuthPermission "createLoginContext.demo";
+	permission javax.security.auth.AuthPermission "modifyPrincipals";
+	permission javax.security.auth.AuthPermission "doAsPrivileged";
 };

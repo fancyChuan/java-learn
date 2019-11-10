@@ -1,7 +1,9 @@
 package jaas.apps.demo;
 
+import javax.security.auth.Subject;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
+import java.security.PrivilegedAction;
 
 public class AuthDemoApp {
     public static void main(String[] args) {
@@ -14,6 +16,12 @@ public class AuthDemoApp {
         try {
             LoginContext context = new LoginContext("demo", new DemoCallbackHandler());
             context.login();
+            Subject subject = context.getSubject();
+            Subject.doAsPrivileged(subject, (PrivilegedAction<Object>) () -> {
+                System.out.println(System.getProperty("java.home"));
+                return null;
+            }, null);
+
         } catch (LoginException e) {
             System.err.println("Cannot create LoginContext. " + e.getMessage());
             e.printStackTrace();
@@ -22,8 +30,6 @@ public class AuthDemoApp {
             System.err.println("Cannot create LoginContext. " + se.getMessage());
             System.exit(-1);
         }
-        // 访问资源
-        System.out.println(System.getProperty("java.home"));
     }
 
 
