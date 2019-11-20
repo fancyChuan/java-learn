@@ -1,11 +1,15 @@
 package base;
 
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 零散的小知识点
@@ -158,5 +162,23 @@ public class LettlePoints {
         System.out.println(objs1); // [Ljava.lang.String;@4554617c
         System.out.println(objs2); // [Ljava.lang.Object;@74a14482
         System.out.println(objs3); // [Ljava.lang.Object;@424c0bc4
+    }
+
+    /**
+     * 7. 引用对象的赋值，要注意操作真正会影响哪些地方。
+     * 下面这个例子只是浅拷贝。   “细说java深拷贝、浅拷贝”  https://www.cnblogs.com/plokmju/p/7357205.html
+     */
+    @Test
+    public void testObjectAssign() {
+        HashMap<Integer, Integer> mainMap = new HashMap<>();
+
+        Map nowMap = mainMap; // 这里nowMap和mainMap都是引用对象，真正对象的存储地址比如为760
+        mainMap.put(-1, -1); // mainMap修改会反映到nowMap，因为他们其实操作的是同一个对象
+        nowMap.put(0, 0); // nowMap的修改也会影响mainMap，也就是存储地址为760的对象
+
+        nowMap = new HashMap(); // 这个地方nowMap这个对象就发生变化了，也就是nowMap所引用的真正对象的存储地址变为了比如770，但mainMap不受影响
+        nowMap.put(1, 1); // 只影响地址为770的对象，也就是说mainMap还是不受影响
+        System.out.println(mainMap);
+        System.out.println(nowMap);
     }
 }
