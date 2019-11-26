@@ -7,4 +7,13 @@ JAAS（Java Authentication and Authorization Service）是java平台提供的认
 
 主要包含授权和认证两部分
 
+下面为架构概述图
+- 应用程序主要跟LoginContext打交道
+- 动态配置的LoginModules
+    - JndiLoginModule是JAAS提供的参考实现
+- JAAS是可堆叠的，安全模块堆叠在一起按照顺序呗调用
+    
+![image](img/JAAS概述图.png)
 
+【参考资料】
+1. [java security专栏](https://blog.csdn.net/xtayfjpk/category_3243529.html)

@@ -23,3 +23,35 @@
 绑定认证策略的方式：
 - 运行程序时加上： -Djava.security.auth.login.config=demo.config
 - 代码中配置： System.setProperty("java.security.auth.login.config", "demo.config");
+
+
+### 核心JAAS类
+LoginModule
+- JndiLoginModule 用于验证在JNDI中配置的目录服务
+- Krb5LoginModule 使用Kerberos协议进行验证
+- NTLoginModul 使用当前用户在NT中的用户信息进行验证
+- UnixLoginModule 使用当前用户在Unix中的用户信息进行验证
+
+
+配置文件
+```
+结构：
+Application {
+ModuleClass Flag ModuleOptions;
+ModuleClass Flag ModuleOptions;
+...
+};
+比如
+Sample {
+com.sun.security.auth.module.NTLoginModule Rquired debug=true;
+}
+```
+- ModuleClass表示要使用的验证类
+- Flag控制当申请中包含了多个LoginModule时进行登录时的行为：Required、Sufficient、Requisite和Optional
+    - 最常用的是Required，使用它意味着对应的LoginModule对象必须被调用，并且必须需要通过所有的验证
+- ModuleOption允许有多个参数。例如可以设定调试参数为True（debug=true），这样诊断输出将被送到System.out中 
+
+
+
+#### 参考资料
+1. [类和接口说明](http://itmyhome.com/java-api/javax/security/auth/Subject.html)
