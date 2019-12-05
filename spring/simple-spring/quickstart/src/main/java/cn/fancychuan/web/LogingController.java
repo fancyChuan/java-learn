@@ -23,7 +23,7 @@ public class LogingController {
     public ModelAndView loginCheck(HttpServletRequest request, LoginCommand loginCommand) {
         boolean isValidUser = userService.hasMatchUser(loginCommand.getUserName(), loginCommand.getPassword());
         if (!isValidUser) {
-            return new ModelAndView("login", "error", "用户名活密码错误");
+            return new ModelAndView("login", "error", "用户名或密码错误");
         } else {
             User user = userService.findUserByUserName(loginCommand.getUserName());
             user.setLastIp(request.getLocalAddr());
