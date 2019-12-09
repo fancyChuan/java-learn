@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ArrayInitApp {
 
     public static void main(String[] args) throws IOException {
-        // ANTLRInputStream input = new ANTLRInputStream(System.in); // 从标准输入新建一个CharStream
+        // CharStream input = CharStreams.fromStream(System.in); // 从标准输入新建一个CharStream
         String inputText = "{1,5,7,9}";
         // 从字符串新建一个CharStream
         CharStream input = CharStreams.fromString(inputText);
