@@ -15,12 +15,12 @@ import java.util.Map;
 public class Calculator {
 
     public static void main(String[] args) throws IOException {
-        CharStream input = CharStreams.fromFileName("E:\\JavaWorkshop\\java-learn\\antlr4\\src\\main\\resources\\t.expr");
+        CharStream input = CharStreams.fromFileName("E:\\JavaWorkshop\\java-learn\\antlr4\\src\\main\\java\\cn\\fancychuan\\calculator\\t.expr");
         ExprLibLabelLexer lexer = new ExprLibLabelLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ExprLibLabelParser parser = new ExprLibLabelParser(tokens);
         ParseTree tree = parser.prog();
-
+        // 使用自定义的访问器
         EvalVisitor eval = new EvalVisitor();
         eval.visit(tree);
     }

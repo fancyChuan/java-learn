@@ -1,8 +1,14 @@
 ## Antlr
----
-工程目录说明
 
----
+### 学习示例
+- 入门案例：数组转字符串[arrayinit](src/main/java/cn/fancychuan/arrayinit)
+- 使用访问器构造一个计算器 [calculator](src/main/java/cn/fancychuan/calculator)
+    - 使用了语法导入。即将大的语法拆分成逻辑单元，比如拆成词法分析器的语法(CommonLexerRules.g4)和语法分析器的语法(ExprLib.g4)
+    - 使用了标签功能，即给规则打标签（ExprLibLabel.g4），一般在使用访问器模式遍历抽象语法树时会使用标签
+    - 计算器实现 [Calculator.java](src/main/java/cn/fancychuan/calculator/Calculator.java)
+
+
+### 笔记
 解析器：能够分析、计算、执行语句的程序。比如计算器、读取配置文件的程序、python解释器
 
 翻译器：将一门语言转换为另一门语言的程序。比如java到C#的转换器和普通的编译器
@@ -12,7 +18,7 @@
 - 语法grammar：一系列规则的集合，每条规则表述出一种词汇结构
 - 语法分析器的两个功能：检查语法的正确性、构造一颗抽象语法树
 - 使用前向预测来进行规则的决策(前瞻分析)。具体做法是将输入的符号与每个备选分支的起始符号进行比较
-
+- antlr的语法分析器能够自动检测语法错误，并从语法错误中恢复，不影响下一个语法规则的分析
 
 ANTLR元语言：antlr语法本身遵循的一种专门用来描述其他语言的语法
 
