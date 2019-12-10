@@ -1,4 +1,4 @@
-// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\ExprLibLabel.g4 by ANTLR 4.7.2
+// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/java/cn/fancychuan/calculator\ExprLibLabel.g4 by ANTLR 4.7.2
 package cn.fancychuan.calculator.g4out.exprlabel;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -59,6 +59,18 @@ public class ExprLibLabelBaseListener implements ExprLibLabelListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBlank(ExprLibLabelParser.BlankContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClear(ExprLibLabelParser.ClearContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClear(ExprLibLabelParser.ClearContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,4 +1,4 @@
-// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\ExprLibLabel.g4 by ANTLR 4.7.2
+// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/java/cn/fancychuan/calculator\ExprLibLabel.g4 by ANTLR 4.7.2
 package cn.fancychuan.calculator.g4out.exprlabel;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -37,6 +37,13 @@ public interface ExprLibLabelVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBlank(ExprLibLabelParser.BlankContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code clear}
+	 * labeled alternative in {@link ExprLibLabelParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClear(ExprLibLabelParser.ClearContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parens}
 	 * labeled alternative in {@link ExprLibLabelParser#expr}.

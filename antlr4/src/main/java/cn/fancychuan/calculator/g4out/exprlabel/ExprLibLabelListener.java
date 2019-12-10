@@ -1,4 +1,4 @@
-// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/g4files\ExprLibLabel.g4 by ANTLR 4.7.2
+// Generated from E:/JavaWorkshop/java-learn/antlr4/src/main/java/cn/fancychuan/calculator\ExprLibLabel.g4 by ANTLR 4.7.2
 package cn.fancychuan.calculator.g4out.exprlabel;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -53,6 +53,18 @@ public interface ExprLibLabelListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBlank(ExprLibLabelParser.BlankContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code clear}
+	 * labeled alternative in {@link ExprLibLabelParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterClear(ExprLibLabelParser.ClearContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code clear}
+	 * labeled alternative in {@link ExprLibLabelParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitClear(ExprLibLabelParser.ClearContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parens}
 	 * labeled alternative in {@link ExprLibLabelParser#expr}.

@@ -6,6 +6,7 @@ prog : stat+ ;
 stat : expr NEWLINE
      | ID '=' expr NEWLINE
      | NEWLINE
+     | 'clear'
      ;
 
 expr : expr ('*'|'/') expr

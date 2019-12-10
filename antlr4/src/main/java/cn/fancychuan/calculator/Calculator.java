@@ -31,7 +31,7 @@ public class Calculator {
  * 自定义访问器
  */
 class EvalVisitor extends ExprLibLabelBaseVisitor {
-    Map<String, Integer> memory = new HashMap<>();
+    Map<String, Integer> memory = new HashMap<>(); // 内存空间做缓存，比如a=6,b=5,那么c=a*b就应该计算出30
 
     // expr NEWLINE             # printExpr
     @Override
@@ -90,5 +90,13 @@ class EvalVisitor extends ExprLibLabelBaseVisitor {
     @Override
     public Object visitInt(ExprLibLabelParser.IntContext ctx) {
         return Integer.valueOf(ctx.INT().getText());
+    }
+
+    @Override
+    public Object visitClear(ExprLibLabelParser.ClearContext ctx) {
+        System.out.println("clear之前的memory： " + memory);
+        memory.clear();
+        System.out.println("clear之后的memory： " + memory);
+        return 0;
     }
 }
