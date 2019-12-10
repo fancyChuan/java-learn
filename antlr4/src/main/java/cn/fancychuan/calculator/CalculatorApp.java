@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Calculator {
+public class CalculatorApp {
 
     public static void main(String[] args) throws IOException {
         CharStream input = CharStreams.fromFileName("E:\\JavaWorkshop\\java-learn\\antlr4\\src\\main\\java\\cn\\fancychuan\\calculator\\t.expr");
