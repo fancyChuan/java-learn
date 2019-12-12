@@ -6,7 +6,7 @@
     - 使用了语法导入。即将大的语法拆分成逻辑单元，比如拆成词法分析器的语法(CommonLexerRules.g4)和语法分析器的语法(ExprLib.g4)
     - 使用了标签功能，即给规则打标签（ExprLibLabel.g4），一般在使用访问器模式遍历抽象语法树时会使用标签
     - 计算器实现 [Calculator.java](src/main/java/cn/fancychuan/calculator/Calculator.java)
-
+- 使用监听器构建一个翻译程序：
 
 ### 笔记
 解析器：能够分析、计算、执行语句的程序。比如计算器、读取配置文件的程序、python解释器
