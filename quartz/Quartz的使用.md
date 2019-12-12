@@ -58,3 +58,10 @@ JobDataMap jobDataMap = jobExecutionContext.getJobDetail().getJobDataMap();
 JobDataMap triggerDataMap = jobExecutionContext.getTrigger().getJobDataMap();
 JobDataMap mergedDataMap = jobExecutionContext.getMergedJobDataMap(); // trigger中如果存在跟job同名的变量，那么会trigger会覆盖job的
 ```
+
+
+### 3. Trigger
+- SimpleTrigger
+- CronTrigger cron触发
+- DailyTimeIntervalTrigger 日期触发
+- CalendarIntervalTrigger 日历触发
