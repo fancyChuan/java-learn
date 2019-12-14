@@ -65,3 +65,30 @@ JobDataMap mergedDataMap = jobExecutionContext.getMergedJobDataMap(); // trigger
 - CronTrigger cron触发
 - DailyTimeIntervalTrigger 日期触发
 - CalendarIntervalTrigger 日历触发
+
+api接口 | 功能
+--- | ---
+withIntervalInSeconds(10) | 每10秒执行一次
+withRepeatCount(5) | 一共执行5次
+
+```
+SimpleTrigger trigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger1", "group1")
+                .startAt(startTime)
+                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                        .withIntervalInSeconds(10) // 每10秒执行一次
+                        .withRepeatCount(5) // 一共执行5次
+                ).build();
+
+
+SimpleTrigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity("trigger1", "group1")
+                    .usingJobData("name", "from trigger") // 覆盖前面设置的
+                    .startNow() // 一旦加入scheduler立即生效
+                    .withSchedule(SimpleScheduleBuilder.simpleSchedule() // 使用simpleScheduler
+                            //.withIntervalInSeconds(2) // 每隔2秒执行一次
+                            // .repeatForever() // 一直执行下去
+                            .repeatSecondlyForever(2)
+                            )
+                    .build();
+```

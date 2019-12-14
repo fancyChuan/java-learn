@@ -11,8 +11,10 @@ public class HelloJob implements Job {
         JobDataMap jobDataMap = jobExecutionContext.getJobDetail().getJobDataMap();
         JobDataMap triggerDataMap = jobExecutionContext.getTrigger().getJobDataMap();
         JobDataMap mergedDataMap = jobExecutionContext.getMergedJobDataMap();
+        System.out.println("============================");
         System.out.println(Thread.currentThread().getName() + "[job]\t\t" + jobDataMap.getString("name"));
         System.out.println(Thread.currentThread().getName() + "[trigger]\t" + triggerDataMap.getString("name"));
         System.out.println(Thread.currentThread().getName() + "[merged]\t\t" + mergedDataMap.getString("name"));
+        System.out.println("============================");
     }
 }
