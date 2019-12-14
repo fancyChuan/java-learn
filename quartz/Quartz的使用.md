@@ -80,7 +80,7 @@ SimpleTrigger trigger = TriggerBuilder.newTrigger()
                         .withRepeatCount(5) // 一共执行5次
                 ).build();
 
-
+// 简单触发器
 SimpleTrigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity("trigger1", "group1")
                     .usingJobData("name", "from trigger") // 覆盖前面设置的
@@ -91,4 +91,8 @@ SimpleTrigger trigger = TriggerBuilder.newTrigger()
                             .repeatSecondlyForever(2)
                             )
                     .build();
+// Cron触发器                    
+CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger-cron", "group-cron")
+                .withSchedule(CronScheduleBuilder.cronSchedule("*/2 * * * * ?")).build(); // 每两秒执行一次
+
 ```
