@@ -64,6 +64,31 @@ JobDataMap mergedDataMap = jobExecutionContext.getMergedJobDataMap(); // trigger
 - SimpleTrigger
 - CronTrigger cron触发
 - DailyTimeIntervalTrigger 日期触发
+    - 指定每天的某个时间段内，以一定的时间间隔执行任务，支持指定星期
+    - 适合的任务，比如：每天9点到18点，每隔70秒执行一次，只要周一到周五执行
+    - 属性：
+        - startTimeOfDay 每天开始时间
+        - endTimeOfDay 每天结束时间
+        - daysOfWeek 需要执行的星期
+        - interval 执行间隔
+        - intervalUnit 执行间隔的单位（秒，分钟，小时，天，月，年，星期）
+        - repeatCount 重复次数
+```
+dailyTimeIntervalSchedule()
+.startingDailyAt(TimeOfDay.hourAndMinuteOfDay(9,0))//第天9：00开始
+.endingDailyAt(TimeOfDay.hourAndMinuteOfDay(16,0))//16：00 结束 
+.onDaysOfTheWeek(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY)//周一至周五执行
+.withIntervalInHours(1)//每间隔1小时执行一次
+.withRepeatCount(100)//最多重复100次（实际执行100+1次）
+.build();
+
+dailyTimeIntervalSchedule()
+.startingDailyAt(TimeOfDay.hourAndMinuteOfDay(9,0))//第天9：00开始
+.endingDailyAfterCount(10)//每天执行10次，这个方法实际上根据 startTimeOfDay+interval*count 算出 endTimeOfDay
+.onDaysOfTheWeek(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY)//周一至周五执行
+.withIntervalInHours(1)//每间隔1小时执行一次
+.build();
+```
 - CalendarIntervalTrigger 日历触发
 
 api接口 | 功能
@@ -94,5 +119,11 @@ SimpleTrigger trigger = TriggerBuilder.newTrigger()
 // Cron触发器                    
 CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger-cron", "group-cron")
                 .withSchedule(CronScheduleBuilder.cronSchedule("*/2 * * * * ?")).build(); // 每两秒执行一次
+
+// 日期触发器
+DailyTimeIntervalTrigger trigger = TriggerBuilder.newTrigger().withIdentity("dt-trigger", "dt-group")
+                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
+                        .withInterval(2, DateBuilder.IntervalUnit.SECOND) // 每2秒执行一次
+                ).build();
 
 ```
