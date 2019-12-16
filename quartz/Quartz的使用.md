@@ -90,6 +90,21 @@ dailyTimeIntervalSchedule()
 .build();
 ```
 - CalendarIntervalTrigger 日历触发
+    - 与SimpleTrigger相比，CalendarIntervalTrigger可以指定不同时间单位的间隔，比如一个月/一个星期。而SimpleTrigger只能指定的时间间隔为毫秒
+    - 适合的任务类似于：9点开始执行，以后每周9点执行一次
+    - 属性有:
+        - interval 执行间隔
+        - intervalUnit 执行间隔的单位（秒，分钟，小时，天，月，年，星期）
+```
+calendarIntervalSchedule()
+.withIntervalInDays(1)//每天执行一次
+.build();
+
+calendarIntervalSchedule()
+.withIntervalInWeeks(1)//每周执行一次
+.build();
+```
+
 
 api接口 | 功能
 --- | ---
@@ -125,5 +140,9 @@ DailyTimeIntervalTrigger trigger = TriggerBuilder.newTrigger().withIdentity("dt-
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
                         .withInterval(2, DateBuilder.IntervalUnit.SECOND) // 每2秒执行一次
                 ).build();
-
+// 日历触发器
+CalendarIntervalTrigger trigger = TriggerBuilder.newTrigger().withIdentity("c-trigger", "c-group")
+                .withSchedule(CalendarIntervalScheduleBuilder.calendarIntervalSchedule()
+                        .withInterval(2, DateBuilder.IntervalUnit.SECOND) // 每2秒执行
+                ).build();
 ```
