@@ -2,8 +2,13 @@ package cn.fancychuan.quickstart;
 
 import org.quartz.*;
 
+/**
+ * 知识点：
+ *  1. 实现Job类，同时必须要有一个无参构造方法
+ *  2. JobExecutionContext是job的运行上下文，可以获取Trigger、JobDetail、Scheduler的信息
+ */
 public class HelloJob implements Job {
-    public HelloJob() {
+    public HelloJob() { // 一定要有一个无参构造方法
     }
 
     @Override

@@ -36,6 +36,12 @@ scheduler调度job的过程：
 - 执行完毕后，对该实例的引用就会被丢弃，实例被垃圾回收。这种策略带来的问题：
     - job中必须有一个无参的构造方法（当使用默认的JobFactory时）
     - 在Job类中，不应该定义有状态的数据属性，因为job的多次执行中，这些属性的值不会传递
+```
+// 调度一次任务需要的过程；
+JobClass jobClass=JobDetail.getJobClass()
+Job jobInstance=jobClass.newInstance()。所以Job实现类，必须有一个public的无参构建方法。
+jobInstance.execute(JobExecutionContext context)。JobExecutionContext是Job运行的上下文，可以获得Trigger、Scheduler、JobDetail的信息
+```
 
 #### JobDataMap
 - 用于给job实例增加属性或者配置或者在job的多次执行中跟踪job的状态
@@ -44,10 +50,14 @@ scheduler调度job的过程：
     - 可以配置JDBC-JobStroe和JobDataMap使得map中仅允许存储基本类型和String类型的数据，避免序列化问题
 - 写入jobDataMap，在JobDetail和Trigger都可以设置，后者覆盖前者
 ```
+// 设置属性值的方式1
 JobDetail job = JobBuilder.newJob(HelloJob.class) 
         .withIdentity("job1", "group1")
         .usingJobData("name", "quartz-fancy")
         .build();
+// 设置属性值的方式2 
+job.getJobDataMap().put("name", "xxx")
+// trigger中设置属性
 SimpleTrigger trigger = TriggerBuilder.newTrigger()
         .withIdentity("trigger1", "group1")
         .usingJobData("name", "from trigger") 
