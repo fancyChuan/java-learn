@@ -156,3 +156,12 @@ CalendarIntervalTrigger trigger = TriggerBuilder.newTrigger().withIdentity("c-tr
                         .withInterval(2, DateBuilder.IntervalUnit.SECOND) // 每2秒执行
                 ).build();
 ```
+
+### 4. Scheduler
+包含2个重要的组件：
+- JobStore：存储了运行时信息，包括trigger、scheduler、jobdetail、业务锁等。有多种实现：
+    - RAMJob：内存实现
+    - JobStoreTX：JDBC，事务由Quartz管理
+    - JobStoreCMT： JDBC，使用容器事务
+    - ClusteredJobStore：集群实现
+- ThreadPool：线程池，所有任务都由线程池执行
