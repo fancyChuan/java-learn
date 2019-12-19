@@ -44,5 +44,3 @@ Web及远程操作
     }
 ```
 
-【参考资料】
-1. [Spring3.0就这么简单 - 陈雄华](https://github.com/djsecret/sprProjects)
