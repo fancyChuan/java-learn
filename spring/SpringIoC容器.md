@@ -8,7 +8,7 @@ IOC：控制反转
 - BeanFactory接口是Spring的核心接口，一般称其为IoC容器，通过java反射功能实例化bean并建立bean之间的依赖关系
 - IOC容器负责依赖类之间的创建、拼接、管理、获取等工作
 - 还提供了多种高级服务，比如bean实例缓存、生命周期管理、bean实例代理、事件发布、资源装载等
-- 面向Spring本身，是基础设施
+- 面向Spring本身，是基础设施。要求所有的IoC容器都需要实现该接口
 
 > javaBean有一定的规范，要求提供一个无参构造器、不依赖某个特定的容器等，而Spring中的bean更宽泛，所有可以被spring容器实例化并鼓励的java类都可以成为bean
 
@@ -17,5 +17,7 @@ IOC：控制反转
 
 #### ApplicationContext
 - ApplicationContext应用上下文，有时候为了方便，也将ApplicationContext称为Spring容器
-- 建立在BeanFactory基础之上，提供更多面向应用的功能
+- 建立在BeanFactory基础之上的更高级的接口，提供更多面向应用的功能
 - 面向Spring用户，也就是业务开发者
+
+> 现实中我们使用的大部分Spring IoC容器都是ApplicationContext接口
