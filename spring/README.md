@@ -12,6 +12,9 @@
         - 通过扫描的方式
         - 自定义第三方Bean
 - DI依赖注入
+    - 使用Autowired：[参见BussinessPerson.java](spring/springlearn/src/main/java/cn/fancychuan/spring/di/pojo/BussinessPerson.java)
+    - 消除歧义Primary和Qualifier
+    - 带有参数的构造方法类的装配：[BussinessPersonWithPara.java](spring/springlearn/src/main/java/cn/fancychuan/spring/di/pojo/BussinessPersonWithPara.java)
 - AOP面向横切面编程
 
 
