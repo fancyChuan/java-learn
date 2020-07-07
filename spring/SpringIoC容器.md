@@ -21,3 +21,11 @@ IOC：控制反转
 - 面向Spring用户，也就是业务开发者
 
 > 现实中我们使用的大部分Spring IoC容器都是ApplicationContext接口
+
+
+#### AnnotationConfigApplicationContext基于注解的容器
+使用样例
+```
+AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+User user = ctx.getBean(User.class);
+```

@@ -1,6 +1,14 @@
 ## 开发规范or范例
 
 类包规划：已分层的形式进行组织
+- pojo
+    - plain ordinary java object（Java简单对象）
+```
+public class User {
+    private String name;
+    /**getter setter**/
+}
+```
 - dao
     - 数据访问对象，归到持久化层
 - domain
