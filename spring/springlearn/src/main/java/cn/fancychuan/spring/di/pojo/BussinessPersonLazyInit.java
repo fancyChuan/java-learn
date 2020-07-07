@@ -7,16 +7,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
- * 带有参数的构造方法类的装配
+ * 延迟依赖注入
  */
 @Component
-public class BussinessPersonWithPara implements Person {
-    /** 取消了@Autowired对属性和方法的标注*/
+public class BussinessPersonLazyInit implements Person {
     private Animal animal = null;
-
-    public BussinessPersonWithPara(@Autowired @Qualifier("cat") Animal animal) {
-        this.animal = animal;
-    }
 
     @Override
     public void service() {
@@ -24,7 +19,9 @@ public class BussinessPersonWithPara implements Person {
     }
 
     @Override
+    @Autowired @Qualifier("dog")
     public void setAnimal(Animal animal) {
+        System.out.println("延迟依赖注入");
         this.animal = animal;
     }
 }

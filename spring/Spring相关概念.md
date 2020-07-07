@@ -5,6 +5,17 @@ IOC：控制反转
     - 将类和类之间的依赖从代码中脱离，采用配置的方式进行依赖关系描述
     - IOC容器负责依赖类之间的创建、拼接、管理、获取等工作
     - BeanFactory接口是Spring的核心接口，实现了容器的许多功能
+    - 生命周期
+        - 定义
+            - 1.通过配置如@ComponentScan定义的路径去扫描@Component的类，就是一个资源定位的过程。
+            - 2.找到资源后开始解析，并将定义的信息保存起来
+            - 3.把Bean的定义发布到Spring IoC容器中。完成这三个操作也还没有bean实例的生成，更没有完成依赖注入
+        - 初始化：有的时候我们需要再取出来使用bean的时候再初始化，那么就可以在ComponentScan中加上配置项lazyInit=true
+        - 生存期
+        - 销毁
+
+![Spring初始化Bean的过程](images/Spring初始化Bean的过程.png)
+
 - Context模块
 - 表达式语言模块
 

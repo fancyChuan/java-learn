@@ -1,8 +1,6 @@
 package cn.fancychuan.spring;
 
-import cn.fancychuan.spring.di.pojo.AppConfigUseScan;
-import cn.fancychuan.spring.di.pojo.BussinessPerson;
-import cn.fancychuan.spring.di.pojo.BussinessPersonWithPara;
+import cn.fancychuan.spring.di.pojo.*;
 import cn.fancychuan.spring.di.pojo.definition.Person;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,6 +23,17 @@ public class SpringTestMain {
     public void testContructorWithPara() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigUseScan.class);
         BussinessPersonWithPara person = ctx.getBean(BussinessPersonWithPara.class);
+        person.service();
+    }
+
+    /**
+     * 测试延迟注入。
+     * 使用了ComponentScan(lazyInit=true)，Spring并不会在发布Bean定义之后马上完成实例化和依赖注入
+     */
+    @Test
+    public void testLazyInit() {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigUseScanWithLazyInit.class);
+        BussinessPersonLazyInit person = ctx.getBean(BussinessPersonLazyInit.class);
         person.service();
     }
 
