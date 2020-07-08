@@ -15,6 +15,7 @@ import javax.annotation.PreDestroy;
 
 /**
  * Spring Bean 的生命周期
+ * 从结果可以看出这几个接口只对单个bean起作用。而BeanPostProcessor对所有bean起作用
  */
 @Component
 public class BussinessPersonLifeCycle implements Person, BeanNameAware, BeanFactoryAware,
