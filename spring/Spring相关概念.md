@@ -10,11 +10,15 @@ IOC：控制反转
             - 1.通过配置如@ComponentScan定义的路径去扫描@Component的类，就是一个资源定位的过程。
             - 2.找到资源后开始解析，并将定义的信息保存起来
             - 3.把Bean的定义发布到Spring IoC容器中。完成这三个操作也还没有bean实例的生成，更没有完成依赖注入
-        - 初始化：有的时候我们需要再取出来使用bean的时候再初始化，那么就可以在ComponentScan中加上配置项lazyInit=true
+        - 初始化
+            - 有的时候我们需要再取出来使用bean的时候再初始化，那么就可以在ComponentScan中加上配置项lazyInit=true
+            - Spring在完成依赖注入后，还提供了一系列的接口和配置来完成Bean的初始化过程。见下图
         - 生存期
         - 销毁
 
 ![Spring初始化Bean的过程](images/Spring初始化Bean的过程.png)
+
+![Spring Bean的生命周期](images/Spring%20Bean的生命周期.png)
 
 - Context模块
 - 表达式语言模块

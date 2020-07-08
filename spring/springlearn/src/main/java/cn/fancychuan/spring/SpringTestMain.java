@@ -1,5 +1,6 @@
 package cn.fancychuan.spring;
 
+import cn.fancychuan.spring.di.life.AppConfigForLife;
 import cn.fancychuan.spring.di.pojo.*;
 import cn.fancychuan.spring.di.pojo.definition.Person;
 import org.junit.Test;
@@ -37,4 +38,9 @@ public class SpringTestMain {
         person.service();
     }
 
+    @Test
+    public void testBeanLifeCycle() {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigForLife.class);
+        ctx.close();
+    }
 }
