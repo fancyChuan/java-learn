@@ -11,6 +11,7 @@
     - 装配bean
         - 通过扫描的方式
         - 自定义第三方Bean
+        - 有条件的装配bean：某些条件下不需要装配bean，比如在数据源配置出错的时候
 - DI依赖注入
     - 使用Autowired：[参见BussinessPerson.java](spring/springlearn/src/main/java/cn/fancychuan/spring/di/pojo/BussinessPerson.java)
     - 消除歧义Primary和Qualifier
