@@ -1,5 +1,9 @@
 ## Spring Boot
 
+特点：
+- 依赖管理
+- 自动配置
+
 ### HelloWorld探究
 #### 1.POM文件
 - 父项目
@@ -69,7 +73,9 @@ public @interface SpringBootApplication {
 
 ​	@**Import**：给容器导入组件
 
-
+#### 3.@Controller
+- @Controller和[@RestController](src/main/java/cn/fancychuan/springboot/controller/HelloControllerRest.java)的区别？
+> @RestController相当于@ResponseBody ＋ @Controller合在一起的作用
 
 ## 二、配置文件
 
