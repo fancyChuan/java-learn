@@ -196,4 +196,22 @@ public class LettlePoints {
         // 100000000100110000000000000000000000000000000000000000000000000
         System.out.println(Long.toBinaryString(Double.doubleToLongBits(11)));
     }
+
+    /**
+     * 9. char的本质
+     */
+    @Test
+    public void testChar() {
+        // 以下表示的都是马
+        String s = "马";
+        char a = '马';
+        char b = 39532;
+        char c = 0x9a6c;
+        char d = '\u9a6c';
+        System.out.println(s);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        System.out.println(d);
+    }
 }
