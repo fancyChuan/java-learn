@@ -181,4 +181,19 @@ public class LettlePoints {
         System.out.println(mainMap);
         System.out.println(nowMap);
     }
+
+    /**
+     * 8. 查看浮点数的二进制表示
+     */
+    @Test
+    public void testFloatBit() {
+        // 1000000110000000000000000000000
+        // 1000000111000000000000000000000
+        // 11000000111000000000000000000000
+        System.out.println(Integer.toBinaryString(Float.floatToIntBits(6)));
+        System.out.println(Integer.toBinaryString(Float.floatToIntBits(7)));
+        System.out.println(Integer.toBinaryString(Float.floatToIntBits(-7)));
+        // 100000000100110000000000000000000000000000000000000000000000000
+        System.out.println(Long.toBinaryString(Double.doubleToLongBits(11)));
+    }
 }
