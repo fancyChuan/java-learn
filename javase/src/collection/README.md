@@ -1,8 +1,12 @@
 ## java集合
+- 概念：集合是一种存储一系列元素的容器
+- 
+
 数组与集合的区别：
 - 数组长度固定，集合可以变化
 - 数组无法映射，集合的Map类型可以映射
 - 数组既可以保存基本类型，也可以保存对象（实际是对象的引用），而集合只能保存对象
+
 ### 2. Collection和Iterator类
 > 示例参见 [CollectionTest.java](https://github.com/fancyChuan/java-learn/blob/master/javase/src/collection/CollectionTest.java)
 
