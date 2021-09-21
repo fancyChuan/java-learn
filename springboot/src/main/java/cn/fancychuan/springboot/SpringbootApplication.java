@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @SpringBootApplication 用来表示一个主程序类，说明这是一个SpringBoot应用
+ * 也是一个主配置类
  */
 @SpringBootApplication
 public class SpringbootApplication {

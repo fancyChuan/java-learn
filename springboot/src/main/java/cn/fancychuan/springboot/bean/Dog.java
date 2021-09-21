@@ -4,6 +4,14 @@ public class Dog {
     private String name;
     private Integer age;
 
+    public Dog() {
+    }
+
+    public Dog(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Dog{" +
