@@ -31,13 +31,14 @@ public class MysqlInstance implements AutoCloseable {
      * 配置直接写在代码里，可以指定数据库名
      */
     public MysqlInstance(String dbName) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/" + dbName
-                + "?useUnicode=true&characterEncoding=UTF-8&createDatabaseIfNotExist=true";
-        this.connection = DriverManager.getConnection(url, "root", "fancyChuan");
+//        String url = "jdbc:mysql://localhost:3306/" + dbName
+//                + "?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true";
+        String url = "jdbc:mysql://hphost:3306/forupload?useUnicode=true&characterEncoding=UTF8&allowLoadLocalInfile=false&autoDeserialize=false&allowLocalInfile=false&allowUrlInLocalInfile=false";
+        this.connection = DriverManager.getConnection(url, "root", "123456");
     }
 
     /**
-     * 使用配置文件来连接msyql
+     * 使用配置文件来连接mysql
      */
     public MysqlInstance(File file) throws Exception {
         Properties props = new Properties();
