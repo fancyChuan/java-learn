@@ -1,5 +1,7 @@
 package nio;
 
+import org.junit.Test;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -18,18 +20,13 @@ import java.util.SortedMap;
  * 4. 字符序列与字节序列的相互转换
  * 5. 文件锁的使用
  */
-public class Main {
-    public static void main(String[] args) throws Exception {
-        // testBuffer();
-        // testChannel();
-        // testRandomAccessFileChannel();
-        testCharset();
-    }
+public class NIODemoTest {
 
     /**
      * 1. Buffer的日常使用
      */
-    public static void testBuffer() {
+    @Test
+    public void testBuffer() {
         // 创建
         CharBuffer buff = CharBuffer.allocate(8);
         System.out.println("capacity: " + buff.capacity());
@@ -78,7 +75,8 @@ public class Main {
      *  * Channel.map()把数据映射到虚拟内存中
      *  * read、write的使用
      */
-    public static void testChannel() {
+    @Test
+    public void testChannel() {
         File file = new File("src/nio/test-channel-read.txt");
         File readWriteFile = new File("src/nio/test-channel-read-write.txt");
 
@@ -125,7 +123,8 @@ public class Main {
      *  FileoutputStream  ->  FileChannel 只可写
      *  RandomAccessFile  ->  FileChannel 可读可写
      */
-    public static void testRandomAccessFileChannel() throws IOException {
+    @Test
+    public void testRandomAccessFileChannel() throws IOException {
         File file = new File("E:\\JavaWorkshop\\java-learn\\javase\\src\\nio\\test-channel-randomAccess.txt");
         try (
                 RandomAccessFile raf = new RandomAccessFile(file, "rw");
@@ -141,7 +140,8 @@ public class Main {
     /**
      * 4. 字符序列与字节序列的相互转换
      */
-    public static void testCharset() throws Exception {
+    @Test
+    public void testCharset() throws Exception {
         SortedMap<String, Charset> map = Charset.availableCharsets();
         for (String alias : map.keySet()) {
             System.out.println(alias + " ---> " + map.get(alias));

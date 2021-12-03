@@ -155,3 +155,43 @@ public final Buffer flip() {
 - get()：每次从position的位置读取一个元素
 - rewind()：用于重复读。相当于重置了position，并将mark属性设置为-1，表示之前的临时位置不能用了
 - mark()/reset()：这两个方法是配套使用的
+
+### 3.3 NIO Channel类
+NIO中一个socket连接使用一个Channel来表示。从更广泛的层面来说，一个通道可以表示一个底层的文件描述符，例如硬件设备、文件、网络连接等。
+其中最为重要的四种Channel实现：FileChannel、SocketChannel、ServerSocketChannel、DatagramChannel
+```
+（1）FileChannel：文件通道，用于文件的数据读写。
+（2）SocketChannel：套接字通道，用于套接字TCP连接的数据读写。
+（3）ServerSocketChannel：服务器套接字通道（或服务器监听通道），允许我们监听TCP连接请求，为每个监听到的请求创建一个SocketChannel通道。
+（4）DatagramChannel：数据报通道，用于UDP的数据读写。
+```
+#### FileChannel
+FileChannel为阻塞模式，不能设置为非阻塞模式
+- 获取
+```
+# 方式1：从流中获取
+FileChannel inChannel = new FileInputStream(inFileName).getChannel();
+FileChannel outChannel = new FileOutputStream(outFileName).getChannel();
+# 方式2：从文件随机访问来获取FileChannel
+RandomAccessFile raf = new RandomAccessFile(file, "rw");
+FileChannel randomChannel = raf.getChannel()
+```
+- 读取FileChannel：一般读出来的数据要写入Buffer中
+```
+// 从Channel中读取10*3个字节
+ByteBuffer buffer = ByteBuffer.allocate(10 * 3);
+inChannel.read(buffer);
+buffer.flip(); // 从inChannel读完数据后，buffer需要调用该方法，把position置为0
+CharBuffer charBuffer1 = decoder.decode(buffer);
+System.out.println(charBuffer1);
+```
+- 写入FileChannel：一般从Buffer读取数据，然后写入FileChannel
+```
+// 把所有FileChannel里的数据都映射成Buffer对象
+// MappedByteBuffer byteBuffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, file.length() - 4 * 3);
+// 把所有FileChannel里的数据去掉12个字节后映射成Buffer对象，utf8编码对应4个中文，或者3个中文3个字母
+MappedByteBuffer byteBuffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, file.length() - 4 * 3);
+outChannel.write(byteBuffer); // 把buffer写到输出管道中
+```
+- 关闭通道：close()
+- 强制刷新到磁盘：force()
