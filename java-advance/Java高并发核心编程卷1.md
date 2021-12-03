@@ -118,3 +118,40 @@ hard nofile 1000000
 - （2）OIO的操作是阻塞的，而NIO的操作是非阻塞的。
 - （3）OIO没有选择器（Selector）的概念，而NIO有选择器的概念
   - NIO使用选择器的最大优势是系统开销小
+
+### 3.2 NIO Buffer类
+NIO的Buffer本质上是一个内存块，既可以写入数据，也可以从中读取数据。
+
+Buffer类是一个抽象类，对应于Java的主要数据类型。在NIO中，有8种缓冲区类，分别是ByteBuffer、CharBuffer、DoubleBuffer、FloatBuffer、IntBuffer、LongBuffer、ShortBuffer、MappedByteBuffer
+
+使用最多的是ByteBuffer（二进制字节缓冲区）类型
+
+> Buffer类是一个非线程安全类
+
+#### Buffer类的重要属性
+内存缓冲区：byte[] （注意是在Buffer类的子类定义的，Buffer是一个抽象类）
+
+- capacity属性：表示内部容量的大小
+  - capacity属性一旦初始化，就不能再改变
+> capacity并不是指内部的内存块byte[]数组的字节数量，而是指能写入的数据对象的最大限制数量
+- position属性：读写的位置，下一个要被读或者写的元素的索引
+- limit属性：读写的限制，缓冲区中当前的数据量
+- mark属性：调用mark()方法来设置mark=position，再调用reset()让position恢复到mark的位置，即position=mark
+
+#### Buffer类的重要方法
+- allocate()：分配内存、返回了实例对象。调用子类的该方法来获取实例，而不使用子类的构造器来创建
+- put()：把对象写入缓冲区。注意：通过allocate()创建对象后，处于写模式。
+- flip()：调用该方法，可以将写模式转为读模式，这个时候才能开始读取数据
+```
+public final Buffer flip() {
+    limit = position;   // 设置为写模式下的position，表示可读的上限
+    position = 0;
+    mark = UNSET_MARK;  // 清理之前的mark标记
+    return this;
+}
+```
+- clear()：清空缓冲区，转为写模式。position=0，limit=capacity
+- compact()：压缩缓冲区。将读模式转为写模式
+- get()：每次从position的位置读取一个元素
+- rewind()：用于重复读。相当于重置了position，并将mark属性设置为-1，表示之前的临时位置不能用了
+- mark()/reset()：这两个方法是配套使用的
