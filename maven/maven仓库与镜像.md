@@ -37,6 +37,60 @@ repo,repo1 repo 或者 repo1。 这里repo指的是仓库的id，下文会提到
 - name 名称描述
 - url 地址
 
+#### 几种仓库的设置
+**pom文件中**
+```
+<repositories>
+    <repository>
+        <id>dsdf</id>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <url>http://222.197.XXXXXX/nexus/content/groups/public/</url>
+    </repository>
+</repositories>
+```
+
+**profile中的仓库是在maven的设置文件（maven安装目录/conf/settings.xml）**
+```
+<profile>
+    <id>nexus</id>
+    <repositories>
+        <repository>
+            <id>sonatype-forge</id>
+            <url>http://repository.sonatype.org/content/groups/forge/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-forge</id>
+            <url>http://repository.sonatype.org/content/groups/forge/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</profile>
+
+<!-- 使用下面代码来激活profile–>
+<activeProfiles>
+    <activeProfile>nexus</activeProfile>
+</activeProfiles>
+```
+maven profile也是有优先级别
+1. 在settings.xml中的profile优先级高于pom中的
+2. 同在settings.xml的properties，如果都激活了，根据profile定义的先后顺序来进行覆盖取值，后面定义的会覆盖前面，其properties为同名properties中最终有效。并不是根据activeProfile定义的顺序 。
+3. 如果有user setting和globel settings，则两者合并，其中重复的配置，以user settings为准。
+
 
 参考资料：
 - [maven - mirrorOf 的坑、多镜像切换（避免一切无厘头报错）](https://blog.nowcoder.net/n/1166815f837244caa74bf9f62c43d04c)
